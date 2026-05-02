@@ -1,0 +1,71 @@
+[0.022s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description
+[0.079s] -- The C compiler identification is GNU 13.3.0
+[0.145s] -- The CXX compiler identification is GNU 13.3.0
+[0.168s] -- Detecting C compiler ABI info
+[0.279s] -- Detecting C compiler ABI info - done
+[0.286s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.286s] -- Detecting C compile features
+[0.286s] -- Detecting C compile features - done
+[0.311s] -- Detecting CXX compiler ABI info
+[0.447s] -- Detecting CXX compiler ABI info - done
+[0.454s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.454s] -- Detecting CXX compile features
+[0.455s] -- Detecting CXX compile features - done
+[0.460s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.261s] -- Found Python3: /home/arrgusr/.pyenv/shims/python3 (found version "3.12.3") found components: Interpreter 
+[1.678s] -- Configuring done (1.6s)
+[1.683s] -- Generating done (0.0s)
+[1.685s] -- Build files have been written to: /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description
+[1.691s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description
+[1.693s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description -- -j2 -l2
+[1.755s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description -- -j2 -l2
+[1.770s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description
+[1.781s] -- Install configuration: ""
+[1.781s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//config
+[1.781s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//config/dofbot_trajectory_controller.yaml
+[1.781s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//launch
+[1.782s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//launch/dofbot_arm.launch.xml
+[1.783s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes
+[1.783s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot
+[1.783s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual
+[1.783s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger3.STL
+[1.784s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger2.STL
+[1.785s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link3.STL
+[1.795s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link2.STL
+[1.805s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/base_link.STL
+[1.818s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger2.STL
+[1.821s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link5.STL
+[1.824s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger1.STL
+[1.826s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger1.STL
+[1.826s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger3.STL
+[1.828s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link1.STL
+[1.837s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link4.STL
+[1.849s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/sensor
+[1.849s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/sensor/visual
+[1.850s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//meshes/sensor/visual/mono_link.STL
+[1.853s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//rviz
+[1.853s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//rviz/dofbot_arm_rviz.rviz
+[1.854s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf
+[1.854s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/trajectory_controller.xacro
+[1.855s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/dofbot_trajectory_controller.xacro
+[1.855s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/arm_base_link_xacro.xacro
+[1.855s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/dofbot_gz_properties.xacro
+[1.855s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/monocular_camera_sensor.xacro
+[1.856s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/xacro_properties.xacro
+[1.856s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description//urdf/dofbot_arm_urdf.xacro
+[1.856s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/ament_index/resource_index/package_run_dependencies/dofbot_description
+[1.857s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/ament_index/resource_index/parent_prefix_path/dofbot_description
+[1.858s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.sh
+[1.858s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.dsv
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/environment/path.sh
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/environment/path.dsv
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/local_setup.bash
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/local_setup.sh
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/local_setup.zsh
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/local_setup.dsv
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.dsv
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/ament_index/resource_index/packages/dofbot_description
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig.cmake
+[1.859s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig-version.cmake
+[1.860s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.xml
+[1.863s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description

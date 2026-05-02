@@ -1,0 +1,83 @@
+[0.018s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description
+[0.096s] -- The C compiler identification is GNU 13.3.0
+[0.168s] -- The CXX compiler identification is GNU 13.3.0
+[0.191s] -- Detecting C compiler ABI info
+[0.355s] -- Detecting C compiler ABI info - done
+[0.363s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.363s] -- Detecting C compile features
+[0.363s] -- Detecting C compile features - done
+[0.378s] -- Detecting CXX compiler ABI info
+[0.510s] -- Detecting CXX compiler ABI info - done
+[0.517s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.518s] -- Detecting CXX compile features
+[0.518s] -- Detecting CXX compile features - done
+[0.527s] -- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.336s] -- Found Python3: /home/arrgusr/.pyenv/shims/python3 (found version "3.12.3") found components: Interpreter 
+[1.745s] -- Configuring done (1.7s)
+[1.749s] -- Generating done (0.0s)
+[1.752s] -- Build files have been written to: /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description
+[1.759s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description
+[1.759s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description -- -j2 -l2
+[1.823s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description -- -j2 -l2
+[1.823s] Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description
+[1.838s] -- Install configuration: ""
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//launch
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//launch/omni_display.launch.xml
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual
+[1.838s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link3.STL
+[1.847s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink3.STL
+[1.848s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link2.STL
+[1.858s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link5.STL
+[1.870s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/llink3.STL
+[1.872s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/llink2.STL
+[1.873s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/llink1.STL
+[1.873s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink2.STL
+[1.874s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link1.STL
+[1.883s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink1.STL
+[1.885s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor
+[1.886s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/visual
+[1.886s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/visual/camera_link.STL
+[1.886s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/visual/mono_link.STL
+[1.889s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/visual/laser_link.STL
+[1.899s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/collision
+[1.899s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/collision/camera_link.STL
+[1.899s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/collision/mono_link.STL
+[1.905s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/sensor/collision/laser_link.STL
+[1.905s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3
+[1.905s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3/front_left_wheel.STL
+[1.905s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3/front_right_wheel.STL
+[1.908s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3/back_left_wheel.STL
+[1.910s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3/base_link.STL
+[1.914s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//meshes/X3/back_right_wheel.STL
+[1.917s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//rviz
+[1.917s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//rviz/omni_rviz.rviz
+[1.917s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf
+[1.917s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/imu_sensor.xacro
+[1.917s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/velocity_controller.xacro
+[1.918s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/omni_gz_properties.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/omni_velocity_controller.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/depth_camera_sensor.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/camera_sensor.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/xacro_properties.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/omni_urdf.xacro
+[1.919s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//urdf/lidar_sensor.xacro
+[1.920s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//config
+[1.920s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description//config/omni_velocity_controller.yaml
+[1.920s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/ament_index/resource_index/package_run_dependencies/omni_description
+[1.920s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/ament_index/resource_index/parent_prefix_path/omni_description
+[1.921s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/environment/ament_prefix_path.sh
+[1.921s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/environment/ament_prefix_path.dsv
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/environment/path.sh
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/environment/path.dsv
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/local_setup.bash
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/local_setup.sh
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/local_setup.zsh
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/local_setup.dsv
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.dsv
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/ament_index/resource_index/packages/omni_description
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/cmake/omni_descriptionConfig.cmake
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/cmake/omni_descriptionConfig-version.cmake
+[1.923s] -- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.xml
+[1.928s] Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description

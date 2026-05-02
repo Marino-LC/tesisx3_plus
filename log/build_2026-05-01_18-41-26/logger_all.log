@@ -1,0 +1,503 @@
+[0.092s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.092s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=2, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7aceff2951f0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7aceffa264b0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7aceffa264b0>>, mixin_verb=('build',))
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.129s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.129s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/arrgusr/ROS2Dev/X3_PLUS'
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.129s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ignore'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ignore_ament_install'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['colcon_pkg']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'colcon_pkg'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['colcon_meta']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'colcon_meta'
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['ros']
+[0.155s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ros'
+[0.157s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dofbot_bringup' with type 'ros.ament_cmake' and name 'dofbot_bringup'
+[0.157s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.157s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ignore'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ignore_ament_install'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['colcon_pkg']
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'colcon_pkg'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['colcon_meta']
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'colcon_meta'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['ros']
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ros'
+[0.158s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dofbot_description' with type 'ros.ament_cmake' and name 'dofbot_description'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ignore'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ignore_ament_install'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['colcon_pkg']
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'colcon_pkg'
+[0.158s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['colcon_meta']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'colcon_meta'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['ros']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ros'
+[0.159s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_bringup' with type 'ros.ament_cmake' and name 'omni_bringup'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['ignore', 'ignore_ament_install']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ignore'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ignore_ament_install'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['colcon_pkg']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'colcon_pkg'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['colcon_meta']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'colcon_meta'
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['ros']
+[0.159s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ros'
+[0.160s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_description' with type 'ros.ament_cmake' and name 'omni_description'
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ignore'
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ignore_ament_install'
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['colcon_pkg']
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'colcon_pkg'
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['colcon_meta']
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'colcon_meta'
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['ros']
+[0.160s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ros'
+[0.160s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_dofbot_bringup' with type 'ros.ament_cmake' and name 'omni_dofbot_bringup'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ignore'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ignore_ament_install'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['colcon_pkg']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'colcon_pkg'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['colcon_meta']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'colcon_meta'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['ros']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ros'
+[0.161s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_dofbot_description' with type 'ros.ament_cmake' and name 'omni_dofbot_description'
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.176s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.177s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.178s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.178s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.178s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.178s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 0 installed packages in /home/arrgusr/ROS2Dev/X3_PLUS/install
+[0.180s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 367 installed packages in /opt/ros/jazzy
+[0.184s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.226s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_target' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.227s] DEBUG:colcon.colcon_core.verb:Building package 'dofbot_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_target' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.227s] DEBUG:colcon.colcon_core.verb:Building package 'dofbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description', 'symlink_install': False, 'test_result_base': None}
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_target' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.227s] DEBUG:colcon.colcon_core.verb:Building package 'omni_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_target' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.227s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.228s] DEBUG:colcon.colcon_core.verb:Building package 'omni_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description', 'symlink_install': False, 'test_result_base': None}
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_target' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.228s] DEBUG:colcon.colcon_core.verb:Building package 'omni_dofbot_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_target' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.228s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.228s] DEBUG:colcon.colcon_core.verb:Building package 'omni_dofbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description', 'merge_install': False, 'path': '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description', 'symlink_install': False, 'test_result_base': None}
+[0.228s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.229s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.230s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup' with build type 'ament_cmake'
+[0.230s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup'
+[0.232s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.232s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.232s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.238s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description' with build type 'ament_cmake'
+[0.238s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description'
+[0.238s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.238s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.245s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup
+[0.260s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description
+[1.929s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description
+[1.931s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description -- -j2 -l2
+[1.993s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description -- -j2 -l2
+[2.008s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description
+[2.100s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_description)
+[2.101s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description
+[2.103s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' for CMake module files
+[2.103s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' for CMake config files
+[2.103s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_description', 'cmake_prefix_path')
+[2.103s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.ps1'
+[2.104s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.dsv'
+[2.104s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.sh'
+[2.105s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/bin'
+[2.105s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/lib/pkgconfig/dofbot_description.pc'
+[2.106s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/lib/python3.12/site-packages'
+[2.106s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/bin'
+[2.106s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.ps1'
+[2.108s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.dsv'
+[2.109s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.sh'
+[2.109s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.bash'
+[2.110s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.zsh'
+[2.110s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/colcon-core/packages/dofbot_description)
+[2.110s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_description)
+[2.111s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' for CMake module files
+[2.111s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description' for CMake config files
+[2.111s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_description', 'cmake_prefix_path')
+[2.111s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.ps1'
+[2.112s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.dsv'
+[2.112s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.sh'
+[2.113s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/bin'
+[2.113s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/lib/pkgconfig/dofbot_description.pc'
+[2.113s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/lib/python3.12/site-packages'
+[2.113s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/bin'
+[2.113s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.ps1'
+[2.114s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.dsv'
+[2.115s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.sh'
+[2.115s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.bash'
+[2.117s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/dofbot_description/package.zsh'
+[2.118s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description/share/colcon-core/packages/dofbot_description)
+[2.119s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup' with build type 'ament_cmake'
+[2.122s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup'
+[2.123s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.123s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.138s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup
+[2.638s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup
+[2.639s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup -- -j2 -l2
+[3.408s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup -- -j2 -l2
+[3.409s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup
+[3.596s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_bringup)
+[3.600s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' for CMake module files
+[3.601s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup
+[3.601s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' for CMake config files
+[3.602s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'cmake_prefix_path')
+[3.602s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.ps1'
+[3.602s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.dsv'
+[3.603s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.sh'
+[3.603s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib'
+[3.603s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/bin'
+[3.603s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib/pkgconfig/dofbot_bringup.pc'
+[3.604s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib/python3.12/site-packages'
+[3.604s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'pythonpath')
+[3.604s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.ps1'
+[3.604s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.dsv'
+[3.606s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.sh'
+[3.606s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/bin'
+[3.607s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.ps1'
+[3.607s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.dsv'
+[3.610s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.sh'
+[3.610s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.bash'
+[3.610s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.zsh'
+[3.611s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/colcon-core/packages/dofbot_bringup)
+[3.611s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_bringup)
+[3.611s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' for CMake module files
+[3.614s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup' for CMake config files
+[3.614s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'cmake_prefix_path')
+[3.614s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.ps1'
+[3.617s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.dsv'
+[3.617s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.sh'
+[3.618s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib'
+[3.618s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/bin'
+[3.618s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib/pkgconfig/dofbot_bringup.pc'
+[3.618s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/lib/python3.12/site-packages'
+[3.618s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'pythonpath')
+[3.619s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.ps1'
+[3.621s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.dsv'
+[3.622s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.sh'
+[3.623s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/bin'
+[3.624s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.ps1'
+[3.626s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.dsv'
+[3.628s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.sh'
+[3.629s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.bash'
+[3.630s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/dofbot_bringup/package.zsh'
+[3.633s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_bringup/share/colcon-core/packages/dofbot_bringup)
+[3.633s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description' with build type 'ament_cmake'
+[3.633s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description'
+[3.633s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.633s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.652s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description
+[5.134s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup
+[5.135s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup -- -j2 -l2
+[5.393s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description
+[5.393s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description -- -j2 -l2
+[5.457s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description -- -j2 -l2
+[5.457s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description
+[5.559s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_description)
+[5.559s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' for CMake module files
+[5.560s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' for CMake config files
+[5.560s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_description', 'cmake_prefix_path')
+[5.560s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.ps1'
+[5.560s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.dsv'
+[5.561s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.sh'
+[5.562s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_description
+[5.563s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/bin'
+[5.563s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/lib/pkgconfig/omni_description.pc'
+[5.563s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/lib/python3.12/site-packages'
+[5.563s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/bin'
+[5.563s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.ps1'
+[5.564s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.dsv'
+[5.564s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.sh'
+[5.565s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.bash'
+[5.565s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.zsh'
+[5.565s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/colcon-core/packages/omni_description)
+[5.568s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_description)
+[5.569s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' for CMake module files
+[5.569s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description' for CMake config files
+[5.570s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_description', 'cmake_prefix_path')
+[5.570s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.ps1'
+[5.571s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.dsv'
+[5.571s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/hook/cmake_prefix_path.sh'
+[5.572s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/bin'
+[5.572s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/lib/pkgconfig/omni_description.pc'
+[5.572s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/lib/python3.12/site-packages'
+[5.572s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/bin'
+[5.573s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.ps1'
+[5.573s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.dsv'
+[5.574s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.sh'
+[5.574s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.bash'
+[5.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/omni_description/package.zsh'
+[5.575s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_description/share/colcon-core/packages/omni_description)
+[5.578s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup' with build type 'ament_cmake'
+[5.578s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup'
+[5.578s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.578s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.593s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup
+[5.694s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup -- -j2 -l2
+[5.695s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup
+[5.871s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_bringup)
+[5.872s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' for CMake module files
+[5.872s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup
+[5.874s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' for CMake config files
+[5.874s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'cmake_prefix_path')
+[5.874s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.ps1'
+[5.875s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.dsv'
+[5.875s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.sh'
+[5.876s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib'
+[5.876s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/bin'
+[5.876s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/pkgconfig/omni_bringup.pc'
+[5.876s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages'
+[5.876s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'pythonpath')
+[5.876s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.ps1'
+[5.877s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.dsv'
+[5.877s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.sh'
+[5.877s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/bin'
+[5.878s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.ps1'
+[5.878s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.dsv'
+[5.879s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.sh'
+[5.879s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.bash'
+[5.880s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.zsh'
+[5.880s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/colcon-core/packages/omni_bringup)
+[5.880s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_bringup)
+[5.881s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' for CMake module files
+[5.881s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup' for CMake config files
+[5.882s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'cmake_prefix_path')
+[5.882s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.ps1'
+[5.883s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.dsv'
+[5.883s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.sh'
+[5.884s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib'
+[5.884s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/bin'
+[5.884s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/pkgconfig/omni_bringup.pc'
+[5.885s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages'
+[5.885s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'pythonpath')
+[5.885s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.ps1'
+[5.886s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.dsv'
+[5.886s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/hook/pythonpath.sh'
+[5.887s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/bin'
+[5.887s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.ps1'
+[5.888s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.dsv'
+[5.889s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.sh'
+[5.890s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.bash'
+[5.890s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.zsh'
+[5.891s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/colcon-core/packages/omni_bringup)
+[5.892s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description' with build type 'ament_cmake'
+[5.892s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description'
+[5.892s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.892s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.923s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description
+[7.705s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description
+[7.705s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description -- -j2 -l2
+[7.778s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description -- -j2 -l2
+[7.779s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description
+[7.806s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_description)
+[7.806s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' for CMake module files
+[7.807s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description
+[7.807s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' for CMake config files
+[7.807s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_description', 'cmake_prefix_path')
+[7.808s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.ps1'
+[7.808s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.dsv'
+[7.809s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.sh'
+[7.809s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/bin'
+[7.809s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/lib/pkgconfig/omni_dofbot_description.pc'
+[7.809s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/lib/python3.12/site-packages'
+[7.809s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/bin'
+[7.810s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.ps1'
+[7.810s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv'
+[7.811s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.sh'
+[7.811s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.bash'
+[7.811s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.zsh'
+[7.812s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/colcon-core/packages/omni_dofbot_description)
+[7.812s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_description)
+[7.812s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' for CMake module files
+[7.813s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description' for CMake config files
+[7.813s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_description', 'cmake_prefix_path')
+[7.813s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.ps1'
+[7.814s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.dsv'
+[7.816s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.sh'
+[7.818s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/bin'
+[7.818s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/lib/pkgconfig/omni_dofbot_description.pc'
+[7.818s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/lib/python3.12/site-packages'
+[7.819s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/bin'
+[7.819s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.ps1'
+[7.820s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv'
+[7.820s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.sh'
+[7.820s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.bash'
+[7.821s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/omni_dofbot_description/package.zsh'
+[7.821s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_description/share/colcon-core/packages/omni_dofbot_description)
+[8.108s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup
+[8.109s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup -- -j2 -l2
+[8.612s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup -- -j2 -l2
+[8.613s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup
+[8.764s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_bringup)
+[8.764s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' for CMake module files
+[8.765s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup
+[8.766s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' for CMake config files
+[8.766s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'cmake_prefix_path')
+[8.766s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.ps1'
+[8.767s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.dsv'
+[8.767s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.sh'
+[8.767s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib'
+[8.768s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/bin'
+[8.768s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib/pkgconfig/omni_dofbot_bringup.pc'
+[8.768s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib/python3.12/site-packages'
+[8.768s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'pythonpath')
+[8.768s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.ps1'
+[8.768s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.dsv'
+[8.768s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.sh'
+[8.769s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/bin'
+[8.769s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.ps1'
+[8.769s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.dsv'
+[8.770s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.sh'
+[8.770s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.bash'
+[8.770s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.zsh'
+[8.770s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/colcon-core/packages/omni_dofbot_bringup)
+[8.771s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_bringup)
+[8.771s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' for CMake module files
+[8.771s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup' for CMake config files
+[8.771s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'cmake_prefix_path')
+[8.772s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.ps1'
+[8.772s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.dsv'
+[8.772s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.sh'
+[8.773s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib'
+[8.773s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/bin'
+[8.773s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib/pkgconfig/omni_dofbot_bringup.pc'
+[8.773s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/lib/python3.12/site-packages'
+[8.773s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'pythonpath')
+[8.773s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.ps1'
+[8.774s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.dsv'
+[8.774s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.sh'
+[8.775s] Level 1:colcon.colcon_core.environment:checking '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/bin'
+[8.775s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.ps1'
+[8.775s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.dsv'
+[8.776s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.sh'
+[8.776s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.bash'
+[8.777s] INFO:colcon.colcon_core.shell:Creating package script '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.zsh'
+[8.777s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_dofbot_bringup/share/colcon-core/packages/omni_dofbot_bringup)
+[8.777s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[8.778s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[8.778s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[8.778s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[8.789s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[8.789s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[8.789s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[8.806s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[8.807s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arrgusr/ROS2Dev/X3_PLUS/install/local_setup.ps1'
+[8.808s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arrgusr/ROS2Dev/X3_PLUS/install/_local_setup_util_ps1.py'
+[8.808s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arrgusr/ROS2Dev/X3_PLUS/install/setup.ps1'
+[8.809s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arrgusr/ROS2Dev/X3_PLUS/install/local_setup.sh'
+[8.809s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/arrgusr/ROS2Dev/X3_PLUS/install/_local_setup_util_sh.py'
+[8.810s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arrgusr/ROS2Dev/X3_PLUS/install/setup.sh'
+[8.810s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arrgusr/ROS2Dev/X3_PLUS/install/local_setup.bash'
+[8.811s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arrgusr/ROS2Dev/X3_PLUS/install/setup.bash'
+[8.812s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/arrgusr/ROS2Dev/X3_PLUS/install/local_setup.zsh'
+[8.812s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/arrgusr/ROS2Dev/X3_PLUS/install/setup.zsh'

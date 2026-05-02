@@ -1,0 +1,67 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /home/arrgusr/.pyenv/shims/python3 (found version "3.12.3") found components: Interpreter 
+-- Found rclpy: 7.1.9 (/opt/ros/jazzy/share/rclpy/cmake)
+-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found control_msgs: 5.7.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+-- Configuring done (3.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup
+Built target ament_cmake_python_copy_omni_bringup
+running egg_info
+creating omni_bringup.egg-info
+writing omni_bringup.egg-info/PKG-INFO
+writing dependency_links to omni_bringup.egg-info/dependency_links.txt
+writing top-level names to omni_bringup.egg-info/top_level.txt
+writing manifest file 'omni_bringup.egg-info/SOURCES.txt'
+reading manifest file 'omni_bringup.egg-info/SOURCES.txt'
+writing manifest file 'omni_bringup.egg-info/SOURCES.txt'
+Built target ament_cmake_python_build_omni_bringup_egg
+-- Install configuration: ""
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//launch
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//launch/simple_velocity_controller.launch.py
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//rviz
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//rviz/omni_velocity_rviz.rviz
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//world
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup//world/Mundo_mesa_y_cajas.world
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/pythonpath.sh
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/pythonpath.dsv
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/PKG-INFO
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/SOURCES.txt
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/top_level.txt
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/dependency_links.txt
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup/__init__.py
+Listing '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup'...
+Compiling '/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup/__init__.py'...
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/ament_index/resource_index/package_run_dependencies/omni_bringup
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/ament_index/resource_index/parent_prefix_path/omni_bringup
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/ament_prefix_path.sh
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/ament_prefix_path.dsv
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/path.sh
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/environment/path.dsv
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/local_setup.bash
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/local_setup.sh
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/local_setup.zsh
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/local_setup.dsv
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.dsv
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/ament_index/resource_index/packages/omni_bringup
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/cmake/omni_bringupConfig.cmake
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/cmake/omni_bringupConfig-version.cmake
+-- Installing: /home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/share/omni_bringup/package.xml

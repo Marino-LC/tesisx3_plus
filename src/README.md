@@ -129,3 +129,21 @@ En caso de que tengas problemas para visualizar el robot en gazebo, puedes modif
 #### Solución 2.
 Copiar directamente las 3 carpetas de description al directorio ~/.gazebo/models.
 
+# Estado Actual de la Migración a Gazebo Harmonic (ROS 2 Jazzy)
+
+## Lo que se logró 
+* **Entorno limpio:** Se creó un nuevo workspace (`tesisx3_plus`) migrando los paquetes `omni_description`, `dofbot_description` y `dofbot_bringup` a la nueva estructura de `ament_cmake`.
+* **Lanzamiento base:** El archivo `gazebo_harmonic.launch.py` levanta con éxito el mundo en Gazebo (`ros_gz_sim`) y el `robot_state_publisher`.
+* **Mallas y Geometría:** Se solucionaron los errores de rutas. Gazebo ya localiza y renderiza correctamente todas las mallas (`.stl`) del chasis omnidireccional y del brazo Dofbot usando el prefijo `file://$(find ...)`.
+* **URDF de Control:** Se actualizó la etiqueta de hardware a `<plugin>gz_ros2_control/GazeboSimSystem</plugin>` y el plugin de simulación a `gz_ros2_control::GazeboSimROS2ControlPlugin`.
+
+## Fallos
+El simulador arranca y lanza el robot, pero falla inmediatamente al intentar cargar el `controller_manager` con un **Segmentation fault**.
+
+**Traza del error principal:**
+```text
+[gazebo-2] [INFO] [gz_ros_control]: Loading joint: front_left_joint
+[gazebo-2] [INFO] [gz_ros_control]: 	State:
+[gazebo-2] [INFO] [gz_ros_control]: 		 position
+[gazebo-2] [INFO] [gz_ros_control]: 		 position
+[gazebo-2] Segmentation fault (Invalid permissions for mapped object [0x7bd4c8086010])
