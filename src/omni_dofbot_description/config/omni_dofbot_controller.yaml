@@ -1,20 +1,23 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100 #Hz
-    dofbot_trajectory_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
-      # Note: Unlike forward_command_controller/ForwardCommandController
-      # with joint_trajectory_controller/JointTrajectoryController, the joint position is not instantaneously reached
+    update_rate: 100  # Hz
 
-    dofbot_gripper_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
     wheel_velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
-      
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
- 
+
+    # Descomentar cuando el brazo esté integrado
+    # dofbot_trajectory_controller:
+    #   type: joint_trajectory_controller/JointTrajectoryController
+    # dofbot_gripper_controller:
+    #   type: joint_trajectory_controller/JointTrajectoryController
+
+
+# FIX 4: JointGroupVelocityController necesita los parámetros bajo su propio
+# namespace, con "joints" (lista) y "command_interfaces" (NO "interface_name").
+# La key "interface_name" solo existe en forward_command_controller, no aquí.
 wheel_velocity_controller:
   ros__parameters:
     joints:
@@ -22,58 +25,48 @@ wheel_velocity_controller:
       - front_right_joint
       - back_right_joint
       - back_left_joint
-    # Comando crudo de velocidad (tu Python calculará la velocidad basada en el PID)
-    interface_name: velocity
-
-dofbot_trajectory_controller:
-  ros__parameters:
     command_interfaces:
-      - position
+      - velocity
     state_interfaces:
       - position
       - velocity
-      #- effort
-    joints:
-      - arm_joint_01
-      - arm_joint_02
-      - arm_joint_03
-      - arm_joint_04
-      - arm_joint_05
-
-    state_publish_rate: 50.0
-    action_monitor_rate: 20.0
-
-    allow_partial_joints_goal: false
-    open_loop_control: true
-    constraints:
-      stopped_velocity_tolerance: 0.01
-      goal_time: 0.0
-      joint1:
-        trajectory: 0.05
-        goal: 0.03
-
-dofbot_gripper_controller:
-  ros__parameters:
-    command_interfaces:
-      - position
-    state_interfaces:
-      - position
-      - velocity
-      #- effort
-    joints:
-      - grip_joint
 
 
-    state_publish_rate: 50.0
-    action_monitor_rate: 20.0
+# Configuración del brazo — descomentar cuando el brazo esté activo
+# dofbot_trajectory_controller:
+#   ros__parameters:
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - position
+#       - velocity
+#     joints:
+#       - arm_joint_01
+#       - arm_joint_02
+#       - arm_joint_03
+#       - arm_joint_04
+#       - arm_joint_05
+#     state_publish_rate: 50.0
+#     action_monitor_rate: 20.0
+#     allow_partial_joints_goal: false
+#     open_loop_control: true
+#     constraints:
+#       stopped_velocity_tolerance: 0.01
+#       goal_time: 0.0
 
-    allow_partial_joints_goal: false
-    open_loop_control: true
-    constraints:
-      stopped_velocity_tolerance: 0.01
-      goal_time: 0.0
-      joint1:
-        trajectory: 0.05
-        goal: 0.03
-
-
+# dofbot_gripper_controller:
+#   ros__parameters:
+#     command_interfaces:
+#       - position
+#     state_interfaces:
+#       - position
+#       - velocity
+#     joints:
+#       - grip_joint
+#     state_publish_rate: 50.0
+#     action_monitor_rate: 20.0
+#     allow_partial_joints_goal: false
+#     open_loop_control: true
+#     constraints:
+#       stopped_velocity_tolerance: 0.01
+#       goal_time: 0.0
