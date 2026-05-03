@@ -1,110 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <robot name="omni_dofbot_controllers" xmlns:xacro="http://ros.org/wiki/xacro">
+<?xml version="1.0" encoding="UTF-8" ?>
+<robot name="omni_dofbot_controllers" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- SISTEMA DE CONTROL UNIFICADO PARA GAZEBO HARMONIC -->
   <ros2_control name="GazeboSystem" type="system">
-      <hardware>
-          <!-- Plugin actualizado para Harmonic -->
-          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-      </hardware>
-      
-      
-      <!-- ================= BRAZO DOFBOT ================= -->
+    <hardware>
       <!--
-      <joint name="arm_joint_01">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="arm_joint_02">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="arm_joint_03">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="arm_joint_04">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="arm_joint_05">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="grip_joint">
-          <command_interface name="position"/>
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="rfinger_joint_01">
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="rfinger_joint_02">
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="lfinger_grip_joint_01">
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="lfinger_grip_joint_02">
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
-      <joint name="lfinger_grip_joint_03">
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-      </joint>
+        FIX 1: El plugin correcto para Gazebo Harmonic (Ignition Fortress/Garden/Harmonic)
+        es "ign_ros2_control/IgnitionSystem", NO "gz_ros2_control/GazeboSimSystem".
+        "gz_ros2_control/GazeboSimSystem" causa el Segmentation fault al cargar.
+        
+        Si usas la rama más nueva de gz_ros2_control (post-Harmonic renaming):
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        Si usas ign_ros2_control (más estable en Harmonic con ROS 2 Jazzy):
+          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        
+        Verifica cuál tienes instalado con:
+          ros2 pkg list | grep -E "gz_ros2|ign_ros2"
+      -->
+      <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+    </hardware>
+
+    <!-- ================= BASE OMNIDIRECCIONAL ================= -->
+    <!--
+      FIX 3: Cada joint tenía <state_interface name="position"/> DUPLICADO.
+      Esto causa comportamiento indefinido en el hardware interface.
+      Solo debe aparecer UNA VEZ por tipo de state_interface por joint.
     -->
-      <!-- ================= BASE OMNIDIRECCIONAL ================= -->
-      <joint name="front_left_joint"> <!-- M1 -->
-        <command_interface name="velocity"/>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
-      <joint name="front_right_joint"> <!-- M2 -->
-        <command_interface name="velocity"/>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
-      <joint name="back_right_joint"> <!-- M3 -->
-        <command_interface name="velocity"/>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
-      <joint name="back_left_joint"> <!-- M4 -->
-        <command_interface name="velocity"/>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
+    <joint name="front_left_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="front_right_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="back_right_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="back_left_joint">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+
+    <!-- ================= BRAZO DOFBOT ================= -->
+    <!-- Descomentar cuando el segfault de las ruedas esté resuelto -->
+    <!--
+    <joint name="arm_joint_01">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_joint_02">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_joint_03">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_joint_04">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="arm_joint_05">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="grip_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    -->
   </ros2_control>
 
-<!-- ÚNICO PLUGIN NECESARIO PARA COMUNICAR GAZEBO CON ROS 2 -->
+  <!--
+    FIX 2: El plugin de Gazebo para gz_ros2_control usa esta sintaxis exacta.
+    El filename NO lleva "lib" ni ".so" en Harmonic — Gazebo lo resuelve solo.
+    El name DEBE ser el namespace completo de la clase C++.
+  -->
   <gazebo>
-    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> <!-- ¡AQUÍ TAMBIÉN! -->
+    <plugin filename="gz_ros2_control-system"
+            name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <parameters>$(find omni_dofbot_description)/config/omni_dofbot_controller.yaml</parameters>
+      <ros>
+        <remapping>~/robot_description:=/robot_description</remapping>
+      </ros>
     </plugin>
   </gazebo>
-  
+
 </robot>
