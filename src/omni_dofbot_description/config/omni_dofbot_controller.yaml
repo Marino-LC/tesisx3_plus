@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100  # Hz
+    update_rate: 100
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -8,16 +8,14 @@ controller_manager:
     wheel_velocity_controller:
       type: velocity_controllers/JointGroupVelocityController
 
-    # Descomentar cuando el brazo esté integrado
-    # dofbot_trajectory_controller:
-    #   type: joint_trajectory_controller/JointTrajectoryController
-    # dofbot_gripper_controller:
-    #   type: joint_trajectory_controller/JointTrajectoryController
+    dofbot_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    dofbot_gripper_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
 
 
-# FIX 4: JointGroupVelocityController necesita los parámetros bajo su propio
-# namespace, con "joints" (lista) y "command_interfaces" (NO "interface_name").
-# La key "interface_name" solo existe en forward_command_controller, no aquí.
+# ── Base omnidireccional ────────────────────────────────────────────────────
 wheel_velocity_controller:
   ros__parameters:
     joints:
@@ -32,41 +30,44 @@ wheel_velocity_controller:
       - velocity
 
 
-# Configuración del brazo — descomentar cuando el brazo esté activo
-# dofbot_trajectory_controller:
-#   ros__parameters:
-#     command_interfaces:
-#       - position
-#     state_interfaces:
-#       - position
-#       - velocity
-#     joints:
-#       - arm_joint_01
-#       - arm_joint_02
-#       - arm_joint_03
-#       - arm_joint_04
-#       - arm_joint_05
-#     state_publish_rate: 50.0
-#     action_monitor_rate: 20.0
-#     allow_partial_joints_goal: false
-#     open_loop_control: true
-#     constraints:
-#       stopped_velocity_tolerance: 0.01
-#       goal_time: 0.0
+# ── Brazo Dofbot ────────────────────────────────────────────────────────────
+dofbot_trajectory_controller:
+  ros__parameters:
+    joints:
+      - arm_joint_01
+      - arm_joint_02
+      - arm_joint_03
+      - arm_joint_04
+      - arm_joint_05
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    open_loop_control: true
+    constraints:
+      stopped_velocity_tolerance: 0.01
+      goal_time: 0.0
 
-# dofbot_gripper_controller:
-#   ros__parameters:
-#     command_interfaces:
-#       - position
-#     state_interfaces:
-#       - position
-#       - velocity
-#     joints:
-#       - grip_joint
-#     state_publish_rate: 50.0
-#     action_monitor_rate: 20.0
-#     allow_partial_joints_goal: false
-#     open_loop_control: true
-#     constraints:
-#       stopped_velocity_tolerance: 0.01
-#       goal_time: 0.0
+
+# ── Gripper ─────────────────────────────────────────────────────────────────
+# Solo grip_joint tiene command_interface — las juntas mimic solo tienen state.
+dofbot_gripper_controller:
+  ros__parameters:
+    joints:
+      - grip_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    open_loop_control: true
+    constraints:
+      stopped_velocity_tolerance: 0.01
+      goal_time: 0.0
