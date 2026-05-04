@@ -30,3 +30,26 @@ source /opt/ros/jazzy/setup.bash
 source ~/gz_fix_ws/install/setup.bash        # 1. Overlay del fix
 source ~/ROS2Dev/X3_PLUS/install/setup.bash  # 2. Tu workspace principal
 
+## 📝 Notas de Integración: Gazebo Harmonic y `ros2_control`
+
+Durante la migración del modelo a Gazebo Harmonic (ROS2 Jazzy), se resolvieron las siguientes limitaciones y conflictos del motor de física y los controladores:
+
+### 1. Incompatibilidad con etiquetas `<mimic>` (Gripper)
+**Problema:** Gazebo Harmonic y `gz_ros2_control` actualmente no soportan restricciones cinemáticas de tipo `mimic`. Al intentar cargar el modelo, la terminal arroja un *warning* y el motor de física sufre un micro-congelamiento, lo que retrasa la inicialización de los controladores.
+**Solución:** 
+* En el URDF (dentro de la etiqueta `<ros2_control>`), se eliminó la `command_interface` de todas las articulaciones subordinadas del gripper.
+* El gripper se controla exclusivamente enviando comandos a la articulación principal (`grip_joint`). Las demás articulaciones se visualizan, pero no son controladas activamente por el plugin de hardware.
+
+### 2. Conflicto de etiquetas `<ros2_control>` (Articulaciones no registradas)
+**Problema:** El controlador del brazo (`dofbot_trajectory_controller`) no podía activarse porque la interfaz `arm_joint_01/position` no estaba disponible. 
+**Causa:** El URDF compilado contenía dos bloques `<ros2_control>` con el mismo nombre (`name="GazeboSystem"`): uno para la base omnidireccional y otro heredado de los archivos Xacro originales del Dofbot. Gazebo solo registraba el primer bloque (las ruedas) e ignoraba por completo el brazo.
+**Solución:** 
+* Se unificaron todas las articulaciones en un solo archivo (`omni_dofbot_controllers.xacro`).
+* Se le asignó un nombre único al bloque (ej. `name="OmniDofbotSystem"`) para evitar colisiones con archivos heredados de Gazebo Classic.
+
+### 3. Timeouts y Colapso de Controladores (Cross-talk)
+**Problema:** El `joint_state_broadcaster` y el controlador del brazo fallaban por *timeout* al inicio. A veces, enviar comandos al brazo provocaba que se movieran las ruedas.
+**Causa:** El micro-congelamiento causado por el *warning* de las articulaciones `<mimic>` bloqueaba el `controller_manager` durante los primeros segundos. Los controladores que intentaban arrancar en ese momento fallaban o quedaban en un estado inestable de lazo abierto.
+**Solución:** 
+* Se aumentó el `switch_timeout` a `30.0` segundos en el archivo YAML de configuración.
+* Se configuró el archivo `launch` para instanciar (spawn) los controladores de manera **serializada** y encadenada, dándole tiempo al motor de física de estabilizarse antes de cargar el siguiente controlador.

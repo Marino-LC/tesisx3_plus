@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <robot name="omni_dofbot_controllers" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <ros2_control name="GazeboSystem" type="system">
+  <!--
+    NOMBRE ÚNICO: "OmniDofbotSystem" para evitar conflicto con el bloque
+    name="GazeboSystem" que viene de dofbot_arm_urdf.xacro →
+    trajectory_controller.xacro (Gazebo Classic).
+
+    gz_ros2_control 1.2.x registra AMBOS bloques cuando tienen nombres
+    distintos, pero solo activa el hardware del bloque cuyo plugin
+    (GazeboSimSystem) matchea el motor de simulación actual.
+    El bloque "GazeboSystem" con plugin gazebo_ros2_control/GazeboSystem
+    (Gazebo Classic) falla silenciosamente y se ignora en Harmonic.
+    El bloque "OmniDofbotSystem" con gz_ros2_control/GazeboSimSystem
+    se activa correctamente y registra TODOS los joints aquí declarados.
+  -->
+  <ros2_control name="OmniDofbotSystem" type="system">
     <hardware>
-      <!--
-        Requiere gz_ros2_control compilado desde fuente (jazzy branch).
-        Source order: /opt/ros/jazzy → ~/gz_fix_ws/install → tu workspace.
-      -->
       <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
 
@@ -60,13 +69,6 @@
     </joint>
 
     <!-- ══════════════ GRIPPER ══════════════ -->
-    <!--
-      grip_joint es la junta activa (revolute).
-      Las juntas mimic (rfinger_joint_01/02, lfinger_grip_joint_01/02/03)
-      NO tienen command_interface porque gz_ros2_control no soporta
-      mimic constraints — el movimiento lo replica Gazebo visualmente
-      pero el comando solo va a grip_joint.
-    -->
     <joint name="grip_joint">
       <command_interface name="position"/>
       <state_interface name="position"/>

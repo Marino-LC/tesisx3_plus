@@ -15,7 +15,6 @@ controller_manager:
       type: joint_trajectory_controller/JointTrajectoryController
 
 
-# ── Base omnidireccional ────────────────────────────────────────────────────
 wheel_velocity_controller:
   ros__parameters:
     joints:
@@ -30,7 +29,6 @@ wheel_velocity_controller:
       - velocity
 
 
-# ── Brazo Dofbot ────────────────────────────────────────────────────────────
 dofbot_trajectory_controller:
   ros__parameters:
     joints:
@@ -53,8 +51,6 @@ dofbot_trajectory_controller:
       goal_time: 0.0
 
 
-# ── Gripper ─────────────────────────────────────────────────────────────────
-# Solo grip_joint tiene command_interface — las juntas mimic solo tienen state.
 dofbot_gripper_controller:
   ros__parameters:
     joints:
