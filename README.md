@@ -25,6 +25,7 @@ source /opt/ros/jazzy/setup.bash
 colcon build --packages-select gz_ros2_control --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 3. Hacer el source en el orden correcto 
+ ```bash
 source /opt/ros/jazzy/setup.bash
 source ~/gz_fix_ws/install/setup.bash        # 1. Overlay del fix
 source ~/ROS2Dev/X3_PLUS/install/setup.bash  # 2. Tu workspace principal
