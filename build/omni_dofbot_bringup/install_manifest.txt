@@ -7,6 +7,7 @@
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/waypoints.yaml
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/nav2_params.yaml
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/arena_map.yaml
+/home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/arena_map.pgm
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/generate_map.py
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.sh
 /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.dsv

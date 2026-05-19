@@ -1,3 +1,11 @@
+# arena_map.yaml
+# Mapa estático de la arena de pruebas para Nav2.
+# Generado por generate_arena_map.py
+#
+# Resolución: 0.02 m/px
+# Tamaño: 61 × 121 px = 1.22 × 2.42 m
+# Origen: esquina inferior izquierda del mapa en coordenadas mundo
+
 image: arena_map.pgm
 resolution: 0.02
 origin: [-0.61, -1.21, 0.0]

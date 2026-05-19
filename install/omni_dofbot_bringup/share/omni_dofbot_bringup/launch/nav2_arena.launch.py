@@ -24,7 +24,8 @@ def generate_launch_description():
             package='nav2_map_server',
             executable='map_server',
             name='map_server',
-            parameters=[{'yaml_filename': map_file, 'use_sim_time': True}, params_file],
+            # ¡IMPORTANTE! params_file va primero, el diccionario va segundo
+            parameters=[params_file, {'yaml_filename': map_file, 'use_sim_time': True}],
             output='screen'
         ),
         # 3. Planificador Global
@@ -57,6 +58,13 @@ def generate_launch_description():
             executable='lifecycle_manager',
             name='lifecycle_manager_navigation',
             parameters=[{'use_sim_time': True, 'autostart': True, 'node_names': lifecycle_nodes}],
+            output='screen'
+        ),
+        # 7. Relacionar base_link con base_footprint
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            arguments=['0', '0', '0', '0', '0', '0', 'base_footprint', 'base_link'],
             output='screen'
         )
     ])
