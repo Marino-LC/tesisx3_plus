@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup
+CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup
+CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup
 
 # Utility rule file for ament_cmake_python_copy_omni_dofbot_bringup.
 
@@ -67,7 +67,7 @@ include CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/compiler_depe
 include CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/progress.make
 
 CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup:
-	/usr/bin/cmake -E copy_directory /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup/omni_dofbot_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup/ament_cmake_python/omni_dofbot_bringup/omni_dofbot_bringup
+	/usr/bin/cmake -E copy_directory /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup/ament_cmake_python/omni_dofbot_bringup/omni_dofbot_bringup
 
 ament_cmake_python_copy_omni_dofbot_bringup: CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup
 ament_cmake_python_copy_omni_dofbot_bringup: CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/clean:
 .PHONY : CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/clean
 
 CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/depend:
-	cd /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_bringup/CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup/CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/ament_cmake_python_copy_omni_dofbot_bringup.dir/depend
 

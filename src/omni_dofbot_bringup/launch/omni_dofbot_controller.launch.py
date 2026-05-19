@@ -24,8 +24,9 @@ def generate_launch_description():
         'rviz', 'omni_dofbot_trayectory_rviz.rviz'
     )
     world = os.path.join(
-        get_package_share_directory('dofbot_bringup'),
-        'world', 'test_world.world'
+        get_package_share_directory('omni_dofbot_bringup'),
+        'world', 
+        'arena_world.world'  
     )
 
     workspace_install_dir = os.path.abspath(os.path.join(pkg_omni_desc, '..'))

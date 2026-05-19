@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description
+CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description
+CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description
 
 # Utility rule file for omni_dofbot_description_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/omni_dofbot_description_uninstall.dir/compiler_depend.make
 include CMakeFiles/omni_dofbot_description_uninstall.dir/progress.make
 
 CMakeFiles/omni_dofbot_description_uninstall:
-	/usr/bin/cmake -P /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 omni_dofbot_description_uninstall: CMakeFiles/omni_dofbot_description_uninstall
 omni_dofbot_description_uninstall: CMakeFiles/omni_dofbot_description_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/omni_dofbot_description_uninstall.dir/clean:
 .PHONY : CMakeFiles/omni_dofbot_description_uninstall.dir/clean
 
 CMakeFiles/omni_dofbot_description_uninstall.dir/depend:
-	cd /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_dofbot_description /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_dofbot_description/CMakeFiles/omni_dofbot_description_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles/omni_dofbot_description_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/omni_dofbot_description_uninstall.dir/depend
 

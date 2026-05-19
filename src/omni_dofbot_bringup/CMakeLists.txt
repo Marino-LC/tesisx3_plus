@@ -5,29 +5,28 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED) #for python scripts
-#find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED) #for python scripts
-#find_package(geometry_msgs REQUIRED)
-#find_package(nav_msgs REQUIRED)
-#find_package(tf2 REQUIRED)
+find_package(ament_cmake_python REQUIRED)
+find_package(rclpy REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(control_msgs REQUIRED) #for ros control
-#find_package(rclcpp_action REQUIRED) #for ros control actions
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(control_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
+# Directorios a instalar (¡Aquí agregamos 'maps'!)
 install(
-  DIRECTORY launch rviz world
+  DIRECTORY launch rviz world config maps
   DESTINATION share/${PROJECT_NAME}/
 )
 
-# Install Python modules
 ament_python_install_package(${PROJECT_NAME})
 
-# Install Python executables #They must start with the shebag tag
+# Ejecutables Python
 install(PROGRAMS
-  
-  DESTINATION lib/${PROJECT_NAME} )
+  src/mecanum_kinematic_node.py
+  src/ag_tuner.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()

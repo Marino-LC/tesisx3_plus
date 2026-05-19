@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_bringup
+CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup
+CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -84,14 +84,14 @@ clean: CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/clean
 CMakeFiles/uninstall.dir/all: CMakeFiles/dofbot_bringup_uninstall.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles --progress-num= "Built target uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles --progress-num= "Built target uninstall"
 .PHONY : CMakeFiles/uninstall.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/uninstall.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/uninstall.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 .PHONY : CMakeFiles/uninstall.dir/rule
 
 # Convenience name for target.
@@ -110,14 +110,14 @@ CMakeFiles/uninstall.dir/clean:
 CMakeFiles/dofbot_bringup_uninstall.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dofbot_bringup_uninstall.dir/build.make CMakeFiles/dofbot_bringup_uninstall.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dofbot_bringup_uninstall.dir/build.make CMakeFiles/dofbot_bringup_uninstall.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles --progress-num= "Built target dofbot_bringup_uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles --progress-num= "Built target dofbot_bringup_uninstall"
 .PHONY : CMakeFiles/dofbot_bringup_uninstall.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/dofbot_bringup_uninstall.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/dofbot_bringup_uninstall.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 .PHONY : CMakeFiles/dofbot_bringup_uninstall.dir/rule
 
 # Convenience name for target.
@@ -136,14 +136,14 @@ CMakeFiles/dofbot_bringup_uninstall.dir/clean:
 CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/build.make CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/build.make CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles --progress-num= "Built target ament_cmake_python_copy_dofbot_bringup"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles --progress-num= "Built target ament_cmake_python_copy_dofbot_bringup"
 .PHONY : CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 .PHONY : CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/rule
 
 # Convenience name for target.
@@ -162,14 +162,14 @@ CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/clean:
 CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/all: CMakeFiles/ament_cmake_python_copy_dofbot_bringup.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/build.make CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/build.make CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles --progress-num= "Built target ament_cmake_python_build_dofbot_bringup_egg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles --progress-num= "Built target ament_cmake_python_build_dofbot_bringup_egg"
 .PHONY : CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_bringup/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup/CMakeFiles 0
 .PHONY : CMakeFiles/ament_cmake_python_build_dofbot_bringup_egg.dir/rule
 
 # Convenience name for target.

@@ -1,8 +1,8 @@
-# Install script for directory: /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup
+# Install script for directory: /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup")
+  set(CMAKE_INSTALL_PREFIX "/home/arrusr/ROSDev2/tesisx3_plus/install/omni_bringup")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,42 +44,42 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/" TYPE DIRECTORY FILES
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup/launch"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup/rviz"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup/world"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup/launch"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup/rviz"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup/world"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/pythonpath.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/pythonpath.sh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/pythonpath.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/pythonpath.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info" TYPE DIRECTORY FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_python/omni_bringup/omni_bringup.egg-info/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info" TYPE DIRECTORY FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_python/omni_bringup/omni_bringup.egg-info/")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/site-packages/omni_bringup" TYPE DIRECTORY FILES "/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup/omni_bringup/" REGEX "/[^/]*\\.pyc$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3.12/site-packages/omni_bringup" TYPE DIRECTORY FILES "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup/omni_bringup/" REGEX "/[^/]*\\.pyc$" EXCLUDE REGEX "/\\_\\_pycache\\_\\_$" EXCLUDE)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   execute_process(
         COMMAND
-        "/home/arrgusr/.pyenv/shims/python3" "-m" "compileall"
-        "/home/arrgusr/ROS2Dev/X3_PLUS/install/omni_bringup/lib/python3.12/site-packages/omni_bringup"
+        "/home/arrusr/.pyenv/shims/python3" "-m" "compileall"
+        "/home/arrusr/ROSDev2/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup"
       )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/omni_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/omni_bringup")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/omni_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/omni_bringup")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -87,7 +87,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -95,42 +95,42 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/packages/omni_bringup")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_index/share/ament_index/resource_index/packages/omni_bringup")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup/cmake" TYPE FILE FILES
-    "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_core/omni_bringupConfig.cmake"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_core/omni_bringupConfig-version.cmake"
+    "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_core/omni_bringupConfig.cmake"
+    "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_core/omni_bringupConfig-version.cmake"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_bringup" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -141,5 +141,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,8 +1,8 @@
-# Install script for directory: /home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description
+# Install script for directory: /home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/arrgusr/ROS2Dev/X3_PLUS/install/dofbot_description")
+  set(CMAKE_INSTALL_PREFIX "/home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,20 +44,20 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/" TYPE DIRECTORY FILES
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/config"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/launch"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/meshes"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/rviz"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/urdf"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/config"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/launch"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/meshes"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/rviz"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/urdf"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -65,7 +65,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -73,42 +73,42 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/environment" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/packages/dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_index/share/ament_index/resource_index/packages/dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description/cmake" TYPE FILE FILES
-    "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_core/dofbot_descriptionConfig.cmake"
-    "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/ament_cmake_core/dofbot_descriptionConfig-version.cmake"
+    "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_core/dofbot_descriptionConfig.cmake"
+    "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/ament_cmake_core/dofbot_descriptionConfig-version.cmake"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrgusr/ROS2Dev/X3_PLUS/src/dofbot_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/src/dofbot_description/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -119,5 +119,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/arrgusr/ROS2Dev/X3_PLUS/build/dofbot_description/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

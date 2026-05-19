@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="omni_dofbot_no_control" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <!--
+        XACRO DE DIAGNÓSTICO — sin ros2_control ni gz_ros2_control_plugin.
+        
+        Propósito: verificar que el URDF/física del robot es correcto
+        antes de enfrentar el bug del plugin de control.
+        
+        Si Gazebo lanza este modelo sin cerrarse → el problema es
+        exclusivamente el plugin gz_ros2_control (bug confirmado en 1.2.17).
+        
+        Si Gazebo se cierra incluso con este xacro → hay un problema
+        en las propiedades físicas del URDF (inercias, colisiones).
+    -->
+
+    <xacro:property name="package_name" value="omni_dofbot_description"/>
+
+    <!-- Geometría y cinemática del robot combinado -->
+    <xacro:include filename="$(find ${package_name})/urdf/omni_dofbot_urdf.xacro"/>
+
+    <!-- Propiedades visuales de Gazebo (materiales) — sin control -->
+    <xacro:include filename="$(find dofbot_description)/urdf/dofbot_gz_properties.xacro"/>
+    <xacro:include filename="$(find omni_description)/urdf/omni_gz_properties.xacro"/>
+
+    <!--
+        NO se incluye omni_dofbot_controllers.xacro
+        NO hay <ros2_control> ni <plugin filename="gz_ros2_control-system">
+    -->
+
+</robot>

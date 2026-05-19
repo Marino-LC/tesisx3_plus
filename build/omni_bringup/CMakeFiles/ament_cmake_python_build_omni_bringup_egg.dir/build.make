@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup
+CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup
+CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup
 
 # Utility rule file for ament_cmake_python_build_omni_bringup_egg.
 
@@ -67,7 +67,7 @@ include CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/compiler_depend
 include CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/progress.make
 
 CMakeFiles/ament_cmake_python_build_omni_bringup_egg:
-	cd /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/ament_cmake_python/omni_bringup && /home/arrgusr/.pyenv/shims/python3 setup.py egg_info
+	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/ament_cmake_python/omni_bringup && /home/arrusr/.pyenv/shims/python3 setup.py egg_info
 
 ament_cmake_python_build_omni_bringup_egg: CMakeFiles/ament_cmake_python_build_omni_bringup_egg
 ament_cmake_python_build_omni_bringup_egg: CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/clean:
 .PHONY : CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/clean
 
 CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/depend:
-	cd /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup /home/arrgusr/ROS2Dev/X3_PLUS/src/omni_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup /home/arrgusr/ROS2Dev/X3_PLUS/build/omni_bringup/CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/ament_cmake_python_build_omni_bringup_egg.dir/depend
 

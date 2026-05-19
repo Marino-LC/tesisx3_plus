@@ -1,0 +1,6 @@
+[31mCMake Error at cmake_install.cmake:79 (file):
+  file INSTALL cannot find
+  "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/src/genetic_algorithm_node.py":
+  No such file or directory.
+
+[0m

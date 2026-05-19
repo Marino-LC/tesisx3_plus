@@ -1,0 +1,48 @@
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found rclpy: 7.1.11 (/opt/ros/jazzy/share/rclpy/cmake)
+-- Found std_msgs: 5.3.7 (/opt/ros/jazzy/share/std_msgs/cmake)
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found geometry_msgs: 5.3.7 (/opt/ros/jazzy/share/geometry_msgs/cmake)
+-- Found nav_msgs: 5.3.7 (/opt/ros/jazzy/share/nav_msgs/cmake)
+-- Found control_msgs: 5.9.0 (/opt/ros/jazzy/share/control_msgs/cmake)
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup
+Built target ament_cmake_python_copy_omni_dofbot_bringup
+running egg_info
+writing omni_dofbot_bringup.egg-info/PKG-INFO
+writing dependency_links to omni_dofbot_bringup.egg-info/dependency_links.txt
+writing top-level names to omni_dofbot_bringup.egg-info/top_level.txt
+reading manifest file 'omni_dofbot_bringup.egg-info/SOURCES.txt'
+writing manifest file 'omni_dofbot_bringup.egg-info/SOURCES.txt'
+Built target ament_cmake_python_build_omni_dofbot_bringup_egg
+-- Install configuration: ""
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/omni_dofbot_diagnostic.launch.py
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/omni_dofbot_controller.launch.py
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/nav2_arena.launch.py
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//rviz
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//rviz/omni_dofbot_trayectory_rviz.rviz
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world/Mundo_mesa_y_cajas.world
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world/arena_world.world
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/waypoints.yaml
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/nav2_params.yaml
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/arena_map.yaml
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/generate_map.py
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.sh
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.dsv
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/top_level.txt
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/SOURCES.txt
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/dependency_links.txt
+-- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/PKG-INFO
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup/__init__.py
+Listing '/home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup'...
+-- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/mecanum_kinematic_node.py
