@@ -8,9 +8,8 @@ def generate_launch_description():
     map_file = os.path.join(pkg_dir, 'maps', 'arena_map.yaml')
     params_file = os.path.join(pkg_dir, 'config', 'nav2_params.yaml')
 
-    # Los 4 nodos críticos de navegación
-    lifecycle_nodes = ['map_server', 'planner_server', 'controller_server', 'bt_navigator']
-
+    # Añadimos behavior_server a la lista oficial
+    lifecycle_nodes = ['map_server', 'planner_server', 'controller_server', 'behavior_server', 'bt_navigator']
     return LaunchDescription([
         # 1. Transformación estática (Reemplazo de AMCL)
         Node(
@@ -41,6 +40,14 @@ def generate_launch_description():
             package='nav2_controller',
             executable='controller_server',
             name='controller_server',
+            parameters=[params_file],
+            output='screen'
+        ),
+        # --- EL NUEVO NODO (Satisfaciendo a bt_navigator) ---
+        Node(
+            package='nav2_behaviors',
+            executable='behavior_server',
+            name='behavior_server',
             parameters=[params_file],
             output='screen'
         ),
