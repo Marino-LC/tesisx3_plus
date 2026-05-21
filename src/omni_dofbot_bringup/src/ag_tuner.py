@@ -34,6 +34,7 @@ from rclpy.node import Node
 from rclpy.action import ActionClient
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import ReentrantCallbackGroup
+from ament_index_python.packages import get_package_share_directory
 
 from rcl_interfaces.srv import SetParameters
 from rcl_interfaces.msg import Parameter, ParameterValue, ParameterType
@@ -145,10 +146,18 @@ class AGArenaEvaluator(Node):
     # ── Waypoints ─────────────────────────────────────────────────────────────
 
     def _load_waypoints(self) -> list:
-        path = WAYPOINTS_PATH
+        # Obtener la ruta de instalación del paquete
+        package_share_dir = get_package_share_directory('omni_dofbot_bringup')
+    
+        # Construir la ruta absoluta correcta
+        path = os.path.join(package_share_dir, 'config', 'waypoints.yaml')
+        
+        self.get_logger().info(f"Buscando waypoints en: {path}")
+        
         if not os.path.exists(path):
-            # Fallback: buscar en directorio de trabajo
-            path = 'waypoints.yaml'
+            self.get_logger().error(f"¡Archivo no encontrado en {path}!")
+            return []
+
         with open(path, 'r') as f:
             data = yaml.safe_load(f)
         return data['waypoints']
