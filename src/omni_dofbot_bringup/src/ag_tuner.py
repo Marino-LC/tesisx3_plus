@@ -376,6 +376,7 @@ class AGArenaEvaluator(Node):
         self.reset_robot()
         time.sleep(1.5)  # esperar que Gazebo aplique el teleport
 
+
         # 2. Inyectar ganancias
         self.set_pid(kp, ki, kd)
         time.sleep(0.3)

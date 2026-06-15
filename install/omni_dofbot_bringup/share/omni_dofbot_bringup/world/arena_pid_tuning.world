@@ -1,0 +1,282 @@
+<?xml version="1.0" ?>
+<!--
+  arena_pid_tuning.world
+  ──────────────────────
+  Arena 1.22 × 2.42 m idéntica a arena_world.world PERO sin obstáculos,
+  sin pedestal, sin cubo objetivo y sin marcadores de waypoints.
+
+  Propósito exclusivo: sintonización PID con ag_motion_tests.py.
+  El robot se teleporta al centro (0, 0) antes de cada prueba;
+  el espacio libre es el máximo posible dentro de las paredes.
+
+  Física idéntica al arena_world original:
+    - ODE quick solver, 50 iters, SOR 1.4
+    - Suelo melamina: mu = 0.40 / mu2 = 0.40
+    - Paredes: 4 muros perimetrales de 0.03 m de grosor, 0.30 m de alto
+    - Gravedad: −9.81 m/s²
+-->
+<sdf version="1.7">
+  <world name="arena_pid_tuning">
+
+    <gravity>0 0 -9.81</gravity>
+
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+          <sor>1.4</sor>
+        </solver>
+      </ode>
+    </physics>
+
+    <!-- ── Iluminación ───────────────────────────────────────────────────── -->
+    <light name="sun" type="directional">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>-0.5 0.2 -0.9</direction>
+    </light>
+
+    <light name="ambient_fill" type="directional">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 5 0 0 0</pose>
+      <diffuse>0.4 0.4 0.4 1</diffuse>
+      <specular>0 0 0 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+
+    <!-- ── Suelo (melamina, mu=0.40) ─────────────────────────────────────── -->
+    <!--
+      Mismo material de fricción que arena_world.world para que los
+      resultados del AG sean transferibles al entorno de navegación.
+    -->
+    <model name="arena_floor">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>1.22 2.42 0.02</size></box>
+          </geometry>
+          <pose>0 0 -0.01 0 0 0</pose>
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.4</mu>
+                <mu2>0.4</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+            </friction>
+            <contact>
+              <ode>
+                <kp>1e6</kp>
+                <kd>100</kd>
+                <min_depth>0.001</min_depth>
+                <max_vel>1.0</max_vel>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>1.22 2.42 0.02</size></box>
+          </geometry>
+          <pose>0 0 -0.01 0 0 0</pose>
+          <material>
+            <ambient>0.92 0.87 0.78 1</ambient>
+            <diffuse>0.92 0.87 0.78 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Paredes perimetrales ───────────────────────────────────────────── -->
+    <!--
+      Dimensiones idénticas a arena_world.world.
+      Grosor: 0.03 m   Alto: 0.30 m
+      El espacio interior libre resultante es:
+        X: de -0.58 a +0.58 m  (1.16 m neto)
+        Y: de -1.195 a +1.195 m (2.39 m neto)
+    -->
+
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 1.215 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <surface>
+            <friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <material>
+            <ambient>0.55 0.60 0.65 1</ambient>
+            <diffuse>0.55 0.60 0.65 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_south">
+      <static>true</static>
+      <pose>0 -1.215 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <surface>
+            <friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <material>
+            <ambient>0.55 0.60 0.65 1</ambient>
+            <diffuse>0.55 0.60 0.65 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_east">
+      <static>true</static>
+      <pose>0.615 0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <surface>
+            <friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <material>
+            <ambient>0.55 0.60 0.65 1</ambient>
+            <diffuse>0.55 0.60 0.65 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-0.615 0 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c">
+          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <surface>
+            <friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction>
+          </surface>
+        </collision>
+        <visual name="v">
+          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <material>
+            <ambient>0.55 0.60 0.65 1</ambient>
+            <diffuse>0.55 0.60 0.65 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Marcadores visuales del origen y los extremos de prueba ───────── -->
+    <!--
+      No tienen colisión — solo sirven para orientarte en Gazebo mientras
+      observas las pruebas. Se pueden borrar sin afectar el comportamiento.
+
+      origen     (0,    0)    — azul
+      P1 norte   (0.40, 0)    — naranja  (extremo Prueba 1)
+      P2 derecha (0,   -0.40) — verde    (tope derecho Prueba 2)
+      P2 izq     (0,    0.40) — verde    (tope izquierdo Prueba 2)
+      P3 giro    (0.40,-0.40) — morado   (destino tras rotación Prueba 3)
+    -->
+
+    <model name="marker_origin">
+      <static>true</static>
+      <pose>0 0 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.04</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.1 0.4 0.9 0.8</ambient><diffuse>0.1 0.4 0.9 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="marker_p1_north">
+      <static>true</static>
+      <pose>0.40 0 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.025</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.9 0.5 0.1 0.8</ambient><diffuse>0.9 0.5 0.1 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="marker_p1_south">
+      <static>true</static>
+      <pose>-0.40 0 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.025</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.9 0.5 0.1 0.8</ambient><diffuse>0.9 0.5 0.1 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="marker_p2_right">
+      <static>true</static>
+      <pose>0 -0.40 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.025</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.1 0.8 0.2 0.8</ambient><diffuse>0.1 0.8 0.2 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="marker_p2_left">
+      <static>true</static>
+      <pose>0 0.40 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.025</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.1 0.8 0.2 0.8</ambient><diffuse>0.1 0.8 0.2 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="marker_p3_turn">
+      <static>true</static>
+      <pose>0.40 -0.40 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.025</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.6 0.1 0.8 0.8</ambient><diffuse>0.6 0.1 0.8 0.8</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ── Escena y cámara ───────────────────────────────────────────────── -->
+    <scene>
+      <ambient>0.5 0.5 0.5 1</ambient>
+      <background>0.55 0.65 0.75 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <gui fullscreen="0">
+      <camera name="user_camera">
+        <!-- Vista cenital ligeramente inclinada para ver la arena completa -->
+        <pose>0 0 3.5 0 1.05 0</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+
+  </world>
+</sdf>

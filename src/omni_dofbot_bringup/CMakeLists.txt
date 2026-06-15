@@ -26,6 +26,7 @@ ament_python_install_package(${PROJECT_NAME})
 install(PROGRAMS
   src/mecanum_kinematic_node.py
   src/ag_tuner.py
+  src/ag_motion_tests.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
