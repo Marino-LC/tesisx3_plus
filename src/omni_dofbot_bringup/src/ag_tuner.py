@@ -40,6 +40,7 @@ from rcl_interfaces.srv import SetParameters
 from rcl_interfaces.msg import Parameter, ParameterValue, ParameterType
 
 from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
 from action_msgs.msg import GoalStatus
 
@@ -47,14 +48,18 @@ from nav2_msgs.action import NavigateThroughPoses
 
 from deap import base, creator, tools, algorithms
 
+from ros_gz_interfaces.srv import SetEntityPose
+from ros_gz_interfaces.msg import Entity
+from geometry_msgs.msg import Pose, Point, Quaternion
+from geometry_msgs.msg import PoseWithCovarianceStamped
 
 # ── Configuración del AG ───────────────────────────────────────────────────────
-POP_SIZE    = 10      # individuos por generación
-N_GEN       = 1       # generaciones (aumentar para tesis final)
+POP_SIZE    = 20      # individuos por generación
+N_GEN       = 5       # generaciones (aumentar para tesis final)
 CX_PROB     = 0.5     # probabilidad de cruce
 MUT_PROB    = 0.2     # probabilidad de mutación
-KP_RANGE    = (0.0, 8.0)
-KI_RANGE    = (0.0, 2.0)
+KP_RANGE    = (0.0, 10.0)
+KI_RANGE    = (0.0, 5.0)
 KD_RANGE    = (0.0, 3.0)
 PENALTY     = 300.0   # costo si Nav2 falla o hay colisión
 WORLD_NAME  = "arena_world"
@@ -81,6 +86,8 @@ class AGArenaEvaluator(Node):
 
     def __init__(self):
         super().__init__('ag_arena_evaluator')
+        #Nuevo
+        self._initialpose_pub = self.create_publisher(PoseWithCovarianceStamped, '/initialpose', 10)
 
         # Callback group reentrant: permite llamadas concurrentes al mismo nodo
         self._cbg = ReentrantCallbackGroup()
@@ -97,6 +104,13 @@ class AGArenaEvaluator(Node):
             'navigate_through_poses',
             callback_group=self._cbg
         )
+        self._set_pose_client = self.create_client(
+            SetEntityPose,
+            '/world/arena_world/set_entity_pose',
+            callback_group=self._cbg
+        )
+        self._cmd_vel_pub = self.create_publisher(Twist, '/cmd_vel', 10)
+        
 
         # ── Suscripción a odometría para calcular ITAE ────────────────────────
         self._odom_lock   = threading.Lock()
@@ -169,30 +183,75 @@ class AGArenaEvaluator(Node):
     # ── Reset del robot ───────────────────────────────────────────────────────
 
     def reset_robot(self):
-        """Teletransporta el robot a la posición de inicio via gz service."""
-        spawn = self._waypoints[0]
-        req_str = (
-            f'name: "{ROBOT_NAME}", '
-            f'position: {{x: {spawn["x"]}, y: {spawn["y"]}, z: 0.05}}, '
-            f'orientation: {{w: 1.0, x: 0.0, y: 0.0, z: 0.0}}'
-        )
-        cmd = [
-            'gz', 'service',
-            '-s', f'/world/{WORLD_NAME}/set_pose',
-            '--reqtype', 'gz.msgs.Pose',
-            '--reptype', 'gz.msgs.Boolean',
-            '--timeout', '2000',
-            '--req', req_str
-        ]
-        try:
-            subprocess.run(cmd, check=True,
-                           stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            self.get_logger().info('Robot reseteado al inicio')
-        except subprocess.CalledProcessError as e:
-            self.get_logger().error(
-                f'Error al resetear: {e.stderr.decode()}'
-            )
+        """Teletransporta el robot a la posición de inicio (WP1)."""
+        # 1. FRENADO DE EMERGENCIA: Detener las ruedas antes del salto
+        stop_msg = Twist()
+        self._cmd_vel_pub.publish(stop_msg)
+        time.sleep(0.2) # Dar tiempo a que los motores se detengan
 
+        spawn = self._waypoints[0]
+        x = float(spawn['x'])
+        y = float(spawn['y'])
+        z_seguro = 0.05 # 15 cm: Caída libre segura para evitar clipping
+
+        # ── Método 1: servicio ROS 2 (preferido) ──────────────────────────────
+        if hasattr(self, '_set_pose_client'):
+            if self._set_pose_client.wait_for_service(timeout_sec=1.0):
+                req = SetEntityPose.Request()
+                req.entity.name = 'omni_dofbot'
+                req.entity.type = Entity.MODEL
+                
+                req.pose = Pose()
+                req.pose.position = Point(x=x, y=y, z=z_seguro) # Usar z_seguro
+                req.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+
+                future = self._set_pose_client.call_async(req)
+                deadline = time.time() + 2.0
+                while not future.done() and time.time() < deadline:
+                    time.sleep(0.05)
+                
+                if future.done() and future.result() is not None:
+                    self.get_logger().info('Robot reseteado via ROS 2')
+                    time.sleep(1.0) # Tiempo para que caiga y se asiente
+                    return
+
+        # ── Método 2: gz service (fallback) ───────────────────────────────────
+        req_str = (
+            f'name: "omni_dofbot", '
+            f'position: {{x: {x}, y: {y}, z: {z_seguro}}}, '
+            f'orientation: {{x: 0.0, y: 0.0, z: 0.707171068, w: 0.7071068}}'
+        )
+
+        cmd = [
+            'gz', 'service', '-s', '/world/arena_world/set_pose',
+            '--reqtype', 'gz.msgs.Pose', '--reptype', 'gz.msgs.Boolean',
+            '--timeout', '2000', '--req', req_str
+        ]
+
+        try:
+            subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            self.get_logger().info('Robot reseteado via gz service')
+            time.sleep(1.0) # Tiempo para que caiga y se asiente
+        except subprocess.CalledProcessError as e:
+            self.get_logger().error(f'gz service falló: {e.stderr.decode()}')
+
+        spawn = self._waypoints[0]
+        self._publish_initial_pose(spawn['x'], spawn['y'], spawn['yaw'])
+        time.sleep(1.0) # Tiempo para que Nav2/AMCL procese la nueva pose
+
+
+    def _publish_initial_pose(self, x, y, yaw):
+        msg = PoseWithCovarianceStamped()
+        msg.header.frame_id = 'map'
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.pose.pose.position.x = float(x)
+        msg.pose.pose.position.y = float(y)
+        msg.pose.pose.orientation.z = math.sin(yaw / 2.0)
+        msg.pose.pose.orientation.w = math.cos(yaw / 2.0)
+        # Covarianza muy pequeña para obligar a Nav2 a aceptar esta pose
+        msg.pose.covariance = [0.01] + [0]*35 
+        self._initialpose_pub.publish(msg)
+        self.get_logger().info(f'Initial pose publicada: ({x}, {y})')        
     # ── PID ───────────────────────────────────────────────────────────────────
 
     def set_pid(self, kp: float, ki: float, kd: float):

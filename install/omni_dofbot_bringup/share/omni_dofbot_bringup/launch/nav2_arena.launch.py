@@ -64,7 +64,7 @@ def generate_launch_description():
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
             name='lifecycle_manager_navigation',
-            parameters=[{'use_sim_time': True, 'autostart': True, 'node_names': lifecycle_nodes}],
+            parameters=[{'use_sim_time': True, 'autostart': True, 'node_names': lifecycle_nodes, 'bond_timeout':10}],
             output='screen'
         ),
         # 7. Relacionar base_link con base_footprint

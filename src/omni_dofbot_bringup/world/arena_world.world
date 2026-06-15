@@ -1,34 +1,12 @@
 <?xml version="1.0" ?>
 <!--
-  arena_world.world
-  
-  Arena de pruebas para sintonización PID mediante Algoritmo Genético.
-  Dimensiones reales: 1.22 m × 2.42 m
-  Material del suelo: melamina (mu=0.4)
-  
-  Sistema de coordenadas (origen en centro de la arena):
-    +Y → norte (zona meta)
-    -Y → sur  (zona inicio/spawn del robot)
-    +X → este
-  
-  Elementos:
-    - Suelo de melamina con fricción realista
-    - Paredes perimetrales de contención (delgadas, para Nav2 costmap)
-    - Obstáculo 1: caja 0.15×0.15×0.35m en (-0.20, +0.10)
-    - Obstáculo 2: caja 0.15×0.15×0.35m en (+0.20, -0.40)
-    - Pedestal:    caja 0.15×0.15×0.20m en (0.00, +0.81)
-    - Cubo objetivo: caja 0.025×0.025×0.025m sobre el pedestal
-    
-  Nav2 waypoints (definidos en waypoints.yaml):
-    1. (0.00, -0.91) inicio
-    2. (-0.35, +0.10) pasar izquierda de O1
-    3. (+0.35, -0.40) pasar derecha de O2
-    4. (0.00, +0.81)  llegar al pedestal
+  arena_world.world — v2
+  Cambios: O1 y O2 centradas en x=0
+  O1: (0.00, +0.25)  O2: (0.00, -0.30)
 -->
 <sdf version="1.7">
   <world name="arena_world">
 
-    <!-- ── Física ──────────────────────────────────────────────────────────── -->
     <gravity>0 0 -9.81</gravity>
     <physics type="ode">
       <max_step_size>0.001</max_step_size>
@@ -43,7 +21,6 @@
       </ode>
     </physics>
 
-    <!-- ── Iluminación ────────────────────────────────────────────────────── -->
     <light name="sun" type="directional">
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
@@ -51,7 +28,6 @@
       <specular>0.3 0.3 0.3 1</specular>
       <direction>-0.5 0.2 -0.9</direction>
     </light>
-
     <light name="ambient_fill" type="directional">
       <cast_shadows>false</cast_shadows>
       <pose>0 0 5 0 0 0</pose>
@@ -60,37 +36,24 @@
       <direction>0 0 -1</direction>
     </light>
 
-    <!-- ── Suelo de melamina ──────────────────────────────────────────────── -->
-    <!--
-      Melamina: superficie lisa, baja fricción.
-      mu1=mu2=0.4 (valor experimental típico para melamina seca)
-      kp alto para evitar que el robot se hunda
-    -->
+    <!-- Suelo melamina mu=0.4 -->
     <model name="arena_floor">
       <static>true</static>
       <pose>0 0 0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
-          <geometry>
-            <box>
-              <size>1.22 2.42 0.02</size>
-            </box>
-          </geometry>
+          <geometry><box><size>1.22 2.42 0.02</size></box></geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <surface>
             <friction>
               <ode>
-                <mu>0.4</mu>
-                <mu2>0.4</mu2>
+                <mu>0.4</mu><mu2>0.4</mu2>
                 <fdir1>1 0 0</fdir1>
-                <slip1>0.0</slip1>
-                <slip2>0.0</slip2>
               </ode>
             </friction>
             <contact>
               <ode>
-                <kp>1e6</kp>
-                <kd>100</kd>
+                <kp>1e6</kp><kd>100</kd>
                 <min_depth>0.001</min_depth>
                 <max_vel>1.0</max_vel>
               </ode>
@@ -98,11 +61,7 @@
           </surface>
         </collision>
         <visual name="visual">
-          <geometry>
-            <box>
-              <size>1.22 2.42 0.02</size>
-            </box>
-          </geometry>
+          <geometry><box><size>1.22 2.42 0.02</size></box></geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <material>
             <ambient>0.92 0.87 0.78 1</ambient>
@@ -113,188 +72,93 @@
       </link>
     </model>
 
-    <!-- ── Paredes perimetrales (contención + costmap Nav2) ──────────────── -->
-    <!-- Pared Norte -->
+    <!-- Paredes perimetrales -->
     <model name="wall_north">
-      <static>true</static>
-      <pose>0 1.215 0.15 0 0 0</pose>
+      <static>true</static><pose>0 1.215 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="collision">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
-        </collision>
-        <visual name="visual">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 0.6</ambient>
-            <diffuse>0.7 0.7 0.7 0.6</diffuse>
-          </material>
+        <collision name="c"><geometry><box><size>1.22 0.03 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
-
-    <!-- Pared Sur -->
     <model name="wall_south">
-      <static>true</static>
-      <pose>0 -1.215 0.15 0 0 0</pose>
+      <static>true</static><pose>0 -1.215 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="collision">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
-        </collision>
-        <visual name="visual">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 0.6</ambient>
-            <diffuse>0.7 0.7 0.7 0.6</diffuse>
-          </material>
+        <collision name="c"><geometry><box><size>1.22 0.03 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
-
-    <!-- Pared Este -->
     <model name="wall_east">
-      <static>true</static>
-      <pose>0.615 0 0.15 0 0 0</pose>
+      <static>true</static><pose>0.615 0 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="collision">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
-        </collision>
-        <visual name="visual">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 0.6</ambient>
-            <diffuse>0.7 0.7 0.7 0.6</diffuse>
-          </material>
+        <collision name="c"><geometry><box><size>0.03 2.42 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
-
-    <!-- Pared Oeste -->
     <model name="wall_west">
-      <static>true</static>
-      <pose>-0.615 0 0.15 0 0 0</pose>
+      <static>true</static><pose>-0.615 0 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="collision">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
-        </collision>
-        <visual name="visual">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
-          <material>
-            <ambient>0.7 0.7 0.7 0.6</ambient>
-            <diffuse>0.7 0.7 0.7 0.6</diffuse>
-          </material>
+        <collision name="c"><geometry><box><size>0.03 2.42 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ── Obstáculo 1 — izquierdo, primer zigzag ─────────────────────────── -->
-    <!--
-      Posición: (-0.20, +0.10)
-      Dimensiones: 0.15 × 0.15 × 0.35 m
-      z_center = 0.35/2 = 0.175
-    -->
+    <!-- Obstáculo 1 — centro x=0, y=+0.25 -->
     <model name="obstacle_1">
       <static>true</static>
-      <pose>-0.20 0.10 0.175 0 0 0</pose>
+      <pose>0.00 0.25 0.175 0 0 0</pose>
       <link name="link">
         <collision name="collision">
-          <geometry>
-            <box><size>0.15 0.15 0.35</size></box>
-          </geometry>
-          <surface>
-            <friction>
-              <ode><mu>0.8</mu><mu2>0.8</mu2></ode>
-            </friction>
-          </surface>
+          <geometry><box><size>0.15 0.15 0.35</size></box></geometry>
+          <surface><friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction></surface>
         </collision>
         <visual name="visual">
-          <geometry>
-            <box><size>0.15 0.15 0.35</size></box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.2 0.2 1</ambient>
-            <diffuse>0.8 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
-          </material>
+          <geometry><box><size>0.15 0.15 0.35</size></box></geometry>
+          <material><ambient>0.8 0.2 0.2 1</ambient><diffuse>0.8 0.2 0.2 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ── Obstáculo 2 — derecho, segundo zigzag ──────────────────────────── -->
-    <!--
-      Posición: (+0.20, -0.40)
-      Dimensiones: 0.15 × 0.15 × 0.35 m
-    -->
+    <!-- Obstáculo 2 — centro x=0, y=-0.30 -->
     <model name="obstacle_2">
       <static>true</static>
-      <pose>0.20 -0.40 0.175 0 0 0</pose>
+      <pose>0.00 -0.30 0.175 0 0 0</pose>
       <link name="link">
         <collision name="collision">
-          <geometry>
-            <box><size>0.15 0.15 0.35</size></box>
-          </geometry>
-          <surface>
-            <friction>
-              <ode><mu>0.8</mu><mu2>0.8</mu2></ode>
-            </friction>
-          </surface>
+          <geometry><box><size>0.15 0.15 0.35</size></box></geometry>
+          <surface><friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction></surface>
         </collision>
         <visual name="visual">
-          <geometry>
-            <box><size>0.15 0.15 0.35</size></box>
-          </geometry>
-          <material>
-            <ambient>0.8 0.2 0.2 1</ambient>
-            <diffuse>0.8 0.2 0.2 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
-          </material>
+          <geometry><box><size>0.15 0.15 0.35</size></box></geometry>
+          <material><ambient>0.8 0.2 0.2 1</ambient><diffuse>0.8 0.2 0.2 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ── Pedestal (base para el cubo objetivo) ─────────────────────────── -->
-    <!--
-      Posición: (0.0, +0.81)
-      Dimensiones: 0.15 × 0.15 × 0.20 m
-      z_center = 0.10
-    -->
+    <!-- Pedestal 15×15×20cm en y=+0.81 -->
     <model name="pedestal">
       <static>true</static>
       <pose>0.0 0.81 0.10 0 0 0</pose>
       <link name="link">
         <collision name="collision">
-          <geometry>
-            <box><size>0.15 0.15 0.20</size></box>
-          </geometry>
-          <surface>
-            <friction>
-              <ode><mu>0.6</mu><mu2>0.6</mu2></ode>
-            </friction>
-          </surface>
+          <geometry><box><size>0.15 0.15 0.20</size></box></geometry>
+          <surface><friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction></surface>
         </collision>
         <visual name="visual">
-          <geometry>
-            <box><size>0.15 0.15 0.20</size></box>
-          </geometry>
-          <material>
-            <ambient>0.3 0.3 0.8 1</ambient>
-            <diffuse>0.3 0.3 0.8 1</diffuse>
-            <specular>0.3 0.3 0.3 1</specular>
-          </material>
+          <geometry><box><size>0.15 0.15 0.20</size></box></geometry>
+          <material><ambient>0.3 0.3 0.8 1</ambient><diffuse>0.3 0.3 0.8 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ── Cubo objetivo (sobre el pedestal) ─────────────────────────────── -->
-    <!--
-      Posición: (0.0, +0.81)
-      z = altura_pedestal + cubo/2 = 0.20 + 0.0125 = 0.2125
-      Dimensiones: 0.025 × 0.025 × 0.025 m
-      NO estático — el brazo puede agarrarlo
-      
-      NOTA: el AG reposiciona este cubo entre evaluaciones
-      via /set_entity_state (ros_gz_interfaces/srv/SetEntityPose)
-      con variación ±0.15 m en X.
-    -->
+    <!-- Cubo objetivo 2.5×2.5×2.5cm sobre el pedestal -->
     <model name="target_cube">
       <static>false</static>
       <pose>0.0 0.81 0.2125 0 0 0</pose>
@@ -303,85 +167,48 @@
           <mass>0.050</mass>
           <inertia>
             <ixx>5.2e-6</ixx><ixy>0</ixy><ixz>0</ixz>
-            <iyy>5.2e-6</iyy><iyz>0</iyz>
-            <izz>5.2e-6</izz>
+            <iyy>5.2e-6</iyy><iyz>0</iyz><izz>5.2e-6</izz>
           </inertia>
         </inertial>
         <collision name="collision">
-          <geometry>
-            <box><size>0.025 0.025 0.025</size></box>
-          </geometry>
+          <geometry><box><size>0.025 0.025 0.025</size></box></geometry>
           <surface>
-            <friction>
-              <ode><mu>0.7</mu><mu2>0.7</mu2></ode>
-            </friction>
-            <contact>
-              <ode>
-                <kp>1e5</kp>
-                <kd>10</kd>
-              </ode>
-            </contact>
+            <friction><ode><mu>0.7</mu><mu2>0.7</mu2></ode></friction>
+            <contact><ode><kp>1e5</kp><kd>10</kd></ode></contact>
           </surface>
         </collision>
         <visual name="visual">
-          <geometry>
-            <box><size>0.025 0.025 0.025</size></box>
-          </geometry>
-          <material>
-            <ambient>0.1 0.8 0.2 1</ambient>
-            <diffuse>0.1 0.8 0.2 1</diffuse>
-            <specular>0.4 0.4 0.4 1</specular>
-          </material>
+          <geometry><box><size>0.025 0.025 0.025</size></box></geometry>
+          <material><ambient>0.1 0.8 0.2 1</ambient><diffuse>0.1 0.8 0.2 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <!-- ── Marcadores visuales de waypoints (esferas semitransparentes) ──── -->
-    <model name="wp1_marker">
-      <static>true</static>
-      <pose>0.0 -0.91 0.02 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry><sphere><radius>0.03</radius></sphere></geometry>
-          <material><ambient>0 0.5 1 0.5</ambient><diffuse>0 0.5 1 0.5</diffuse></material>
-        </visual>
-      </link>
-    </model>
+    <!-- Marcadores visuales de waypoints -->
+    <model name="wp1"><static>true</static><pose>0.00 -0.91 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0 0.4 1 0.6</ambient><diffuse>0 0.4 1 0.6</diffuse></material></visual></link></model>
 
-    <model name="wp2_marker">
-      <static>true</static>
-      <pose>-0.35 0.10 0.02 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry><sphere><radius>0.03</radius></sphere></geometry>
-          <material><ambient>0 0.5 1 0.5</ambient><diffuse>0 0.5 1 0.5</diffuse></material>
-        </visual>
-      </link>
-    </model>
+    <model name="wp2"><static>true</static><pose>-0.38 -0.42 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0.5 0 1 0.6</ambient><diffuse>0.5 0 1 0.6</diffuse></material></visual></link></model>
 
-    <model name="wp3_marker">
-      <static>true</static>
-      <pose>0.35 -0.40 0.02 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry><sphere><radius>0.03</radius></sphere></geometry>
-          <material><ambient>0 0.5 1 0.5</ambient><diffuse>0 0.5 1 0.5</diffuse></material>
-        </visual>
-      </link>
-    </model>
+    <model name="wp3"><static>true</static><pose>0.38 -0.18 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0.5 0 1 0.6</ambient><diffuse>0.5 0 1 0.6</diffuse></material></visual></link></model>
 
-    <model name="wp4_marker">
-      <static>true</static>
-      <pose>0.0 0.81 0.02 0 0 0</pose>
-      <link name="link">
-        <visual name="visual">
-          <geometry><sphere><radius>0.03</radius></sphere></geometry>
-          <material><ambient>1 0.5 0 0.5</ambient><diffuse>1 0.5 0 0.5</diffuse></material>
-        </visual>
-      </link>
-    </model>
+    <model name="wp4"><static>true</static><pose>-0.38 0.13 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0.5 0 1 0.6</ambient><diffuse>0.5 0 1 0.6</diffuse></material></visual></link></model>
 
-    <!-- ── Estado inicial del mundo ──────────────────────────────────────── -->
+    <model name="wp5"><static>true</static><pose>0.38 0.38 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0.5 0 1 0.6</ambient><diffuse>0.5 0 1 0.6</diffuse></material></visual></link></model>
+
+    <model name="wp6"><static>true</static><pose>0.00 0.71 0.02 0 0 0</pose>
+      <link name="link"><visual name="v"><geometry><sphere><radius>0.025</radius></sphere></geometry>
+        <material><ambient>0 0.8 0.2 0.7</ambient><diffuse>0 0.8 0.2 0.7</diffuse></material></visual></link></model>
+
     <scene>
       <ambient>0.5 0.5 0.5 1</ambient>
       <background>0.6 0.7 0.8 1</background>

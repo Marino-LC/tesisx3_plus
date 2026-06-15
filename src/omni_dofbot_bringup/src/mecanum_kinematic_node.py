@@ -98,7 +98,7 @@ class MecanumKinematicNode(Node):
         self.declare_parameter('wheel_radius',  0.040)
         self.declare_parameter('lx',            0.110)
         self.declare_parameter('ly',            0.102)
-        self.declare_parameter('max_wheel_vel', 10.0)
+        self.declare_parameter('max_wheel_vel', 20.0)
         self.declare_parameter('control_rate',  50.0)
         self.declare_parameter('kp',            1.0)
         self.declare_parameter('ki',            0.0)
@@ -119,7 +119,8 @@ class MecanumKinematicNode(Node):
         self._omega_ref  = np.zeros(4)   # velocidades de referencia (rad/s)
         self._omega_real = np.zeros(4)   # velocidades reales leídas de joint_states
         self._last_time  = self.get_clock().now()
-
+        # Esto te permite invertir la lógica de cada motor individualmente:
+        self.wheel_polarity = [-1, -1, -1, -1] # [fl, fr, br, bl]
         # ── Pub / Sub ─────────────────────────────────────────────────────────
         self._cmd_vel_sub = self.create_subscription(
             Twist, '/cmd_vel', self._cmd_vel_cb, 10
@@ -156,14 +157,17 @@ class MecanumKinematicNode(Node):
         vy = msg.linear.y
         wz = msg.angular.z
 
-        # Cinemática inversa mecanum (rodillos a 45°)
-        # Orden: [fl, fr, br, bl]
-        self._omega_ref = np.array([
-            (vx - vy - k * wz) / r,   # front_left
-            (vx + vy + k * wz) / r,   # front_right
-            (vx - vy + k * wz) / r,   # back_right
-            (vx + vy - k * wz) / r,   # back_left
+      # Cinemática inversa mecanum corregida (Estándar ROS 2)
+        # Asumiendo: vx=adelante, vy=izquierda, wz=antihorario
+        omega_raw = np.array([
+        (vx - vy - k * wz) / r,   # front_left
+        (vx + vy + k * wz) / r,   # front_right
+        (vx - vy + k * wz) / r,   # back_right
+        (vx + vy - k * wz) / r,   # back_left
         ])
+
+        # Aplicar polaridad para corregir motores invertidos
+        self._omega_ref = omega_raw * self.wheel_polarity
 
     def _joint_states_cb(self, msg: JointState):
         """Lee las velocidades reales de las ruedas desde /joint_states."""

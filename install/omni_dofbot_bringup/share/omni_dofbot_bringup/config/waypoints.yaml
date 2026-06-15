@@ -1,27 +1,23 @@
-# waypoints.yaml
+# waypoints.yaml — v2
 #
-# Trayectoria en zigzag para la arena de pruebas 1.22 × 2.42 m.
-# Origen en el centro geométrico de la arena.
-# +Y apunta al norte (zona meta), -Y al sur (zona inicio).
+# Cambios respecto a v1:
+#   - Cajas movidas al centro (x=0) para trayectoria simétrica
+#   - 4 waypoints intermedios en lugar de 2 (zigzag más pronunciado)
+#   - Offsets laterales aumentados a ±0.38m para evitar colisiones
+#   - Margen de seguridad: 0.38 - 0.075(radio_caja) - 0.18(inflación) = 0.125m libre
 #
-# Este archivo se instala en:
-#   share/omni_dofbot_bringup/config/waypoints.yaml
-# y es leído por genetic_algorithm_node.py y send_waypoints.py.
+# Layout (vista superior, +Y = norte):
+#
+#   [META]  WP6 (0, +0.71)
+#             |
+#   [O1 x=0,y=+0.25]
+#   WP5 (+0.38,+0.38) ←→ WP4 (-0.38,+0.13)
+#             |
+#   [O2 x=0,y=-0.30]
+#   WP3 (+0.38,-0.18) ←→ WP2 (-0.38,-0.42)
+#             |
+#   [INICIO] WP1 (0, -0.91)
 
-
-# ── Waypoints de navegación ─────────────────────────────────────────────────
-# Usados por Nav2 (navigate_through_poses).
-# El AG envía WP2, WP3, WP4 (WP1 es la posición de spawn/reset).
-#
-# Orientación (yaw en radianes):
-#   0.0    → apunta al norte (+Y)  — dirección principal de avance
-#   0.30   → giro leve a la derecha (para salir de la evasión de O1)
-#  -0.30   → giro leve a la izquierda (para salir de la evasión de O2)
-#
-# Márgenes de seguridad aplicados:
-#   - Robot ancho: 0.22 m → necesita al menos 0.11 m de cada lado del obstáculo
-#   - Obstáculos: 0.15 m de ancho → radio de evasión mínimo: 0.075 + 0.11 = 0.185 m
-#   - Margen elegido: 0.35 m del centro de la arena → holgura real: 0.35 - 0.075 = 0.275 m ✓
 
 waypoints:
 
@@ -30,104 +26,99 @@ waypoints:
     x:    0.00
     y:   -0.91
     yaw:  0.00
-    note: >
-      Posición de spawn del robot. Centro del lado sur de la arena.
-      El AG resetea al robot aquí antes de cada evaluación.
-      Nav2 no recibe este waypoint — es solo el punto de partida.
+    note: "Posición de spawn. Nav2 no recibe este WP — es solo el punto de reset."
 
   - id: 2
-    label: "evasion_O1_izquierda"
-    x:   -0.35
-    y:    0.10
-    yaw:  0.30
+    label: "izquierda_bajo_O2"
+    x:   -0.38
+    y:   -0.42
+    yaw:  0.20
     note: >
-      Pasar a la izquierda del Obstáculo 1 (en x=-0.20).
-      Offset lateral: 0.35 - 0.20 = 0.15 m entre el waypoint y el obstáculo.
-      El yaw de 0.30 rad orienta al robot hacia el WP3 (derecha).
+      Pasar a la izquierda de O2 (en x=0, y=-0.30).
+      Offset lateral: 0.38m del centro de la caja.
+      Margen real sobre inflación: 0.38 - 0.075 - 0.18 = 0.125m.
 
   - id: 3
-    label: "evasion_O2_derecha"
-    x:    0.35
-    y:   -0.40
-    yaw: -0.30
-    note: >
-      Pasar a la derecha del Obstáculo 2 (en x=+0.20).
-      Offset lateral: 0.35 - 0.20 = 0.15 m entre el waypoint y el obstáculo.
-      El yaw de -0.30 rad orienta al robot hacia el WP4 (ligeramente izquierda).
+    label: "derecha_bajo_O2"
+    x:    0.38
+    y:   -0.18
+    yaw: -0.20
+    note: "Pasar a la derecha de O2. El robot hace el primer cruce del zigzag."
 
   - id: 4
+    label: "izquierda_encima_O1"
+    x:   -0.38
+    y:    0.13
+    yaw:  0.20
+    note: >
+      Pasar a la izquierda de O1 (en x=0, y=+0.25).
+      El robot cruza el centro entre las dos cajas.
+
+  - id: 5
+    label: "derecha_encima_O1"
+    x:    0.38
+    y:    0.38
+    yaw: -0.20
+    note: "Pasar a la derecha de O1. Último cruce antes de la meta."
+
+  - id: 6
     label: "meta_pedestal"
     x:    0.00
     y:    0.71
     yaw:  0.00
     note: >
       Posición de llegada frente al pedestal (en y=+0.81).
-      Offset de 0.10 m para evitar colisión con el pedestal.
-      El robot llega orientado al norte con el brazo apuntando al cubo.
-      Desde aquí se ejecuta la secuencia de agarre del Dofbot.
+      Offset de 0.10m para no colisionar. Orientado al norte
+      para que el brazo Dofbot apunte al cubo objetivo.
 
 
-# ── Obstáculos (referencia para Nav2 costmap y visualización) ───────────────
 obstacles:
-
   - id: "O1"
-    label: "obstaculo_1_izquierdo"
-    x:    -0.20
-    y:     0.10
+    label: "caja_norte"
+    x:     0.00
+    y:     0.25
     z:     0.175
     size_x: 0.15
     size_y: 0.15
     size_z: 0.35
 
   - id: "O2"
-    label: "obstaculo_2_derecho"
-    x:     0.20
-    y:    -0.40
+    label: "caja_sur"
+    x:     0.00
+    y:    -0.30
     z:     0.175
     size_x: 0.15
     size_y: 0.15
     size_z: 0.35
 
 
-# ── Pedestal y cubo objetivo ────────────────────────────────────────────────
 pedestal:
   x:     0.00
   y:     0.81
-  z:     0.10       # z_center del pedestal
+  z:     0.10
   size_x: 0.15
   size_y: 0.15
   size_z: 0.20
 
 
-# Posiciones variables del cubo para el AG.
-# Entre evaluaciones el AG elige una de estas posiciones y
-# reposiciona el cubo con gz service /world/arena_world/set_pose.
-# z = altura_pedestal + cubo/2 = 0.20 + 0.0125 = 0.2125
 cube_positions:
-
   - id: "center"
-    label: "centro"
     x:  0.00
     y:  0.81
     z:  0.2125
-
   - id: "left"
-    label: "izquierda"
-    x: -0.12
+    x: -0.10
     y:  0.81
     z:  0.2125
-
   - id: "right"
-    label: "derecha"
-    x:  0.12
+    x:  0.10
     y:  0.81
     z:  0.2125
 
 
-# ── Parámetros de la arena (referencia) ─────────────────────────────────────
 arena:
-  width:  1.22    # metros, eje X
-  length: 2.42    # metros, eje Y
-  floor_friction: 0.4   # melamina seca
+  width:  1.22
+  length: 2.42
+  floor_friction: 0.4
   world_name: "arena_world"
   robot_name: "omni_dofbot"

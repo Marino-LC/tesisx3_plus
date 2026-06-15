@@ -65,7 +65,8 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-name', 'omni_dofbot',
-            '-z', '0.1'
+            '-z', '0.1',
+            '-Y','1.570796'
         ],
         output='screen'
     )
