@@ -27,6 +27,7 @@ install(PROGRAMS
   src/mecanum_kinematic_node.py
   src/ag_tuner.py
   src/ag_motion_tests.py
+  src/Mecanum_odometry_node.py
   DESTINATION lib/${PROJECT_NAME}
 )
 

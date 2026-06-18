@@ -1,0 +1,37 @@
+[0.015s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description -- -j24 -l24
+[0.036s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description -- -j24 -l24
+[0.036s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description
+[0.042s] -- Install configuration: ""
+[0.042s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//launch
+[0.042s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//launch/omni_dofbot_display.launch.xml
+[0.042s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//rviz
+[0.042s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//rviz/omni_dofbot_rviz.rviz
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/display_omni_dofbot.stl
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/base_link_omni_dofbot.stl
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/80mm_mecanum_wheel_hex.stl
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_urdf.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_controllers.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_no_control.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/arm_base_link_xacro.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_trajectory_controller.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/xacro_properties.xacro
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//config
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//config/omni_dofbot_controller.yaml
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_description
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_description
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/ament_prefix_path.sh
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/ament_prefix_path.dsv
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/path.sh
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/path.dsv
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.bash
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.sh
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.zsh
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.dsv
+[0.043s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/packages/omni_dofbot_description
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/cmake/omni_dofbot_descriptionConfig.cmake
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/cmake/omni_dofbot_descriptionConfig-version.cmake
+[0.043s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.xml
+[0.050s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description

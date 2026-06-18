@@ -1,0 +1,49 @@
+[0.012s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup -- -j24 -l24
+[0.047s] Built target ament_cmake_python_copy_dofbot_bringup
+[0.201s] running egg_info
+[0.212s] writing dofbot_bringup.egg-info/PKG-INFO
+[0.212s] writing dependency_links to dofbot_bringup.egg-info/dependency_links.txt
+[0.212s] writing top-level names to dofbot_bringup.egg-info/top_level.txt
+[0.244s] reading manifest file 'dofbot_bringup.egg-info/SOURCES.txt'
+[0.244s] writing manifest file 'dofbot_bringup.egg-info/SOURCES.txt'
+[0.260s] Built target ament_cmake_python_build_dofbot_bringup_egg
+[0.267s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup -- -j24 -l24
+[0.267s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup
+[0.272s] -- Install configuration: ""
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//launch
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//launch/dofbot_trajectory_controller.launch.py
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//rviz
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//rviz/dofbot_trajectory_rviz.rviz
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//world
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//world/test_world.world
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//src
+[0.272s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//src/dofbot_gripper_test.py
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup//src/dofbot_trajectory_test.py
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/pythonpath.sh
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/pythonpath.dsv
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup-0.0.0-py3.12.egg-info
+[0.273s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup-0.0.0-py3.12.egg-info/top_level.txt
+[0.273s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup-0.0.0-py3.12.egg-info/SOURCES.txt
+[0.273s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup-0.0.0-py3.12.egg-info/dependency_links.txt
+[0.273s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup-0.0.0-py3.12.egg-info/PKG-INFO
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup
+[0.273s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup/__init__.py
+[0.323s] Listing '/home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages/dofbot_bringup'...
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/dofbot_bringup/dofbot_trajectory_test.py
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/lib/dofbot_bringup/dofbot_gripper_test.py
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/ament_index/resource_index/package_run_dependencies/dofbot_bringup
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/ament_index/resource_index/parent_prefix_path/dofbot_bringup
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/ament_prefix_path.sh
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/ament_prefix_path.dsv
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/path.sh
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/environment/path.dsv
+[0.326s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/local_setup.bash
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/local_setup.sh
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/local_setup.zsh
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/local_setup.dsv
+[0.327s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.dsv
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/ament_index/resource_index/packages/dofbot_bringup
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/cmake/dofbot_bringupConfig.cmake
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/cmake/dofbot_bringupConfig-version.cmake
+[0.327s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.xml
+[0.328s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_bringup

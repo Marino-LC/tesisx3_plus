@@ -1,0 +1,58 @@
+[0.010s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup -- -j24 -l24
+[0.043s] Built target ament_cmake_python_copy_omni_dofbot_bringup
+[0.195s] running egg_info
+[0.206s] writing omni_dofbot_bringup.egg-info/PKG-INFO
+[0.206s] writing dependency_links to omni_dofbot_bringup.egg-info/dependency_links.txt
+[0.206s] writing top-level names to omni_dofbot_bringup.egg-info/top_level.txt
+[0.238s] reading manifest file 'omni_dofbot_bringup.egg-info/SOURCES.txt'
+[0.238s] writing manifest file 'omni_dofbot_bringup.egg-info/SOURCES.txt'
+[0.254s] Built target ament_cmake_python_build_omni_dofbot_bringup_egg
+[0.260s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup -- -j24 -l24
+[0.260s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup
+[0.264s] -- Install configuration: ""
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/omni_dofbot_diagnostic.launch.py
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/omni_dofbot_controller.launch.py
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//launch/nav2_arena.launch.py
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//rviz
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//rviz/omni_dofbot_trayectory_rviz.rviz
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world/Mundo_mesa_y_cajas.world
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world/arena_world.world
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//world/arena_pid_tuning.world
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/waypoints.yaml
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//config/nav2_params.yaml
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/arena_map.yaml
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/arena_map.pgm
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup//maps/generate_map.py
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.sh
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/pythonpath.dsv
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info
+[0.265s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/top_level.txt
+[0.265s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/SOURCES.txt
+[0.265s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/dependency_links.txt
+[0.265s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup-0.0.0-py3.12.egg-info/PKG-INFO
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup
+[0.265s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup/__init__.py
+[0.311s] Listing '/home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages/omni_dofbot_bringup'...
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/mecanum_kinematic_node.py
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/ag_tuner.py
+[0.315s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/ag_motion_tests.py
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_bringup
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_bringup
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/ament_prefix_path.sh
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/ament_prefix_path.dsv
+[0.315s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/path.sh
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/path.dsv
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/local_setup.bash
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/local_setup.sh
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/local_setup.zsh
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/local_setup.dsv
+[0.316s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.dsv
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/ament_index/resource_index/packages/omni_dofbot_bringup
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/cmake/omni_dofbot_bringupConfig.cmake
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/cmake/omni_dofbot_bringupConfig-version.cmake
+[0.316s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.xml
+[0.331s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup

@@ -6,57 +6,29 @@ Algoritmo Genético (DEAP) para sintonizar las ganancias PID (Kp, Ki, Kd)
 del nodo mecanum_kinematic_node.py mediante 3 pruebas de movimiento puro.
 
 Sin Nav2. Sin AMCL. Sin mapa.
-El robot recibe /cmd_vel directo y el fitness se mide con /odom.
+El robot recibe /cmd_vel directo y el fitness se mide con /odom publicado
+por mecanum_odometry_node.py (cinemática directa desde /joint_states).
 
-La odometría es RELATIVA: al inicio de cada prueba se registra la pose
-actual como origen y todos los errores se calculan contra ese punto.
+Tras cada teleport, se llama al servicio ~/reset_pose de mecanum_odometry_node
+para que la odometría acumulada vuelva a (0, 0, π/2), coherente con Gazebo.
 
-══════════════════════════════════════════════════════════════════════════
-PRUEBA 1 — Línea recta (eje X del cuerpo)
-──────────────────────────────────────────
-  Spawn  ──[+vx 0.80m]──▶  A  ──[-vx 0.80m]──▶  Spawn
-  Fitness: ITAE del error de posición en X durante ambos tramos.
-
-PRUEBA 2 — Traslación lateral pura (eje Y del cuerpo)
-──────────────────────────────────────────────────────
-  Spawn  ──[+vy hasta tope derecho]──▶  B  ──[-vy hasta tope izquierdo]──▶  C
-         ──[+vy hasta centro]──▶  Spawn
-  El robot NUNCA rota. Evalúa el modo lateral del mecanum (el más exigente).
-  Fitness: ITAE del error de posición en Y durante los 3 tramos.
-
-PRUEBA 3 — Combinada con rotaciones intermedias
-────────────────────────────────────────────────
-  Igual que Prueba 1 (adelante y atrás), PERO:
-    • En vez de regresar en línea recta hacia atrás →
-      rota 90° y avanza de frente hasta el origen (por el costado).
-  Secuencia:
-    Spawn  ──[+vx 0.80m]──▶  A  ──[rota 90°]──▶  A'
-           ──[+vx 0.80m lateral]──▶  Spawn'  (≈ spawn)
-  Evalúa la combinación de control lineal + rotación + alineación final.
-  Fitness: ITAE posición en cada tramo + error de posición final.
-
-══════════════════════════════════════════════════════════════════════════
 EJECUCIÓN
----------
-  # Terminal 1 — simulación
+  # T1 — simulación
   ros2 launch omni_dofbot_bringup omni_dofbot_controller.launch.py
-
-  # Terminal 2 — cinemática PID (recibe /cmd_vel, publica a ruedas)
+  # T2 — cinemática PID
   ros2 run omni_dofbot_bringup mecanum_kinematic_node.py
-
-  # Terminal 3 — este nodo
+  # T3 — odometría (lanzar antes del AG)
+  ros2 run omni_dofbot_bringup mecanum_odometry_node.py
+  # T4 — este nodo
   ros2 run omni_dofbot_bringup ag_motion_tests.py
 
 DEPENDENCIAS:
   pip install deap --break-system-packages
 """
 
-import math
-import time
-import threading
-import subprocess
-import random
-import json
+import math, time, threading, subprocess, random, json, os, webbrowser
+from dataclasses import dataclass, field
+from typing import List
 
 import rclpy
 from rclpy.node import Node
@@ -65,568 +37,921 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 
 from rcl_interfaces.srv import SetParameters
 from rcl_interfaces.msg import Parameter, ParameterValue, ParameterType
-
+from builtin_interfaces.msg import Duration
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 from geometry_msgs.msg import Twist, Pose, Point, Quaternion
 from nav_msgs.msg import Odometry
-
+from std_msgs.msg import Float64
+from std_srvs.srv import Empty
 from ros_gz_interfaces.srv import SetEntityPose
 from ros_gz_interfaces.msg import Entity
 
 from deap import base, creator, tools, algorithms
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # CONFIGURACIÓN
 # ══════════════════════════════════════════════════════════════════════════════
 
-# ── Arena (arena_world.world) ─────────────────────────────────────────────────
-ARENA_HALF_X = 0.48   # semiancho usable en X  (0.61 m pared - 0.03 grosor - 0.10 footprint)
-ARENA_HALF_Y = 1.10   # semilargo  usable en Y  (±1.10 m)
+WORLD_NAME   = "arena_pid_tuning"
+ROBOT_NAME   = "omni_dofbot"
 
-# ── Distancias de las pruebas ─────────────────────────────────────────────────
-# Prueba 1 y 3: distancia recta en X
-DIST_X = 0.40   # m  (margen ≈ 0.08 m respecto a la pared con footprint del robot)
+# ── Distancias de prueba ──────────────────────────────────────────────────────
+# El robot se teleporta con yaw=π/2 (frente apuntando al eje +Y largo de la
+# arena). DIST_X en las primitivas corresponde al avance frontal del robot,
+# que en el marco del mundo se mueve en la dirección Y.
+DIST_X     = 0.80   # m — recta P1 / P3  (aprovecha el largo de 1.10 m)
+DIST_RIGHT = 0.35   # m — lateral P2 (tope eje corto X, margen 0.13 m)
+DIST_LEFT  = 0.35   # m — lateral P2
 
-# Prueba 2: distancias laterales.
-# El robot spawns en el centro; va al tope derecho, cruza al izquierdo, regresa.
-DIST_RIGHT  =  0.40   # m a la derecha  (+Y cuerpo = -Y mundo con yaw=0)
-DIST_LEFT   =  0.40   # m a la izquierda desde el centro (-Y cuerpo)
-# total lateral recorrido: 0.40 + 0.80 + 0.40 = 1.60 m dentro de 2.20 m usables
+# ── Velocidades de referencia cmd_vel ─────────────────────────────────────────
+VX_REF = 0.40   # m/s
+VY_REF = 0.40   # m/s
+WZ_REF = 1.00   # rad/s
 
-# ── Velocidades de referencia enviadas por cmd_vel ────────────────────────────
-VX_REF  = 0.20   # m/s adelante/atrás
-VY_REF  = 0.20   # m/s lateral
-WZ_REF  = 0.50   # rad/s rotación
-
-# ── Parámetros de lazo ────────────────────────────────────────────────────────
-CTRL_DT       = 0.05    # s   — período del lazo de espera (20 Hz)
-SETTLE_TIME   = 0.6     # s   — pausa entre segmentos (el robot se detiene)
-TIMEOUT_MOVE  = 12.0    # s   — timeout por segmento de traslación
-TIMEOUT_ROT   = 6.0     # s   — timeout por segmento de rotación
-POS_TOL       = 0.04    # m   — umbral para declarar que llegó al setpoint
-YAW_TOL       = 0.05    # rad — umbral para declarar rotación completa
+# ── Lazo de control ───────────────────────────────────────────────────────────
+CTRL_DT      = 0.05   # s  (20 Hz)
+SETTLE_TIME  = 0.60   # s  pausa entre segmentos
+TIMEOUT_MOVE = 5.0    # s  timeout traslación
+TIMEOUT_ROT  = 5.0    # s  timeout rotación
+POS_TOL      = 0.04   # m  umbral "llegó"
+YAW_TOL      = 0.05   # rad umbral "rotó"
 
 # ── AG ────────────────────────────────────────────────────────────────────────
-POP_SIZE  = 16
-N_GEN     = 8
-CX_PROB   = 0.50
-MUT_PROB  = 0.20
-KP_RANGE  = (0.0, 15.0)
-KI_RANGE  = (0.0,  5.0)
-KD_RANGE  = (0.0,  3.0)
+POP_SIZE    = 16
+N_GEN       = 8
+CX_PROB     = 0.50
+MUT_PROB    = 0.20
+# CORRECCIÓN: Kd debe estar casi anulado para un control de velocidad, 
+# Kp acotado para evitar inestabilidades severas.
+KP_RANGE    = (0.0,  1.0)
+KI_RANGE    = (0.0,  0.5)
+KD_RANGE    = (0.0,  0.01) 
+W1, W2, W3  = 0.30, 0.40, 0.30
+PENALTY_TO  = 50.0
 
-# Pesos de fitness combinado (P1 + P2 + P3 se suman ponderados)
-W1 = 0.30   # línea recta
-W2 = 0.40   # lateral  (más difícil → más peso)
-W3 = 0.30   # combinada
+# ── Brazo Dofbot — coreografía determinista ───────────────────────────────────
+ARM_JOINTS = ["arm_joint_01","arm_joint_02","arm_joint_03",
+              "arm_joint_04","arm_joint_05"]
+GRIP_JOINTS = ["grip_joint"]
+ARM_TOPIC   = "/dofbot_trajectory_controller/joint_trajectory"
+GRIP_TOPIC  = "/dofbot_gripper_controller/joint_trajectory"
+ARM_MOVE_DUR = 1     # s
+ARM_HOLD_DUR = 1.0   # s
 
-# Penalización si el robot toca timeout o no llega
-PENALTY_TIMEOUT = 50.0
+ARM_POSES = [
+    [0.00,  0.00,  0.00,  0.00,  0.00],
+    [0.31, -1.05, -0.50, -0.61,  1.57],
+    [0.39,  0.86, -0.91, -0.17, -0.77],
+    [-0.62, 0.01, -1.04, -0.66,  1.28],
+    [0.10, -0.62,  0.20,  0.68, -0.84],
+    [0.67,  0.44, -0.35, -0.76,  2.29],
+]
+ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
+GRIP_OPEN   =  0.00
+GRIP_CLOSED = -1.54
 
-# ── Infraestructura ───────────────────────────────────────────────────────────
-ROBOT_NAME = "omni_dofbot"
-WORLD_NAME = "arena_pid_tuning"
-
+# ── Salidas ───────────────────────────────────────────────────────────────────
+OUT_PNG  = "ag_results.png"
+OUT_HTML = "ag_results.html"
+OUT_JSON = "ag_results.json"
 
 # ══════════════════════════════════════════════════════════════════════════════
-# DEAP  (se define fuera de main para no llamar creator.create dos veces)
+# Estructuras de datos para logging
+# ══════════════════════════════════════════════════════════════════════════════
+@dataclass
+class SegmentLog:
+    name:    str
+    t:       List[float] = field(default_factory=list)
+    vx_ref:  List[float] = field(default_factory=list)
+    vy_ref:  List[float] = field(default_factory=list)
+    wz_ref:  List[float] = field(default_factory=list)
+    vx_real: List[float] = field(default_factory=list)
+    vy_real: List[float] = field(default_factory=list)
+    wz_real: List[float] = field(default_factory=list)
+    pos_err: List[float] = field(default_factory=list)
+    # ── Pose deseada vs obtenida (series de tiempo) ─────────────────────────
+    x_ref:    List[float] = field(default_factory=list)
+    y_ref:    List[float] = field(default_factory=list)
+    yaw_ref:  List[float] = field(default_factory=list)
+    x_real:   List[float] = field(default_factory=list)
+    y_real:   List[float] = field(default_factory=list)
+    yaw_real: List[float] = field(default_factory=list)
+
+@dataclass
+class IndividualLog:
+    gen: int; idx: int
+    kp: float; ki: float; kd: float
+    cost_p1: float = 0.0; cost_p2: float = 0.0; cost_p3: float = 0.0
+    fitness: float = 0.0
+    segments_p1: List[SegmentLog] = field(default_factory=list)
+    segments_p2: List[SegmentLog] = field(default_factory=list)
+    segments_p3: List[SegmentLog] = field(default_factory=list)
+
+@dataclass
+class GenLog:
+    gen: int
+    min_fit: float; mean_fit: float; max_fit: float
+    best_kp: float; best_ki: float; best_kd: float
+
+# ══════════════════════════════════════════════════════════════════════════════
+# DEAP
 # ══════════════════════════════════════════════════════════════════════════════
 creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
 creator.create("Individual", list, fitness=creator.FitnessMin)
 
-
 # ══════════════════════════════════════════════════════════════════════════════
-# Clase de pose 2D
+# Pose 2D
 # ══════════════════════════════════════════════════════════════════════════════
 class Pose2D:
-    def __init__(self, x: float = 0.0, y: float = 0.0, yaw: float = 0.0):
-        self.x   = x
-        self.y   = y
-        self.yaw = yaw
-
-    def copy(self) -> "Pose2D":
-        return Pose2D(self.x, self.y, self.yaw)
-
-    def dist(self, other: "Pose2D") -> float:
-        return math.hypot(self.x - other.x, self.y - other.y)
-
-    def __repr__(self) -> str:
-        return (f"Pose2D(x={self.x:.3f}, y={self.y:.3f}, "
-                f"yaw={math.degrees(self.yaw):.1f}°)")
-
+    def __init__(self, x=0.0, y=0.0, yaw=0.0):
+        self.x, self.y, self.yaw = x, y, yaw
+    def copy(self): return Pose2D(self.x, self.y, self.yaw)
+    def dist(self, o): return math.hypot(self.x-o.x, self.y-o.y)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Nodo ROS 2
+# Nodo principal
 # ══════════════════════════════════════════════════════════════════════════════
 class AGMotionEvaluator(Node):
-    """
-    Nodo que:
-      1. Inyecta ganancias PID en mecanum_kinematic_node via set_parameters.
-      2. Ejecuta las 3 pruebas publicando en /cmd_vel.
-      3. Lee /odom para calcular el fitness (ITAE relativo).
-      4. Teleporta el robot al origen entre evaluaciones.
-    """
 
     def __init__(self):
         super().__init__("ag_motion_evaluator")
         cbg = ReentrantCallbackGroup()
 
-        # ── Publishers / clients ──────────────────────────────────────────────
-        self._cmd_vel_pub = self.create_publisher(Twist, "/cmd_vel", 10)
+        # ── Publishers ────────────────────────────────────────────────────────
+        self._cmd_pub  = self.create_publisher(Twist, "/cmd_vel", 10)
+        self._arm_pub  = self.create_publisher(JointTrajectory, ARM_TOPIC,  10)
+        self._grip_pub = self.create_publisher(JointTrajectory, GRIP_TOPIC, 10)
 
-        self._pid_client = self.create_client(
-            SetParameters,
-            "/mecanum_kinematic_node/set_parameters",
-            callback_group=cbg,
-        )
-        self._teleport_client = self.create_client(
-            SetEntityPose,
-            f"/world/{WORLD_NAME}/set_entity_pose",
-            callback_group=cbg,
-        )
+        from rclpy.qos import qos_profile_sensor_data
+        self._pub_err   = self.create_publisher(Float64, "ag_live_error",    qos_profile_sensor_data)
+        self._pub_vref  = self.create_publisher(Float64, "ag_live_vel_ref",  qos_profile_sensor_data)
+        self._pub_vreal = self.create_publisher(Float64, "ag_live_vel_real", qos_profile_sensor_data)
 
-        # ── Odometría ─────────────────────────────────────────────────────────
-        # _pose siempre contiene la pose más reciente publicada por /odom.
-        # _origin se fija al inicio de cada prueba; todos los errores son
-        # relativos a ese punto.
-        self._lock       = threading.Lock()
-        self._pose       = Pose2D()
-        self._origin     = Pose2D()
+        # ── Pose deseada vs obtenida — tópicos en vivo ──────────────────────────
+        self._pub_x_ref   = self.create_publisher(Float64, "ag_live_x_ref",   qos_profile_sensor_data)
+        self._pub_y_ref   = self.create_publisher(Float64, "ag_live_y_ref",   qos_profile_sensor_data)
+        self._pub_yaw_ref = self.create_publisher(Float64, "ag_live_yaw_ref", qos_profile_sensor_data)
+        self._pub_x_real   = self.create_publisher(Float64, "ag_live_x_real",   qos_profile_sensor_data)
+        self._pub_y_real   = self.create_publisher(Float64, "ag_live_y_real",   qos_profile_sensor_data)
+        self._pub_yaw_real = self.create_publisher(Float64, "ag_live_yaw_real", qos_profile_sensor_data)
 
-        # Estado del integrador de ITAE
-        self._itae_accum = 0.0
-        self._itae_t     = 0.0
-        self._itae_target = Pose2D()
-        self._measuring  = False
+        # ── Clientes de servicio ──────────────────────────────────────────────
+        self._pid_cli = self.create_client(
+            SetParameters, "/mecanum_kinematic_node/set_parameters",
+            callback_group=cbg)
+
+        self._tp_cli = self.create_client(
+            SetEntityPose, f"/world/{WORLD_NAME}/set_entity_pose",
+            callback_group=cbg)
+
+        # Cliente para resetear la odometría de mecanum_odometry_node
+        self._reset_odom_cli = self.create_client(
+            Empty, '/mecanum_odometry_node/reset_pose',
+            callback_group=cbg)
+
+        # ── Estado de odometría ───────────────────────────────────────────────
+        self._lock         = threading.Lock()
+        self._pose         = Pose2D()
+        self._origin       = Pose2D()
+        self._vel_real     = (0.0, 0.0, 0.0)
+        self._current_vref = (0.0, 0.0, 0.0)
+        self._itae_accum   = 0.0
+        
+        # CORRECCIÓN: Tiempos reales para cálculo matemático riguroso de ITAE
+        self._start_eval_t = 0.0  
+        self._last_odom_t  = 0.0  
+        
+        self._itae_target  = Pose2D()
+        self._yaw_ref_live = 0.0
+        self._measuring    = False
+        self._seg_log: SegmentLog = None
 
         self.create_subscription(
-            Odometry, "/odom", self._odom_cb, 10, callback_group=cbg
-        )
+            Odometry, "/odom", self._odom_cb, qos_profile_sensor_data, callback_group=cbg)
 
-        self.get_logger().info("AGMotionEvaluator iniciado.")
+        # ── Logging AG ────────────────────────────────────────────────────────
+        self._all_individuals: List[IndividualLog] = []
+        self._gen_logs:        List[GenLog]        = []
+        self._current_gen = 0
+        self._current_idx = 0
+        self._arm_active  = False
 
-    # ── Callback de odometría ─────────────────────────────────────────────────
+        self.get_logger().info("AGMotionEvaluator listo.")
+
+    # ── Odometría ─────────────────────────────────────────────────────────────
     def _odom_cb(self, msg: Odometry):
-        q = msg.pose.pose.orientation
-        siny = 2.0 * (q.w * q.z + q.x * q.y)
-        cosy = 1.0 - 2.0 * (q.y ** 2 + q.z ** 2)
-        yaw  = math.atan2(siny, cosy)
+        q   = msg.pose.pose.orientation
+        yaw = math.atan2(2*(q.w*q.z + q.x*q.y), 1 - 2*(q.y**2 + q.z**2))
+        vx  = msg.twist.twist.linear.x
+        vy  = msg.twist.twist.linear.y
+        wz  = msg.twist.twist.angular.z
 
         with self._lock:
-            self._pose = Pose2D(
-                msg.pose.pose.position.x,
-                msg.pose.pose.position.y,
-                yaw,
-            )
+            self._pose     = Pose2D(msg.pose.pose.position.x,
+                                    msg.pose.pose.position.y, yaw)
+            self._vel_real = (vx, vy, wz)
+
             if self._measuring:
-                ex = self._itae_target.x - self._pose.x
-                ey = self._itae_target.y - self._pose.y
+                # CORRECCIÓN: Cálculo de ITAE con dt real
+                now = time.time()
+                dt = now - self._last_odom_t
+                if dt <= 0.0: dt = 0.001 # Protección matemática
+                self._last_odom_t = now
+                
+                ex  = self._itae_target.x - self._pose.x
+                ey  = self._itae_target.y - self._pose.y
                 err = math.hypot(ex, ey)
-                # ITAE: tiempo × error acumulado
-                self._itae_t     += CTRL_DT
-                self._itae_accum += self._itae_t * err * CTRL_DT
+                
+                t_real = now - self._start_eval_t
+                self._itae_accum += t_real * err * dt
 
-    # ── Helpers de odometría ──────────────────────────────────────────────────
-    def _current_pose(self) -> Pose2D:
-        with self._lock:
-            return self._pose.copy()
+                x_ref   = self._itae_target.x
+                y_ref   = self._itae_target.y
+                yaw_ref = self._yaw_ref_live
 
-    def _pose_relative(self) -> Pose2D:
-        """Pose actual relativa al origen fijado al inicio de la prueba."""
-        with self._lock:
-            return Pose2D(
-                self._pose.x - self._origin.x,
-                self._pose.y - self._origin.y,
-                self._pose.yaw,
-            )
+                if self._seg_log is not None:
+                    self._seg_log.pos_err.append(err)
+                    self._seg_log.vx_real.append(vx)
+                    self._seg_log.vy_real.append(vy)
+                    self._seg_log.wz_real.append(wz)
+                    self._seg_log.x_ref.append(x_ref)
+                    self._seg_log.y_ref.append(y_ref)
+                    self._seg_log.yaw_ref.append(yaw_ref)
+                    self._seg_log.x_real.append(self._pose.x)
+                    self._seg_log.y_real.append(self._pose.y)
+                    self._seg_log.yaw_real.append(self._pose.yaw)
+
+                msg_e = Float64(); msg_e.data = float(err)
+                self._pub_err.publish(msg_e)
+
+                vref_x, vref_y, _ = self._current_vref
+                msg_vref  = Float64()
+                msg_vreal = Float64()
+                if abs(vref_x) >= abs(vref_y):
+                    msg_vref.data, msg_vreal.data = float(vref_x), float(vx)
+                else:
+                    msg_vref.data, msg_vreal.data = float(vref_y), float(vy)
+                self._pub_vref.publish(msg_vref)
+                self._pub_vreal.publish(msg_vreal)
+
+                # ── Publicar pose deseada vs obtenida (en vivo) ─────────────────
+                m = Float64(); m.data = float(x_ref);        self._pub_x_ref.publish(m)
+                m = Float64(); m.data = float(y_ref);        self._pub_y_ref.publish(m)
+                m = Float64(); m.data = float(yaw_ref);      self._pub_yaw_ref.publish(m)
+                m = Float64(); m.data = float(self._pose.x); self._pub_x_real.publish(m)
+                m = Float64(); m.data = float(self._pose.y); self._pub_y_real.publish(m)
+                m = Float64(); m.data = float(self._pose.yaw); self._pub_yaw_real.publish(m)
+
+    def _get_pose(self) -> Pose2D:
+        with self._lock: return self._pose.copy()
+
+    def _get_vel_real(self):
+        with self._lock: return self._vel_real
 
     def _fix_origin(self):
-        """Registra la pose actual como punto de referencia (origen relativo)."""
-        with self._lock:
-            self._origin = self._pose.copy()
+        with self._lock: self._origin = self._pose.copy()
 
-    def _start_itae(self, target: Pose2D):
-        """Activa el integrador ITAE hacia el target dado (coords absolutas)."""
+    def _pose_rel(self) -> Pose2D:
         with self._lock:
-            self._itae_target = target.copy()
-            self._itae_accum  = 0.0
-            self._itae_t      = 0.0
-            self._measuring   = True
+            return Pose2D(self._pose.x - self._origin.x,
+                          self._pose.y - self._origin.y,
+                          self._pose.yaw)
+
+    def _start_itae(self, target: Pose2D, seg_log: SegmentLog = None):
+        with self._lock:
+            self._itae_target  = target.copy()
+            self._itae_accum   = 0.0
+            
+            # CORRECCIÓN: Iniciar relojes
+            self._start_eval_t = time.time()  
+            self._last_odom_t  = time.time()  
+            
+            self._measuring    = True
+            self._seg_log      = seg_log
+            self._yaw_ref_live = target.yaw
 
     def _stop_itae(self) -> float:
         with self._lock:
             self._measuring = False
+            self._seg_log   = None
             return self._itae_accum
 
-    # ── Publicar / detener cmd_vel ────────────────────────────────────────────
-    def _send(self, vx: float = 0.0, vy: float = 0.0, wz: float = 0.0):
+    # ── Reset de odometría ────────────────────────────────────────────────────
+    def _reset_odometry(self):
+        if not self._reset_odom_cli.wait_for_service(timeout_sec=2.0):
+            self.get_logger().warn(
+                "Servicio /mecanum_odometry_node/reset_pose no disponible.")
+            return
+
+        fut = self._reset_odom_cli.call_async(Empty.Request())
+        t0  = time.time()
+        while not fut.done() and time.time() - t0 < 2.0:
+            time.sleep(0.05)
+
+        if fut.done():
+            self.get_logger().info("Odometría reseteada a (0, 0, 90°).")
+        else:
+            self.get_logger().warn("Timeout esperando reset de odometría.")
+
+    # ── Brazo Dofbot ──────────────────────────────────────────────────────────
+    def _send_arm(self, positions: list, duration_sec: int = ARM_MOVE_DUR):
+        msg = JointTrajectory()
+        msg.joint_names = ARM_JOINTS
+        pt  = JointTrajectoryPoint()
+        pt.positions       = [float(v) for v in positions]
+        # CORRECCIÓN: Forzar cast a int() para que ROS 2 C++ no aborte
+        pt.time_from_start = Duration(sec=int(duration_sec), nanosec=0)
+        msg.points.append(pt)
+        self._arm_pub.publish(msg)
+
+    def _send_grip(self, position: float, duration_sec: int = ARM_MOVE_DUR):
+        msg = JointTrajectory()
+        msg.joint_names = GRIP_JOINTS
+        pt  = JointTrajectoryPoint()
+        pt.positions       = [float(position)]
+        # CORRECCIÓN: Forzar cast a int() para que ROS 2 C++ no aborte
+        pt.time_from_start = Duration(sec=int(duration_sec), nanosec=0)
+        msg.points.append(pt)
+        self._grip_pub.publish(msg)
+
+    def _arm_loop(self):
+        self.get_logger().info("[Brazo] hilo iniciado")
+        step = 0
+        while self._arm_active:
+            idx_1, idx_2 = ARM_CHOREOGRAPHY[step % len(ARM_CHOREOGRAPHY)]
+            step += 1
+
+            self._send_arm(ARM_POSES[idx_1])
+            self._send_grip(GRIP_OPEN)
+            t0 = time.time()
+            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
+                time.sleep(0.05)
+            if not self._arm_active: break
+
+            self._send_grip(GRIP_CLOSED)
+            time.sleep(ARM_HOLD_DUR)
+            if not self._arm_active: break
+
+            self._send_arm(ARM_POSES[idx_2])
+            t0 = time.time()
+            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
+                time.sleep(0.05)
+            if not self._arm_active: break
+
+            self._send_grip(GRIP_OPEN)
+            time.sleep(ARM_HOLD_DUR)
+            if not self._arm_active: break
+
+            self._send_arm(ARM_POSES[0])
+            t0 = time.time()
+            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
+                time.sleep(0.05)
+
+        self._send_arm(ARM_POSES[0])
+        self._send_grip(GRIP_OPEN)
+        self.get_logger().info("[Brazo] hilo detenido → HOME")
+
+    def _start_arm(self):
+        self._arm_active  = True
+        self._arm_thread  = threading.Thread(target=self._arm_loop, daemon=True)
+        self._arm_thread.start()
+
+    def _stop_arm(self):
+        self._arm_active = False
+        if hasattr(self, '_arm_thread'):
+            self._arm_thread.join(timeout=ARM_MOVE_DUR + 1.0)
+
+    # ── cmd_vel ───────────────────────────────────────────────────────────────
+    def _send(self, vx=0.0, vy=0.0, wz=0.0):
+        with self._lock:
+            self._current_vref = (vx, vy, wz)
         msg = Twist()
         msg.linear.x  = float(vx)
         msg.linear.y  = float(vy)
         msg.angular.z = float(wz)
-        self._cmd_vel_pub.publish(msg)
+        self._cmd_pub.publish(msg)
 
-    def _stop(self):
-        self._send()   # todos ceros
+    def _stop(self): self._send()
 
-    # ── Teleport al origen de la arena ────────────────────────────────────────
-    def _teleport_to_origin(self):
-        """
-        Mueve el robot al centro de la arena (0, 0) con yaw = 0.
-        Intenta primero el servicio ROS 2; si falla, usa gz service CLI.
-        """
+    # ── Teleport ──────────────────────────────────────────────────────────────
+    def _teleport(self):
         self._stop()
         time.sleep(0.15)
 
         done = False
-        if self._teleport_client.wait_for_service(timeout_sec=2.0):
+        if self._tp_cli.wait_for_service(timeout_sec=2.0):
             req = SetEntityPose.Request()
             req.entity.name = ROBOT_NAME
             req.entity.type = Entity.MODEL
             req.pose = Pose()
             req.pose.position    = Point(x=0.0, y=0.0, z=0.12)
-            req.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
-            fut = self._teleport_client.call_async(req)
-            t0 = time.time()
-            while not fut.done() and time.time() - t0 < 3.0:
+            # yaw = π/2  →  quaternion (z=sin(π/4), w=cos(π/4))
+            req.pose.orientation = Quaternion(x=0.0, y=0.0,
+                                              z=0.7071068, w=0.7071068)
+            fut = self._tp_cli.call_async(req)
+            t0  = time.time()
+            while not fut.done() and time.time()-t0 < 3.0:
                 time.sleep(0.05)
             done = fut.done() and fut.result() is not None
 
         if not done:
-            req_str = (
-                f'name: "{ROBOT_NAME}", '
-                f'position: {{x: 0.0, y: 0.0, z: 0.12}}, '
-                f'orientation: {{x: 0.0, y: 0.0, z: 0.0, w: 1.0}}'
-            )
+            rs = (f'name: "{ROBOT_NAME}", '
+                  f'position: {{x:0,y:0,z:0.12}}, '
+                  f'orientation: {{x:0,y:0,z:0.7071068,w:0.7071068}}')
             try:
                 subprocess.run(
-                    ["gz", "service", "-s", f"/world/{WORLD_NAME}/set_pose",
-                     "--reqtype", "gz.msgs.Pose",
-                     "--reptype", "gz.msgs.Boolean",
-                     "--timeout", "2000", "--req", req_str],
-                    check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                )
+                    ["gz","service","-s",f"/world/{WORLD_NAME}/set_pose",
+                     "--reqtype","gz.msgs.Pose","--reptype","gz.msgs.Boolean",
+                     "--timeout","2000","--req",rs],
+                    check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             except subprocess.CalledProcessError as e:
                 self.get_logger().error(f"Teleport gz falló: {e.stderr.decode()}")
 
-        # Esperar a que el robot se asiente físicamente
         time.sleep(0.80)
         self._fix_origin()
+        self._reset_odometry()
 
-    # ── Inyectar ganancias PID ────────────────────────────────────────────────
-    def _set_pid(self, kp: float, ki: float, kd: float):
-        if not self._pid_client.wait_for_service(timeout_sec=5.0):
-            self.get_logger().error("mecanum_kinematic_node no disponible.")
-            return
+    # ── Primitivas de movimiento ──────────────────────────────────────────────
+    def _drive(self, dist_m: float, axis: str, vx=0.0, vy=0.0,
+               timeout=TIMEOUT_MOVE, seg_name="") -> tuple:
+        p0 = self._get_pose()
 
-        def _p(name: str, val: float) -> Parameter:
-            return Parameter(
-                name=name,
-                value=ParameterValue(
-                    type=ParameterType.PARAMETER_DOUBLE,
-                    double_value=float(val),
-                ),
-            )
-
-        req = SetParameters.Request()
-        req.parameters = [_p("kp", kp), _p("ki", ki), _p("kd", kd)]
-        fut = self._pid_client.call_async(req)
-        t0 = time.time()
-        while not fut.done() and time.time() - t0 < 3.0:
-            time.sleep(0.05)
-
-    # ── Primitiva: mover hasta que se recorra 'dist' metros en un eje ─────────
-    def _drive_until_dist(
-        self,
-        dist_m: float,
-        axis: str,               # "x" o "y"
-        vx: float = 0.0,
-        vy: float = 0.0,
-        timeout: float = TIMEOUT_MOVE,
-    ) -> tuple[float, float, bool]:
-        """
-        Publica velocidad constante hasta que el desplazamiento relativo al
-        punto de inicio del segmento alcance dist_m en el eje indicado.
-
-        Retorna (itae, tiempo_s, llegó_a_tiempo).
-        El target para ITAE es la posición final esperada (absoluta).
-        """
-        p0 = self._current_pose()
-
-        # Calcular target absoluto del segmento
         if axis == "x":
-            target = Pose2D(
-                p0.x + math.cos(p0.yaw) * dist_m,
-                p0.y + math.sin(p0.yaw) * dist_m,
-                p0.yaw,
-            )
-        else:  # "y"
-            # +vy en cmd_vel mueve a la izquierda del robot (convención ROS)
-            sign_y = math.copysign(1.0, dist_m)
-            target = Pose2D(
-                p0.x - math.sin(p0.yaw) * dist_m,
-                p0.y + math.cos(p0.yaw) * dist_m,
-                p0.yaw,
-            )
+            target = Pose2D(p0.x + math.cos(p0.yaw)*dist_m,
+                            p0.y + math.sin(p0.yaw)*dist_m, p0.yaw)
+        else:
+            target = Pose2D(p0.x - math.sin(p0.yaw)*dist_m,
+                            p0.y + math.cos(p0.yaw)*dist_m, p0.yaw)
 
-        self._start_itae(target)
-        t0   = time.time()
-        ok   = False
+        slog = SegmentLog(name=seg_name)
+        self._start_itae(target, slog)
+        t0, ok = time.time(), False
 
-        while time.time() - t0 < timeout:
-            p       = self._current_pose()
-            dx      = p.x - p0.x
-            dy      = p.y - p0.y
+        while time.time()-t0 < timeout:
+            p  = self._get_pose()
+            dx = p.x - p0.x
+            dy = p.y - p0.y
             traveled = (
-                dx * math.cos(p0.yaw) + dy * math.sin(p0.yaw)
+                dx*math.cos(p0.yaw) + dy*math.sin(p0.yaw)
                 if axis == "x"
-                else -dx * math.sin(p0.yaw) + dy * math.cos(p0.yaw)
+                else -dx*math.sin(p0.yaw) + dy*math.cos(p0.yaw)
             )
+
             if abs(traveled) >= abs(dist_m) - POS_TOL:
-                ok = True
+                ok = True; break
+
+            if abs(traveled) > abs(dist_m) + 0.12:
+                self.get_logger().warn(f"Overshoot ({traveled:.2f}m) — freno emergencia.")
                 break
+
+            t_rel = time.time() - t0
+            vr    = self._get_vel_real()
+            slog.t.append(t_rel)
+            slog.vx_ref.append(vx);   slog.vy_ref.append(vy);   slog.wz_ref.append(0.0)
+            slog.vx_real.append(vr[0]); slog.vy_real.append(vr[1]); slog.wz_real.append(vr[2])
+
             self._send(vx=vx, vy=vy)
             time.sleep(CTRL_DT)
 
         self._stop()
-        itae = self._stop_itae()
+        itae    = self._stop_itae()
         elapsed = time.time() - t0
         time.sleep(SETTLE_TIME)
-        return itae, elapsed, ok
+        return itae, elapsed, ok, slog
 
-    # ── Primitiva: rotar 'angle_rad' radianes ─────────────────────────────────
-    def _rotate(
-        self,
-        angle_rad: float,
-        timeout: float = TIMEOUT_ROT,
-    ) -> tuple[float, bool]:
-        """
-        Gira el robot angle_rad radianes (+ = antihorario).
-        Retorna (error_yaw_residual_rad, llegó_a_tiempo).
-        """
-        p0       = self._current_pose()
+    def _rotate(self, angle_rad: float, timeout=TIMEOUT_ROT, seg_name="") -> tuple:
+        p0       = self._get_pose()
         goal_yaw = p0.yaw + angle_rad
         sign     = math.copysign(1.0, angle_rad)
-        t0       = time.time()
-        ok       = False
+        t0, ok   = time.time(), False
 
-        while time.time() - t0 < timeout:
-            p    = self._current_pose()
-            diff = goal_yaw - p.yaw
-            # Normalizar a (−π, π]
-            diff = (diff + math.pi) % (2 * math.pi) - math.pi
+        target = Pose2D(p0.x, p0.y, goal_yaw)
+        slog   = SegmentLog(name=seg_name) if seg_name else None
+        self._start_itae(target, slog)
+
+        while time.time()-t0 < timeout:
+            p    = self._get_pose()
+            diff = (goal_yaw - p.yaw + math.pi) % (2*math.pi) - math.pi
             if abs(diff) <= YAW_TOL:
-                ok = True
-                break
-            # Velocidad proporcional al error restante (con mínimo)
-            wz = sign * max(0.15, min(WZ_REF, abs(diff) * 1.5))
+                ok = True; break
+
+            wz = sign * max(0.15, min(WZ_REF, abs(diff)*1.5))
+
+            t_rel    = time.time() - t0
+            est_total = max(abs(angle_rad) / WZ_REF, 1e-3)
+            frac      = min(1.0, t_rel / est_total)
+            with self._lock:
+                self._yaw_ref_live = p0.yaw + angle_rad * frac
+                self._current_vref = (0.0, 0.0, wz)
+
+            if slog is not None:
+                vr = self._get_vel_real()
+                slog.t.append(t_rel)
+                slog.vx_ref.append(0.0); slog.vy_ref.append(0.0); slog.wz_ref.append(wz)
+                slog.vx_real.append(vr[0]); slog.vy_real.append(vr[1]); slog.wz_real.append(vr[2])
+
             self._send(wz=wz)
             time.sleep(CTRL_DT)
 
         self._stop()
-        p    = self._current_pose()
-        diff = goal_yaw - p.yaw
-        diff = (diff + math.pi) % (2 * math.pi) - math.pi
+        with self._lock:
+            self._yaw_ref_live = goal_yaw
+        self._stop_itae()
+
+        p    = self._get_pose()
+        diff = (goal_yaw - p.yaw + math.pi) % (2*math.pi) - math.pi
         time.sleep(SETTLE_TIME)
-        return abs(diff), ok
+        return abs(diff), ok, slog
+
+    # ── PID ───────────────────────────────────────────────────────────────────
+    def _set_pid(self, kp, ki, kd):
+        if not self._pid_cli.wait_for_service(timeout_sec=5.0):
+            self.get_logger().error("mecanum_kinematic_node no disponible")
+            return
+        def _p(n, v):
+            return Parameter(name=n,
+                value=ParameterValue(type=ParameterType.PARAMETER_DOUBLE,
+                                     double_value=float(v)))
+        req = SetParameters.Request()
+        req.parameters = [_p("kp",kp), _p("ki",ki), _p("kd",kd)]
+        fut = self._pid_cli.call_async(req)
+        t0  = time.time()
+        while not fut.done() and time.time()-t0 < 3.0:
+            time.sleep(0.05)
 
     # ══════════════════════════════════════════════════════════════════════════
-    # PRUEBA 1 — Línea recta en X: avanza y regresa
+    # PRUEBA 1 — Línea recta frontal: adelante y atrás
     # ══════════════════════════════════════════════════════════════════════════
-    def _run_test1(self) -> float:
-        """
-        Desde el origen:
-          1. Avanza DIST_X metros en +X (frente del robot).
-          2. Regresa DIST_X metros en -X (atrás del robot, mismo eje).
+    def _run_test1(self, record=False):
+        self.get_logger().info("── P1: línea recta adelante-atrás ──")
+        self._teleport()
+        self._start_arm()
 
-        El robot NO rota en ningún momento.
+        i1, t1, ok1, s1 = self._drive( DIST_X, "x", vx=+VX_REF, seg_name="P1_adelante")
+        i2, t2, ok2, s2 = self._drive(-DIST_X, "x", vx=-VX_REF, seg_name="P1_atras")
 
-        Fitness: ITAE de los 2 tramos + penalización por error final.
-        """
-        self.get_logger().info("── Prueba 1: línea recta X ──")
-        self._teleport_to_origin()
+        self._stop_arm()
+        rel   = self._pose_rel()
+        err_f = math.hypot(rel.x, rel.y)
 
-        # Tramo 1: adelante
-        itae1, t1, ok1 = self._drive_until_dist(
-            DIST_X, axis="x", vx=+VX_REF
-        )
-        # Tramo 2: atrás (mismo eje, dirección opuesta)
-        itae2, t2, ok2 = self._drive_until_dist(
-            -DIST_X, axis="x", vx=-VX_REF
-        )
-
-        # Error de posición final relativo al origen
-        rel = self._pose_relative()
-        err_final = math.hypot(rel.x, rel.y)
-
-        # Normalización de ITAE (valor esperado con buen control ≈ 0.05 m·s²)
         ITAE_REF = 0.05
-        TIME_REF = 2 * DIST_X / VX_REF   # tiempo ideal sin PID
-        total_itae = itae1 + itae2
-        total_time = t1 + t2
-
-        cost = (0.60 * total_itae / ITAE_REF
-              + 0.30 * total_time  / TIME_REF
-              + 0.10 * err_final   / POS_TOL)
-
-        if not ok1 or not ok2:
-            cost += PENALTY_TIMEOUT
+        TIME_REF = 2 * DIST_X / VX_REF
+        cost = (0.60*(i1+i2)/ITAE_REF + 0.30*(t1+t2)/TIME_REF
+              + 0.10*err_f/POS_TOL)
+        if not ok1 or not ok2: cost += PENALTY_TO
 
         self.get_logger().info(
-            f"   ITAE={total_itae:.4f}  t={total_time:.1f}s  "
-            f"err_final={err_final:.3f}m  cost={cost:.4f}"
-        )
-        return cost
+            f"   ITAE={i1+i2:.4f} t={t1+t2:.1f}s err_f={err_f:.3f}m cost={cost:.4f}")
+        return cost, ([s1, s2] if record else [])
 
     # ══════════════════════════════════════════════════════════════════════════
     # PRUEBA 2 — Traslación lateral pura: derecha → izquierda → centro
     # ══════════════════════════════════════════════════════════════════════════
-    def _run_test2(self) -> float:
-        """
-        Desde el origen con yaw = 0 (frente al norte):
-          1. Desplaza DIST_RIGHT metros a la DERECHA  (-vy en marco del cuerpo,
-             porque +vy ROS = izquierda del robot).
-          2. Desplaza (DIST_RIGHT + DIST_LEFT) metros a la IZQUIERDA (+vy).
-          3. Desplaza DIST_LEFT metros a la DERECHA (-vy) → regresa al centro.
+    def _run_test2(self, record=False):
+        self.get_logger().info("── P2: lateral Y (D→I→C) ──")
+        self._teleport()
+        self._start_arm()
 
-        El robot NO rota en ningún momento.
+        total_cross = DIST_RIGHT + DIST_LEFT
+        i1, t1, ok1, s1 = self._drive(-DIST_RIGHT,  "y", vy=-VY_REF, seg_name="P2_derecha")
+        i2, t2, ok2, s2 = self._drive(+total_cross, "y", vy=+VY_REF, seg_name="P2_izquierda")
+        i3, t3, ok3, s3 = self._drive(-DIST_LEFT,   "y", vy=-VY_REF, seg_name="P2_centro")
 
-        Fitness: ITAE de los 3 tramos + penalización por error de posición
-                 final (debería estar de vuelta en el centro).
-        """
-        self.get_logger().info("── Prueba 2: lateral Y (D → I → C) ──")
-        self._teleport_to_origin()
-
-        total_lateral = DIST_RIGHT + DIST_LEFT   # cruce completo izq→der
-
-        # Tramo 1: al tope derecho
-        itae1, t1, ok1 = self._drive_until_dist(
-            -DIST_RIGHT, axis="y", vy=-VY_REF
-        )
-        # Tramo 2: al tope izquierdo  (cruza el centro + DIST_LEFT)
-        itae2, t2, ok2 = self._drive_until_dist(
-            +total_lateral, axis="y", vy=+VY_REF
-        )
-        # Tramo 3: de vuelta al centro
-        itae3, t3, ok3 = self._drive_until_dist(
-            -DIST_LEFT, axis="y", vy=-VY_REF
-        )
-
-        rel       = self._pose_relative()
-        err_final = math.hypot(rel.x, rel.y)
+        self._stop_arm()
+        rel   = self._pose_rel()
+        err_f = math.hypot(rel.x, rel.y)
 
         ITAE_REF = 0.08
-        TIME_REF = (2 * DIST_RIGHT + 2 * DIST_LEFT) / VY_REF
-        total_itae = itae1 + itae2 + itae3
-        total_time = t1 + t2 + t3
+        TIME_REF = (2*DIST_RIGHT + 2*DIST_LEFT) / VY_REF
+        total_itae = i1 + i2 + i3
 
-        cost = (0.60 * total_itae / ITAE_REF
-              + 0.25 * total_time  / TIME_REF
-              + 0.15 * err_final   / POS_TOL)
-
-        if not ok1 or not ok2 or not ok3:
-            cost += PENALTY_TIMEOUT
+        cost = (0.60*total_itae/ITAE_REF + 0.25*(t1+t2+t3)/TIME_REF
+              + 0.15*err_f/POS_TOL)
+        if not ok1 or not ok2 or not ok3: cost += PENALTY_TO
 
         self.get_logger().info(
-            f"   ITAE={total_itae:.4f}  t={total_time:.1f}s  "
-            f"err_final={err_final:.3f}m  cost={cost:.4f}"
-        )
-        return cost
+            f"   ITAE={total_itae:.4f} t={t1+t2+t3:.1f}s err_f={err_f:.3f}m cost={cost:.4f}")
+        return cost, ([s1, s2, s3] if record else [])
 
     # ══════════════════════════════════════════════════════════════════════════
-    # PRUEBA 3 — Combinada: avanza, rota, regresa de frente
+    # PRUEBA 3 — Combinada: avance + giro −90° + avance de frente
     # ══════════════════════════════════════════════════════════════════════════
-    def _run_test3(self) -> float:
-        """
-        Versión extendida de la Prueba 1 que usa rotación en lugar de
-        retroceder en línea recta:
+    def _run_test3(self, record=False):
+        self.get_logger().info("── P3: avance + giro + regreso de frente ──")
+        self._teleport()
+        self._start_arm()
 
-          Spawn (yaw=0)
-            │  +vx   DIST_X metros
-            ▼
-            A  (yaw=0)
-            │  rota −90°  (gira a la derecha, ahora el frente apunta al origen)
-            ▼
-            A' (yaw=−90°)
-            │  +vx   DIST_X (0.40 m) ← el robot avanza de frente hacia el origen
-            ▼
-            Spawn' ≈ Spawn
+        i1, t1, ok1, s1   = self._drive(DIST_X, "x", vx=+VX_REF, seg_name="P3_adelante")
+        err_yaw, ok_rot, s_rot = self._rotate(-math.pi / 2, seg_name="P3_giro")
+        i2, t2, ok2, s2   = self._drive(DIST_RIGHT, "x", vx=+VX_REF, seg_name="P3_regreso")
 
-        Evaluamos:
-          • ITAE del tramo 1 (avance en X)
-          • ITAE del tramo 2 (avance de frente hacia el origen)
-          • Error angular residual de la rotación
-          • Error de posición final respecto al origen
+        self._stop_arm()
+        rel   = self._pose_rel()
+        err_f = math.hypot(rel.x, rel.y)
 
-        Fitness combina los 4 términos.
-        """
-        self.get_logger().info("── Prueba 3: avance + giro + regreso de frente ──")
-        self._teleport_to_origin()
+        ITAE_REF = 0.08
+        TIME_REF = (DIST_X/VX_REF) + ((math.pi/2)/WZ_REF) + (DIST_RIGHT/VX_REF)
 
-        # Tramo 1: adelante en X
-        itae1, t1, ok1 = self._drive_until_dist(
-            DIST_X, axis="x", vx=+VX_REF
-        )
-
-        # Rotación: −90° (giro a la derecha para que el frente apunte al origen)
-        # Con yaw inicial ≈ 0 y habiendo avanzado en +X, rotar −90°
-        # hace que el frente (eje X del cuerpo) apunte en −Y del mundo,
-        # que es justamente la dirección de vuelta al spawn.
-        #
-        # Nota: la arena tiene las paredes en Y; DIST_X = 0.80 m que es
-        # exactamente el desplazamiento en X, así que avanzar DIST_X con
-        # el nuevo yaw lleva de vuelta al origen.
-        err_yaw, ok_rot = self._rotate(-math.pi / 2)
-
-        # Tramo 2: avanza de frente (en la nueva dirección, hacia el origen)
-        itae2, t2, ok2 = self._drive_until_dist(
-            DIST_X, axis="x", vx=+VX_REF
-        )
-
-        # Error de posición final
-        rel       = self._pose_relative()
-        err_final = math.hypot(rel.x, rel.y)
-
-        ITAE_REF  = 0.08
-        TIME_REF  = 2 * DIST_X / VX_REF + math.pi / 2 / WZ_REF
-        total_itae = itae1 + itae2
-        total_time = t1 + t2
-
-        cost = (0.45 * total_itae / ITAE_REF
-              + 0.20 * total_time  / TIME_REF
-              + 0.15 * err_yaw     / YAW_TOL
-              + 0.20 * err_final   / POS_TOL)
-
-        if not ok1 or not ok2 or not ok_rot:
-            cost += PENALTY_TIMEOUT
+        cost = (0.45*(i1+i2)/ITAE_REF + 0.20*(t1+t2)/TIME_REF
+              + 0.15*err_yaw/YAW_TOL + 0.20*err_f/POS_TOL)
+        if not ok1 or not ok2 or not ok_rot: cost += PENALTY_TO
 
         self.get_logger().info(
-            f"   ITAE={total_itae:.4f}  t={total_time:.1f}s  "
-            f"err_yaw={math.degrees(err_yaw):.1f}°  "
-            f"err_final={err_final:.3f}m  cost={cost:.4f}"
-        )
-        return cost
+            f"   ITAE={i1+i2:.4f} t={t1+t2:.1f}s "
+            f"err_yaw={math.degrees(err_yaw):.1f}° err_f={err_f:.3f}m cost={cost:.4f}")
 
-    # ══════════════════════════════════════════════════════════════════════════
-    # Función de evaluación que el AG llama
-    # ══════════════════════════════════════════════════════════════════════════
+        segs = [s1, s_rot, s2] if record else []
+        return cost, segs
+
+    # ── Evaluación ────────────────────────────────────────────────────────────
     def evaluate(self, individual) -> tuple:
         kp, ki, kd = individual
-        self.get_logger().info(
-            f"[AG] Kp={kp:.3f}  Ki={ki:.3f}  Kd={kd:.3f}"
-        )
+        self.get_logger().info(f"[AG] Kp={kp:.3f} Ki={ki:.3f} Kd={kd:.3f}")
         self._set_pid(kp, ki, kd)
 
-        c1 = self._run_test1()
-        c2 = self._run_test2()
-        c3 = self._run_test3()
+        c1, _ = self._run_test1()
+        c2, _ = self._run_test2()
+        c3, _ = self._run_test3()
+        fitness = W1*c1 + W2*c2 + W3*c3
 
-        fitness = W1 * c1 + W2 * c2 + W3 * c3
+        ilog = IndividualLog(
+            gen=self._current_gen, idx=self._current_idx,
+            kp=kp, ki=ki, kd=kd,
+            cost_p1=c1, cost_p2=c2, cost_p3=c3, fitness=fitness)
+        self._all_individuals.append(ilog)
+        self._current_idx += 1
+
         self.get_logger().info(
-            f"[AG] P1={c1:.4f}  P2={c2:.4f}  P3={c3:.4f}  "
-            f"fitness={fitness:.5f}"
-        )
+            f"[AG] P1={c1:.4f} P2={c2:.4f} P3={c3:.4f} fit={fitness:.5f}")
         return (fitness,)
+
+    def record_best(self, best_ind):
+        kp, ki, kd = best_ind
+        self.get_logger().info(
+            f"[AG] Grabando mejor: Kp={kp:.3f} Ki={ki:.3f} Kd={kd:.3f}")
+        self._set_pid(kp, ki, kd)
+        c1, segs1 = self._run_test1(record=True)
+        c2, segs2 = self._run_test2(record=True)
+        c3, segs3 = self._run_test3(record=True)
+        return segs1, segs2, segs3
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Gráficas (matplotlib + plotly)
+# ══════════════════════════════════════════════════════════════════════════════
+def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
+                 best_kp, best_ki, best_kd):
+
+    gens     = [g.gen      for g in gen_logs]
+    min_fit  = [g.min_fit  for g in gen_logs]
+    mean_fit = [g.mean_fit for g in gen_logs]
+    max_fit  = [g.max_fit  for g in gen_logs]
+    best_kps = [g.best_kp  for g in gen_logs]
+    best_kis = [g.best_ki  for g in gen_logs]
+    best_kds = [g.best_kd  for g in gen_logs]
+    all_kp   = [i.kp       for i in all_inds]
+    all_ki   = [i.ki       for i in all_inds]
+    all_fit  = [i.fitness  for i in all_inds]
+
+    # ── PNG ──────────────────────────────────────────────────────────────────
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+        import matplotlib.gridspec as gridspec
+
+        fig = plt.figure(figsize=(18, 22))
+        fig.suptitle("AG — Sintonización PID base mecanum\n"
+                     f"Mejor: Kp={best_kp:.4f}  Ki={best_ki:.4f}  Kd={best_kd:.4f}",
+                     fontsize=13, fontweight="bold")
+        gs = gridspec.GridSpec(5, 2, figure=fig, hspace=0.55, wspace=0.35)
+
+        ax1 = fig.add_subplot(gs[0, 0])
+        ax1.plot(gens, min_fit,  "g-o", ms=5, lw=1.8, label="min")
+        ax1.plot(gens, mean_fit, "b-s", ms=5, lw=1.8, label="media")
+        ax1.plot(gens, max_fit,  "r-^", ms=5, lw=1.8, label="max")
+        ax1.fill_between(gens, min_fit, max_fit, alpha=0.12, color="blue")
+        ax1.set_title("Evolución del fitness"); ax1.set_xlabel("Generación")
+        ax1.set_ylabel("Fitness"); ax1.legend(fontsize=8); ax1.grid(True, alpha=0.3)
+
+        ax2 = fig.add_subplot(gs[0, 1])
+        ax2.plot(gens, best_kps, "r-o", ms=5, lw=1.8, label="Kp")
+        ax2.plot(gens, best_kis, "g-s", ms=5, lw=1.8, label="Ki")
+        ax2.plot(gens, best_kds, "b-^", ms=5, lw=1.8, label="Kd")
+        ax2.set_title("Ganancias del mejor por generación")
+        ax2.set_xlabel("Generación"); ax2.set_ylabel("Ganancia")
+        ax2.legend(fontsize=8); ax2.grid(True, alpha=0.3)
+
+        ax3 = fig.add_subplot(gs[1, 0])
+        for seg in segs1:
+            if seg.t and len(seg.t) == len(seg.vx_real):
+                ax3.plot(seg.t, seg.vx_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
+                ax3.plot(seg.t, seg.vx_real, "-",  lw=1.5, label=f"{seg.name} real")
+        ax3.set_title("P1 — vx"); ax3.set_xlabel("t (s)"); ax3.set_ylabel("vx (m/s)")
+        ax3.legend(fontsize=7); ax3.grid(True, alpha=0.3)
+
+        ax4 = fig.add_subplot(gs[1, 1])
+        for seg in segs2:
+            if seg.t and len(seg.t) == len(seg.vy_real):
+                ax4.plot(seg.t, seg.vy_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
+                ax4.plot(seg.t, seg.vy_real, "-",  lw=1.5, label=f"{seg.name} real")
+        ax4.set_title("P2 — vy"); ax4.set_xlabel("t (s)"); ax4.set_ylabel("vy (m/s)")
+        ax4.legend(fontsize=7); ax4.grid(True, alpha=0.3)
+
+        ax5 = fig.add_subplot(gs[2, 0])
+        for seg in segs3:
+            if seg.t and len(seg.t) == len(seg.pos_err):
+                ax5.plot(seg.t, seg.pos_err, "-", lw=1.5, label=seg.name)
+        ax5.axhline(POS_TOL, color="r", ls=":", lw=1.2, label=f"tol={POS_TOL}m")
+        ax5.set_title("P3 — error de posición"); ax5.set_xlabel("t (s)")
+        ax5.set_ylabel("|err| (m)"); ax5.legend(fontsize=7); ax5.grid(True, alpha=0.3)
+
+        ax6  = fig.add_subplot(gs[2, 1])
+        scat = ax6.scatter(all_kp, all_ki, c=all_fit, cmap="viridis_r",
+                           s=35, alpha=0.75, edgecolors="none")
+        plt.colorbar(scat, ax=ax6, label="Fitness")
+        ax6.scatter([best_kp], [best_ki], marker="*", s=200, c="red",
+                    zorder=5, label="mejor")
+        ax6.set_title("Distribución Kp–Ki"); ax6.set_xlabel("Kp")
+        ax6.set_ylabel("Ki"); ax6.legend(fontsize=8); ax6.grid(True, alpha=0.3)
+
+        # ── Pose deseada vs obtenida: x(t), y(t), yaw(t) ────────────────────────
+        # Se concatenan las pruebas P1+P2+P3 para tener una sola línea de
+        # tiempo continua del mejor individuo (cada prueba parte de t=0,
+        # así que se suma un offset acumulado para que no se sobrepongan).
+        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or [])
+
+        ax7 = fig.add_subplot(gs[3, 0])
+        ax8 = fig.add_subplot(gs[3, 1])
+        ax9 = fig.add_subplot(gs[4, 0])
+
+        t_offset = 0.0
+        for seg in all_segs:
+            if not seg.t or len(seg.t) != len(seg.x_real):
+                continue
+            t_shifted = [t + t_offset for t in seg.t]
+            ax7.plot(t_shifted, seg.x_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
+            ax7.plot(t_shifted, seg.x_real, "-",  lw=1.3, color="tab:blue")
+            ax8.plot(t_shifted, seg.y_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
+            ax8.plot(t_shifted, seg.y_real, "-",  lw=1.3, color="tab:blue")
+            ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_ref],  "--",
+                     lw=1.3, alpha=0.8, color="tab:orange")
+            ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_real], "-",
+                     lw=1.3, color="tab:blue")
+            if seg.t:
+                t_offset += seg.t[-1] + 0.1
+
+        # Leyenda manual (deseado/real) — una sola vez por eje
+        from matplotlib.lines import Line2D
+        legend_lines = [Line2D([0],[0], color="tab:orange", ls="--", lw=1.5),
+                        Line2D([0],[0], color="tab:blue",  ls="-",  lw=1.5)]
+        for ax, title, ylabel in [
+            (ax7, "Pose X — deseada vs obtenida (P1→P2→P3)", "x (m)"),
+            (ax8, "Pose Y — deseada vs obtenida (P1→P2→P3)", "y (m)"),
+            (ax9, "Pose Yaw — deseada vs obtenida (P1→P2→P3)", "yaw (°)"),
+        ]:
+            ax.set_title(title); ax.set_xlabel("t (s, concatenado)"); ax.set_ylabel(ylabel)
+            ax.legend(legend_lines, ["deseada", "obtenida"], fontsize=7)
+            ax.grid(True, alpha=0.3)
+
+        fig.savefig(OUT_PNG, dpi=150, bbox_inches="tight")
+        plt.close(fig)
+        print(f"[plot] PNG guardado en {os.path.abspath(OUT_PNG)}")
+    except ImportError:
+        print("[plot] matplotlib no disponible — omitiendo PNG")
+
+    # ── HTML interactivo ─────────────────────────────────────────────────────
+    try:
+        import plotly.graph_objects as go
+        from plotly.subplots import make_subplots
+
+        fig = make_subplots(
+            rows=5, cols=2,
+            subplot_titles=[
+                "Evolución del fitness", "Ganancias del mejor individuo",
+                "P1 — vel X (ref vs real)", "P2 — vel Y (ref vs real)",
+                "P3 — error de posición",  "Distribución Kp–Ki",
+                "Pose X — deseada vs obtenida", "Pose Y — deseada vs obtenida",
+                "Pose Yaw — deseada vs obtenida", "",
+            ],
+            vertical_spacing=0.07, horizontal_spacing=0.10,
+        )
+
+        fig.add_trace(go.Scatter(x=gens, y=min_fit,  name="min",
+                      mode="lines+markers", line=dict(color="green")),  row=1, col=1)
+        fig.add_trace(go.Scatter(x=gens, y=mean_fit, name="media",
+                      mode="lines+markers", line=dict(color="royalblue")), row=1, col=1)
+        fig.add_trace(go.Scatter(x=gens, y=max_fit,  name="max",
+                      mode="lines+markers", line=dict(color="red")),    row=1, col=1)
+
+        fig.add_trace(go.Scatter(x=gens, y=best_kps, name="Kp",
+                      mode="lines+markers", line=dict(color="red")),   row=1, col=2)
+        fig.add_trace(go.Scatter(x=gens, y=best_kis, name="Ki",
+                      mode="lines+markers", line=dict(color="green")), row=1, col=2)
+        fig.add_trace(go.Scatter(x=gens, y=best_kds, name="Kd",
+                      mode="lines+markers", line=dict(color="blue")),  row=1, col=2)
+
+        COLORS = ["#e41a1c","#377eb8","#4daf4a","#984ea3","#ff7f00"]
+        for ci, seg in enumerate(segs1 or []):
+            if not seg.t or len(seg.t) != len(seg.vx_real): continue
+            c = COLORS[ci % len(COLORS)]
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vx_ref,  name=f"{seg.name} ref",
+                          line=dict(dash="dash", color=c)), row=2, col=1)
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vx_real, name=f"{seg.name} real",
+                          line=dict(color=c)), row=2, col=1)
+
+        for ci, seg in enumerate(segs2 or []):
+            if not seg.t or len(seg.t) != len(seg.vy_real): continue
+            c = COLORS[ci % len(COLORS)]
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_ref,  name=f"{seg.name} ref",
+                          line=dict(dash="dash", color=c)), row=2, col=2)
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_real, name=f"{seg.name} real",
+                          line=dict(color=c)), row=2, col=2)
+
+        for ci, seg in enumerate(segs3 or []):
+            if not seg.t or len(seg.t) != len(seg.pos_err): continue
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.pos_err, name=seg.name,
+                          line=dict(color=COLORS[ci % len(COLORS)])), row=3, col=1)
+        fig.add_hline(y=POS_TOL, line_dash="dot", line_color="red",
+                      annotation_text=f"tol {POS_TOL}m", row=3, col=1)
+
+        fig.add_trace(
+            go.Scatter(x=all_kp, y=all_ki, mode="markers",
+                       marker=dict(color=all_fit, colorscale="Viridis_r", size=8,
+                                   showscale=True,
+                                   colorbar=dict(title="Fitness", x=1.02)),
+                       text=[f"gen={i.gen} fit={i.fitness:.4f}" for i in all_inds],
+                       hoverinfo="text+x+y", name="individuos"),
+            row=3, col=2)
+        fig.add_trace(
+            go.Scatter(x=[best_kp], y=[best_ki], mode="markers",
+                       marker=dict(symbol="star", size=18, color="red"), name="mejor"),
+            row=3, col=2)
+
+        # ── Pose deseada vs obtenida — series de tiempo concatenadas ──────────
+        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or [])
+        t_offset = 0.0
+        first_pose_trace = True
+        for seg in all_segs:
+            if not seg.t or len(seg.t) != len(seg.x_real):
+                continue
+            t_shifted = [t + t_offset for t in seg.t]
+            show_leg  = first_pose_trace  
+
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=seg.x_ref, name="deseada",
+                legendgroup="pose_ref", showlegend=show_leg,
+                line=dict(dash="dash", color="orange")), row=4, col=1)
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=seg.x_real, name="obtenida",
+                legendgroup="pose_real", showlegend=show_leg,
+                line=dict(color="royalblue")), row=4, col=1)
+
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=seg.y_ref, name="deseada",
+                legendgroup="pose_ref", showlegend=False,
+                line=dict(dash="dash", color="orange")), row=4, col=2)
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=seg.y_real, name="obtenida",
+                legendgroup="pose_real", showlegend=False,
+                line=dict(color="royalblue")), row=4, col=2)
+
+            yaw_ref_deg  = [math.degrees(v) for v in seg.yaw_ref]
+            yaw_real_deg = [math.degrees(v) for v in seg.yaw_real]
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=yaw_ref_deg, name="deseada",
+                legendgroup="pose_ref", showlegend=False,
+                line=dict(dash="dash", color="orange")), row=5, col=1)
+            fig.add_trace(go.Scatter(
+                x=t_shifted, y=yaw_real_deg, name="obtenida",
+                legendgroup="pose_real", showlegend=False,
+                line=dict(color="royalblue")), row=5, col=1)
+
+            first_pose_trace = False
+            if seg.t:
+                t_offset += seg.t[-1] + 0.1
+
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=4, col=1)
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=4, col=2)
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=5, col=1)
+        fig.update_yaxes(title_text="x (m)",   row=4, col=1)
+        fig.update_yaxes(title_text="y (m)",   row=4, col=2)
+        fig.update_yaxes(title_text="yaw (°)", row=5, col=1)
+
+        fig.update_layout(
+            height=1700, width=1300,
+            title_text=(f"AG — Sintonización PID base mecanum<br>"
+                        f"<sub>Mejor: Kp={best_kp:.4f} Ki={best_ki:.4f} Kd={best_kd:.4f}</sub>"),
+            template="plotly_white",
+        )
+
+        html_path = os.path.abspath(OUT_HTML)
+        fig.write_html(html_path)
+        print(f"[plot] HTML guardado en {html_path}")
+        webbrowser.open('file://' + html_path)
+
+    except ImportError:
+        print("[plot] plotly no disponible — omitiendo HTML")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -634,13 +959,32 @@ class AGMotionEvaluator(Node):
 # ══════════════════════════════════════════════════════════════════════════════
 def _bounded(func):
     def wrapper(*args, **kwargs):
-        offspring = func(*args, **kwargs)
-        bounds = [KP_RANGE, KI_RANGE, KD_RANGE]
-        for child in offspring:
-            for i, (lo, hi) in enumerate(bounds):
+        off = func(*args, **kwargs)
+        for child in off:
+            for i, (lo, hi) in enumerate([KP_RANGE, KI_RANGE, KD_RANGE]):
                 child[i] = float(max(lo, min(hi, child[i])))
-        return offspring
+        return off
     return wrapper
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Callback de estadísticas por generación
+# ══════════════════════════════════════════════════════════════════════════════
+def _make_gen_callback(node: AGMotionEvaluator):
+    def _cb(pop, gen, **kwargs):
+        fits = [ind.fitness.values[0] for ind in pop]
+        best = min(pop, key=lambda i: i.fitness.values[0])
+        glog = GenLog(
+            gen=gen,
+            min_fit=min(fits), mean_fit=sum(fits)/len(fits), max_fit=max(fits),
+            best_kp=best[0], best_ki=best[1], best_kd=best[2])
+        node._gen_logs.append(glog)
+        node._current_gen = gen + 1
+        node._current_idx = 0
+        node.get_logger().info(
+            f"[GEN {gen}] min={glog.min_fit:.5f} mean={glog.mean_fit:.5f} "
+            f"best=[{best[0]:.3f},{best[1]:.3f},{best[2]:.3f}]")
+    return _cb
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -650,22 +994,18 @@ def main(args=None):
     rclpy.init(args=args)
     node = AGMotionEvaluator()
 
-    # El AG corre en el hilo principal; ROS 2 en un hilo daemon.
     executor = MultiThreadedExecutor(num_threads=4)
     executor.add_node(node)
     ros_thread = threading.Thread(target=executor.spin, daemon=True)
     ros_thread.start()
 
     try:
-        # ── Configurar DEAP ───────────────────────────────────────────────────
         toolbox = base.Toolbox()
         toolbox.register("kp", random.uniform, *KP_RANGE)
         toolbox.register("ki", random.uniform, *KI_RANGE)
         toolbox.register("kd", random.uniform, *KD_RANGE)
-        toolbox.register(
-            "individual", tools.initCycle, creator.Individual,
-            (toolbox.kp, toolbox.ki, toolbox.kd), n=1,
-        )
+        toolbox.register("individual", tools.initCycle, creator.Individual,
+                         (toolbox.kp, toolbox.ki, toolbox.kd), n=1)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
         toolbox.register("evaluate", node.evaluate)
         toolbox.register("mate",     tools.cxBlend, alpha=0.5)
@@ -676,56 +1016,79 @@ def main(args=None):
 
         stats = tools.Statistics(lambda ind: ind.fitness.values[0])
         stats.register("min",  min)
-        stats.register("mean", lambda x: sum(x) / len(x))
+        stats.register("mean", lambda x: sum(x)/len(x))
         stats.register("max",  max)
         hof = tools.HallOfFame(5)
 
-        # ── Evolución ─────────────────────────────────────────────────────────
-        node.get_logger().info(
-            f"Iniciando AG — pop={POP_SIZE}  gen={N_GEN}"
-        )
-        pop = toolbox.population(n=POP_SIZE)
-        pop, log = algorithms.eaSimple(
-            pop, toolbox,
-            cxpb=CX_PROB, mutpb=MUT_PROB,
-            ngen=N_GEN, stats=stats, halloffame=hof,
-            verbose=True,
-        )
+        gen_cb = _make_gen_callback(node)
+        node.get_logger().info(f"Iniciando AG — pop={POP_SIZE}  gen={N_GEN}")
 
-        # ── Resultados ────────────────────────────────────────────────────────
+        # Evaluación inicial
+        pop = toolbox.population(n=POP_SIZE)
+        for ind in pop:
+            ind.fitness.values = toolbox.evaluate(ind)
+        hof.update(pop)
+
+        # Bucle evolutivo
+        for gen in range(N_GEN):
+            offspring = algorithms.varAnd(pop, toolbox, CX_PROB, MUT_PROB)
+            for ind in offspring:
+                if not ind.fitness.valid:
+                    ind.fitness.values = toolbox.evaluate(ind)
+            pop[:] = toolbox.select(offspring, len(pop))
+            hof.update(pop)
+            gen_cb(pop, gen)
+
         best = hof[0]
+        best_kp, best_ki, best_kd = best[0], best[1], best[2]
         node.get_logger().info("=" * 54)
         node.get_logger().info("MEJOR INDIVIDUO:")
-        node.get_logger().info(f"  Kp = {best[0]:.6f}")
-        node.get_logger().info(f"  Ki = {best[1]:.6f}")
-        node.get_logger().info(f"  Kd = {best[2]:.6f}")
+        node.get_logger().info(f"  Kp = {best_kp:.6f}")
+        node.get_logger().info(f"  Ki = {best_ki:.6f}")
+        node.get_logger().info(f"  Kd = {best_kd:.6f}")
         node.get_logger().info(f"  Fitness = {best.fitness.values[0]:.6f}")
         node.get_logger().info("=" * 54)
+
+        node.get_logger().info("Grabando corrida final del mejor individuo...")
+        segs1, segs2, segs3 = node.record_best(best)
+
+        def _seg_to_dict(s: SegmentLog):
+            return {"name": s.name, "t": s.t,
+                    "vx_ref": s.vx_ref, "vy_ref": s.vy_ref, "wz_ref": s.wz_ref,
+                    "vx_real": s.vx_real, "vy_real": s.vy_real, "wz_real": s.wz_real,
+                    "pos_err": s.pos_err,
+                    "x_ref": s.x_ref, "y_ref": s.y_ref, "yaw_ref": s.yaw_ref,
+                    "x_real": s.x_real, "y_real": s.y_real, "yaw_real": s.yaw_real}
 
         results = {
             "config": {
                 "pop_size": POP_SIZE, "n_gen": N_GEN,
-                "dist_x_m": DIST_X,
-                "dist_right_m": DIST_RIGHT,
-                "dist_left_m":  DIST_LEFT,
-                "speed_vx": VX_REF, "speed_vy": VY_REF, "speed_wz": WZ_REF,
+                "dist_x": DIST_X, "dist_right": DIST_RIGHT, "dist_left": DIST_LEFT,
+                "vx_ref": VX_REF, "vy_ref": VY_REF, "wz_ref": WZ_REF,
                 "weights": {"P1": W1, "P2": W2, "P3": W3},
             },
-            "best": {
-                "kp": best[0], "ki": best[1], "kd": best[2],
-                "fitness": best.fitness.values[0],
+            "best": {"kp": best_kp, "ki": best_ki, "kd": best_kd,
+                     "fitness": best.fitness.values[0]},
+            "generations": [
+                {"gen": g.gen, "min": g.min_fit, "mean": g.mean_fit,
+                 "max": g.max_fit, "best_kp": g.best_kp,
+                 "best_ki": g.best_ki, "best_kd": g.best_kd}
+                for g in node._gen_logs],
+            "best_run": {
+                "test1": [_seg_to_dict(s) for s in segs1],
+                "test2": [_seg_to_dict(s) for s in segs2],
+                "test3": [_seg_to_dict(s) for s in segs3],
             },
-            "hall_of_fame": [
-                {"kp": ind[0], "ki": ind[1], "kd": ind[2],
-                 "fitness": ind.fitness.values[0]}
-                for ind in hof
-            ],
-            "log": str(log),
         }
-        out_path = "/tmp/ag_motion_results.json"
-        with open(out_path, "w") as f:
+
+        json_path = os.path.abspath(OUT_JSON)
+        with open(json_path, "w") as f:
             json.dump(results, f, indent=2)
-        node.get_logger().info(f"Resultados en {out_path}")
+        node.get_logger().info(f"JSON guardado en {json_path}")
+
+        _build_plots(node._gen_logs, node._all_individuals,
+                     segs1, segs2, segs3,
+                     best_kp, best_ki, best_kd)
 
     finally:
         executor.shutdown()

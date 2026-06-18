@@ -1,0 +1,52 @@
+[0.012s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description -- -j24 -l24
+[0.035s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description -- -j24 -l24
+[0.040s] Invoking command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description
+[0.045s] -- Install configuration: ""
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//config
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//config/dofbot_trajectory_controller.yaml
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch/dofbot_arm.launch.xml
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual
+[0.045s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link3.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger2.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link2.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger3.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link1.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link5.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger1.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/base_link.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link4.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger1.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger2.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger3.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual/mono_link.STL
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz/dofbot_arm_rviz.rviz
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_trajectory_controller.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_gz_properties.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/arm_base_link_xacro.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_arm_urdf.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/xacro_properties.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/monocular_camera_sensor.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/trajectory_controller.xacro
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/package_run_dependencies/dofbot_description
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/parent_prefix_path/dofbot_description
+[0.046s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.sh
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.dsv
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.sh
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.dsv
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.bash
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.sh
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.zsh
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.dsv
+[0.047s] -- Installing: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.dsv
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/packages/dofbot_description
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig.cmake
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig-version.cmake
+[0.047s] -- Up-to-date: /home/arrusr/ROSDev2/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.xml
+[0.048s] Invoked command in '/home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/arrusr/ROSDev2/tesisx3_plus/build/dofbot_description

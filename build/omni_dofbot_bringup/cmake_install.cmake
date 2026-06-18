@@ -81,6 +81,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/src/mecanum_kinematic_node.py"
     "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/src/ag_tuner.py"
     "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/src/ag_motion_tests.py"
+    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup/src/Mecanum_odometry_node.py"
     )
 endif()
 

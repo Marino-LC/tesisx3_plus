@@ -98,7 +98,7 @@ class MecanumKinematicNode(Node):
         self.declare_parameter('wheel_radius',  0.040)
         self.declare_parameter('lx',            0.110)
         self.declare_parameter('ly',            0.102)
-        self.declare_parameter('max_wheel_vel', 20.0)
+        self.declare_parameter('max_wheel_vel', 17.5)
         self.declare_parameter('control_rate',  50.0)
         self.declare_parameter('kp',            1.0)
         self.declare_parameter('ki',            0.0)
@@ -119,7 +119,7 @@ class MecanumKinematicNode(Node):
         self._omega_ref  = np.zeros(4)   # velocidades de referencia (rad/s)
         self._omega_real = np.zeros(4)   # velocidades reales leídas de joint_states
         self._last_time  = self.get_clock().now()
-        # Esto te permite invertir la lógica de cada motor individualmente:
+        # Esto permite invertir la lógica de cada motor individualmente:
         self.wheel_polarity = [-1, -1, -1, -1] # [fl, fr, br, bl]
         # ── Pub / Sub ─────────────────────────────────────────────────────────
         self._cmd_vel_sub = self.create_subscription(
