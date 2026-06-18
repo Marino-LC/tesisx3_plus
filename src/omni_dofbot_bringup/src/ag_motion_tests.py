@@ -93,15 +93,15 @@ POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 
 # ── AG ────────────────────────────────────────────────────────────────────────
-POP_SIZE    = 16
-N_GEN       = 8
+POP_SIZE    = 100
+N_GEN       = 10
 CX_PROB     = 0.50
 MUT_PROB    = 0.20
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
-KP_RANGE    = (0.0,  5.0)
-KI_RANGE    = (0.0,  3.0)
-KD_RANGE    = (0.0,  0.05)
+KP_RANGE    = (0.0, 1.0)
+KI_RANGE    = (0.0, 1.0)
+KD_RANGE    = (0.0, 0.05)
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
@@ -760,20 +760,26 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         ax2.legend(fontsize=8); ax2.grid(True, alpha=0.3)
 
         ax3 = fig.add_subplot(gs[1, 0])
+        ax3_has_data = False
         for seg in segs1:
             if seg.t and len(seg.t) == len(seg.vx_real):
                 ax3.plot(seg.t, seg.vx_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
                 ax3.plot(seg.t, seg.vx_real, "-",  lw=1.5, label=f"{seg.name} real")
+                ax3_has_data = True
         ax3.set_title("P1 — vx"); ax3.set_xlabel("t (s)"); ax3.set_ylabel("vx (m/s)")
-        ax3.legend(fontsize=7); ax3.grid(True, alpha=0.3)
+        if ax3_has_data: ax3.legend(fontsize=7)
+        ax3.grid(True, alpha=0.3)
 
         ax4 = fig.add_subplot(gs[1, 1])
+        ax4_has_data = False
         for seg in segs2:
             if seg.t and len(seg.t) == len(seg.wz_real):
                 ax4.plot(seg.t, seg.wz_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
                 ax4.plot(seg.t, seg.wz_real, "-",  lw=1.5, label=f"{seg.name} real")
+                ax4_has_data = True
         ax4.set_title("P2 — wz (rotación pura)"); ax4.set_xlabel("t (s)"); ax4.set_ylabel("wz (rad/s)")
-        ax4.legend(fontsize=7); ax4.grid(True, alpha=0.3)
+        if ax4_has_data: ax4.legend(fontsize=7)
+        ax4.grid(True, alpha=0.3)
 
         ax5 = fig.add_subplot(gs[2, 0])
         for seg in segs3:
@@ -802,34 +808,40 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         ax8 = fig.add_subplot(gs[3, 1])
         ax9 = fig.add_subplot(gs[4, 0])
 
-        t_offset = 0.0
+        t_offset  = 0.0
+        pose_drawn = False   # flag: indica si se pintó al menos un segmento
         for seg in all_segs:
             if not seg.t or len(seg.t) != len(seg.x_real):
                 continue
             t_shifted = [t + t_offset for t in seg.t]
-            ax7.plot(t_shifted, seg.x_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
-            ax7.plot(t_shifted, seg.x_real, "-",  lw=1.3, color="tab:blue")
-            ax8.plot(t_shifted, seg.y_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
-            ax8.plot(t_shifted, seg.y_real, "-",  lw=1.3, color="tab:blue")
+            # Solo el primer segmento lleva label para no duplicarlos en la leyenda
+            lbl_ref  = "deseada"  if not pose_drawn else "_nolegend_"
+            lbl_real = "obtenida" if not pose_drawn else "_nolegend_"
+            ax7.plot(t_shifted, seg.x_ref,  "--", lw=1.3, alpha=0.8,
+                     color="tab:orange", label=lbl_ref)
+            ax7.plot(t_shifted, seg.x_real, "-",  lw=1.3,
+                     color="tab:blue",   label=lbl_real)
+            ax8.plot(t_shifted, seg.y_ref,  "--", lw=1.3, alpha=0.8,
+                     color="tab:orange", label=lbl_ref)
+            ax8.plot(t_shifted, seg.y_real, "-",  lw=1.3,
+                     color="tab:blue",   label=lbl_real)
             ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_ref],  "--",
-                     lw=1.3, alpha=0.8, color="tab:orange")
+                     lw=1.3, alpha=0.8, color="tab:orange", label=lbl_ref)
             ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_real], "-",
-                     lw=1.3, color="tab:blue")
+                     lw=1.3, color="tab:blue", label=lbl_real)
             if seg.t:
                 t_offset += seg.t[-1] + 0.1
+            pose_drawn = True
 
-        # Leyenda manual (deseado/real) — una sola vez por eje
-        from matplotlib.lines import Line2D
-        legend_lines = [Line2D([0],[0], color="tab:orange", ls="--", lw=1.5),
-                        Line2D([0],[0], color="tab:blue",  ls="-",  lw=1.5)]
         for ax, title, ylabel in [
             (ax7, "Pose X — deseada vs obtenida (P1→P2→P3)", "x (m)"),
             (ax8, "Pose Y — deseada vs obtenida (P1→P2→P3)", "y (m)"),
             (ax9, "Pose Yaw — deseada vs obtenida (P1→P2→P3)", "yaw (°)"),
         ]:
             ax.set_title(title); ax.set_xlabel("t (s, concatenado)"); ax.set_ylabel(ylabel)
-            ax.legend(legend_lines, ["deseada", "obtenida"], fontsize=7)
             ax.grid(True, alpha=0.3)
+            if pose_drawn:
+                ax.legend(fontsize=7)
 
         fig.savefig(OUT_PNG, dpi=150, bbox_inches="tight")
         plt.close(fig)

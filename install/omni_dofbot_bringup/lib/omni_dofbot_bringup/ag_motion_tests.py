@@ -3,11 +3,26 @@
 ag_motion_tests.py
 ==================
 Algoritmo Genético (DEAP) para sintonizar las ganancias PID (Kp, Ki, Kd)
-del nodo mecanum_kinematic_node.py mediante 3 pruebas de movimiento puro.
+del nodo mecanum_kinematic_node.py mediante pruebas de movimiento puro.
 
 Sin Nav2. Sin AMCL. Sin mapa.
 El robot recibe /cmd_vel directo y el fitness se mide con /odom publicado
 por mecanum_odometry_node.py (cinemática directa desde /joint_states).
+
+NOTA DE DISEÑO (limitación física conocida):
+  Las mallas de las ruedas mecanum no modelan los rodillos individuales
+  reales, por lo que el giro de cada rueda es correcto y la odometría
+  interpreta bien el movimiento lateral esperado, pero Gazebo no traslada
+  realmente al robot en el eje Y del cuerpo (no hay deslizamiento lateral
+  físico). Mientras se corrige la física de las ruedas, las pruebas de
+  movimiento se restringen a los dos modos que sí se validaron como
+  correctos en simulación: traslación recta (eje X del cuerpo) y rotación
+  pura (eje Z). La prueba lateral (Y) queda retirada de esta batería.
+
+Pruebas vigentes:
+  P1 — Línea recta: avanza y retrocede en X.
+  P2 — Rotación pura: gira +90° y -90° sobre el mismo punto (ida y vuelta).
+  P3 — Combinada: avanza en X, gira -90°, avanza en X (nueva orientación).
 
 Tras cada teleport, se llama al servicio ~/reset_pose de mecanum_odometry_node
 para que la odometría acumulada vuelva a (0, 0, π/2), coherente con Gazebo.
@@ -34,6 +49,7 @@ import rclpy
 from rclpy.node import Node
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.callback_groups import ReentrantCallbackGroup
+from rclpy.qos import qos_profile_sensor_data
 
 from rcl_interfaces.srv import SetParameters
 from rcl_interfaces.msg import Parameter, ParameterValue, ParameterType
@@ -55,17 +71,17 @@ from deap import base, creator, tools, algorithms
 WORLD_NAME   = "arena_pid_tuning"
 ROBOT_NAME   = "omni_dofbot"
 
-# ── Distancias de prueba ──────────────────────────────────────────────────────
+# ── Distancias / ángulos de prueba ────────────────────────────────────────────
 # El robot se teleporta con yaw=π/2 (frente apuntando al eje +Y largo de la
 # arena). DIST_X en las primitivas corresponde al avance frontal del robot,
 # que en el marco del mundo se mueve en la dirección Y.
-DIST_X     = 0.80   # m — recta P1 / P3  (aprovecha el largo de 1.10 m)
-DIST_RIGHT = 0.35   # m — lateral P2 (tope eje corto X, margen 0.13 m)
-DIST_LEFT  = 0.35   # m — lateral P2
+DIST_X      = 0.80   # m — recta P1 / P3  (aprovecha el largo de 1.10 m)
+DIST_RETURN = 0.35   # m — avance corto de regreso en P3 tras el giro
+ROT_ANGLE   = math.pi / 2   # rad — ángulo de giro usado en P2 y P3 (90°)
 
 # ── Velocidades de referencia cmd_vel ─────────────────────────────────────────
 VX_REF = 0.40   # m/s
-VY_REF = 0.40   # m/s
+VY_REF = 0.40   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
 WZ_REF = 1.00   # rad/s
 
 # ── Lazo de control ───────────────────────────────────────────────────────────
@@ -77,16 +93,16 @@ POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 
 # ── AG ────────────────────────────────────────────────────────────────────────
-POP_SIZE    = 16
-N_GEN       = 8
+POP_SIZE    = 100
+N_GEN       = 10
 CX_PROB     = 0.50
 MUT_PROB    = 0.20
-# CORRECCIÓN: Kd debe estar casi anulado para un control de velocidad, 
-# Kp acotado para evitar inestabilidades severas.
-KP_RANGE    = (0.0,  1.0)
-KI_RANGE    = (0.0,  0.5)
-KD_RANGE    = (0.0,  0.01) 
-W1, W2, W3  = 0.30, 0.40, 0.30
+# Kd casi anulado para un control de velocidad; Kp acotado para evitar
+# inestabilidades severas.
+KP_RANGE    = (0.0, 1.0)
+KI_RANGE    = (0.0, 1.0)
+KD_RANGE    = (0.0, 0.05)
+W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
 # ── Brazo Dofbot — coreografía determinista ───────────────────────────────────
@@ -182,7 +198,6 @@ class AGMotionEvaluator(Node):
         self._arm_pub  = self.create_publisher(JointTrajectory, ARM_TOPIC,  10)
         self._grip_pub = self.create_publisher(JointTrajectory, GRIP_TOPIC, 10)
 
-        from rclpy.qos import qos_profile_sensor_data
         self._pub_err   = self.create_publisher(Float64, "ag_live_error",    qos_profile_sensor_data)
         self._pub_vref  = self.create_publisher(Float64, "ag_live_vel_ref",  qos_profile_sensor_data)
         self._pub_vreal = self.create_publisher(Float64, "ag_live_vel_real", qos_profile_sensor_data)
@@ -216,11 +231,11 @@ class AGMotionEvaluator(Node):
         self._vel_real     = (0.0, 0.0, 0.0)
         self._current_vref = (0.0, 0.0, 0.0)
         self._itae_accum   = 0.0
-        
-        # CORRECCIÓN: Tiempos reales para cálculo matemático riguroso de ITAE
-        self._start_eval_t = 0.0  
-        self._last_odom_t  = 0.0  
-        
+
+        # Tiempos reales para cálculo matemático riguroso de ITAE
+        self._start_eval_t = 0.0
+        self._last_odom_t  = 0.0
+
         self._itae_target  = Pose2D()
         self._yaw_ref_live = 0.0
         self._measuring    = False
@@ -252,16 +267,16 @@ class AGMotionEvaluator(Node):
             self._vel_real = (vx, vy, wz)
 
             if self._measuring:
-                # CORRECCIÓN: Cálculo de ITAE con dt real
+                # Cálculo de ITAE con dt real
                 now = time.time()
                 dt = now - self._last_odom_t
-                if dt <= 0.0: dt = 0.001 # Protección matemática
+                if dt <= 0.0: dt = 0.001  # protección matemática
                 self._last_odom_t = now
-                
+
                 ex  = self._itae_target.x - self._pose.x
                 ey  = self._itae_target.y - self._pose.y
                 err = math.hypot(ex, ey)
-                
+
                 t_real = now - self._start_eval_t
                 self._itae_accum += t_real * err * dt
 
@@ -321,11 +336,11 @@ class AGMotionEvaluator(Node):
         with self._lock:
             self._itae_target  = target.copy()
             self._itae_accum   = 0.0
-            
-            # CORRECCIÓN: Iniciar relojes
-            self._start_eval_t = time.time()  
-            self._last_odom_t  = time.time()  
-            
+
+            # Iniciar relojes
+            self._start_eval_t = time.time()
+            self._last_odom_t  = time.time()
+
             self._measuring    = True
             self._seg_log      = seg_log
             self._yaw_ref_live = target.yaw
@@ -359,7 +374,6 @@ class AGMotionEvaluator(Node):
         msg.joint_names = ARM_JOINTS
         pt  = JointTrajectoryPoint()
         pt.positions       = [float(v) for v in positions]
-        # CORRECCIÓN: Forzar cast a int() para que ROS 2 C++ no aborte
         pt.time_from_start = Duration(sec=int(duration_sec), nanosec=0)
         msg.points.append(pt)
         self._arm_pub.publish(msg)
@@ -369,7 +383,6 @@ class AGMotionEvaluator(Node):
         msg.joint_names = GRIP_JOINTS
         pt  = JointTrajectoryPoint()
         pt.positions       = [float(position)]
-        # CORRECCIÓN: Forzar cast a int() para que ROS 2 C++ no aborte
         pt.time_from_start = Duration(sec=int(duration_sec), nanosec=0)
         msg.points.append(pt)
         self._grip_pub.publish(msg)
@@ -558,10 +571,11 @@ class AGMotionEvaluator(Node):
             self._yaw_ref_live = goal_yaw
         self._stop_itae()
 
-        p    = self._get_pose()
-        diff = (goal_yaw - p.yaw + math.pi) % (2*math.pi) - math.pi
+        p       = self._get_pose()
+        diff    = (goal_yaw - p.yaw + math.pi) % (2*math.pi) - math.pi
+        elapsed = time.time() - t0
         time.sleep(SETTLE_TIME)
-        return abs(diff), ok, slog
+        return abs(diff), ok, slog, elapsed
 
     # ── PID ───────────────────────────────────────────────────────────────────
     def _set_pid(self, kp, ki, kd):
@@ -605,33 +619,36 @@ class AGMotionEvaluator(Node):
         return cost, ([s1, s2] if record else [])
 
     # ══════════════════════════════════════════════════════════════════════════
-    # PRUEBA 2 — Traslación lateral pura: derecha → izquierda → centro
+    # PRUEBA 2 — Rotación pura: gira +90° y luego -90° (ida y vuelta)
+    # ══════════════════════════════════════════════════════════════════════════
+    # Sustituye a la prueba lateral original (retirada por limitación física
+    # de las mallas de las ruedas mecanum: no hay deslizamiento lateral real
+    # en Gazebo aunque el giro de cada rueda y la odometría sí son correctos).
+    # Esta prueba valida exclusivamente el modo de rotación pura del PID,
+    # que sí se comporta de forma fiable en la simulación actual.
     # ══════════════════════════════════════════════════════════════════════════
     def _run_test2(self, record=False):
-        self.get_logger().info("── P2: lateral Y (D→I→C) ──")
+        self.get_logger().info("── P2: rotación pura +90°/-90° ──")
         self._teleport()
         self._start_arm()
 
-        total_cross = DIST_RIGHT + DIST_LEFT
-        i1, t1, ok1, s1 = self._drive(-DIST_RIGHT,  "y", vy=-VY_REF, seg_name="P2_derecha")
-        i2, t2, ok2, s2 = self._drive(+total_cross, "y", vy=+VY_REF, seg_name="P2_izquierda")
-        i3, t3, ok3, s3 = self._drive(-DIST_LEFT,   "y", vy=-VY_REF, seg_name="P2_centro")
+        err1, ok1, s1, t1 = self._rotate(+ROT_ANGLE, seg_name="P2_giro_horario")
+        err2, ok2, s2, t2 = self._rotate(-ROT_ANGLE, seg_name="P2_giro_antihorario")
 
         self._stop_arm()
         rel   = self._pose_rel()
         err_f = math.hypot(rel.x, rel.y)
 
-        ITAE_REF = 0.08
-        TIME_REF = (2*DIST_RIGHT + 2*DIST_LEFT) / VY_REF
-        total_itae = i1 + i2 + i3
+        TIME_REF = 2 * ROT_ANGLE / WZ_REF
 
-        cost = (0.60*total_itae/ITAE_REF + 0.25*(t1+t2+t3)/TIME_REF
-              + 0.15*err_f/POS_TOL)
-        if not ok1 or not ok2 or not ok3: cost += PENALTY_TO
+        cost = (0.55*(err1+err2)/(2*YAW_TOL) + 0.25*(t1+t2)/TIME_REF
+              + 0.20*err_f/POS_TOL)
+        if not ok1 or not ok2: cost += PENALTY_TO
 
         self.get_logger().info(
-            f"   ITAE={total_itae:.4f} t={t1+t2+t3:.1f}s err_f={err_f:.3f}m cost={cost:.4f}")
-        return cost, ([s1, s2, s3] if record else [])
+            f"   err_yaw1={math.degrees(err1):.1f}° err_yaw2={math.degrees(err2):.1f}° "
+            f"t={t1+t2:.1f}s err_f={err_f:.3f}m cost={cost:.4f}")
+        return cost, ([s1, s2] if record else [])
 
     # ══════════════════════════════════════════════════════════════════════════
     # PRUEBA 3 — Combinada: avance + giro −90° + avance de frente
@@ -642,15 +659,15 @@ class AGMotionEvaluator(Node):
         self._start_arm()
 
         i1, t1, ok1, s1   = self._drive(DIST_X, "x", vx=+VX_REF, seg_name="P3_adelante")
-        err_yaw, ok_rot, s_rot = self._rotate(-math.pi / 2, seg_name="P3_giro")
-        i2, t2, ok2, s2   = self._drive(DIST_RIGHT, "x", vx=+VX_REF, seg_name="P3_regreso")
+        err_yaw, ok_rot, s_rot, t_rot = self._rotate(-ROT_ANGLE, seg_name="P3_giro")
+        i2, t2, ok2, s2   = self._drive(DIST_RETURN, "x", vx=+VX_REF, seg_name="P3_regreso")
 
         self._stop_arm()
         rel   = self._pose_rel()
         err_f = math.hypot(rel.x, rel.y)
 
         ITAE_REF = 0.08
-        TIME_REF = (DIST_X/VX_REF) + ((math.pi/2)/WZ_REF) + (DIST_RIGHT/VX_REF)
+        TIME_REF = (DIST_X/VX_REF) + (ROT_ANGLE/WZ_REF) + (DIST_RETURN/VX_REF)
 
         cost = (0.45*(i1+i2)/ITAE_REF + 0.20*(t1+t2)/TIME_REF
               + 0.15*err_yaw/YAW_TOL + 0.20*err_f/POS_TOL)
@@ -743,20 +760,26 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         ax2.legend(fontsize=8); ax2.grid(True, alpha=0.3)
 
         ax3 = fig.add_subplot(gs[1, 0])
+        ax3_has_data = False
         for seg in segs1:
             if seg.t and len(seg.t) == len(seg.vx_real):
                 ax3.plot(seg.t, seg.vx_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
                 ax3.plot(seg.t, seg.vx_real, "-",  lw=1.5, label=f"{seg.name} real")
+                ax3_has_data = True
         ax3.set_title("P1 — vx"); ax3.set_xlabel("t (s)"); ax3.set_ylabel("vx (m/s)")
-        ax3.legend(fontsize=7); ax3.grid(True, alpha=0.3)
+        if ax3_has_data: ax3.legend(fontsize=7)
+        ax3.grid(True, alpha=0.3)
 
         ax4 = fig.add_subplot(gs[1, 1])
+        ax4_has_data = False
         for seg in segs2:
-            if seg.t and len(seg.t) == len(seg.vy_real):
-                ax4.plot(seg.t, seg.vy_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
-                ax4.plot(seg.t, seg.vy_real, "-",  lw=1.5, label=f"{seg.name} real")
-        ax4.set_title("P2 — vy"); ax4.set_xlabel("t (s)"); ax4.set_ylabel("vy (m/s)")
-        ax4.legend(fontsize=7); ax4.grid(True, alpha=0.3)
+            if seg.t and len(seg.t) == len(seg.wz_real):
+                ax4.plot(seg.t, seg.wz_ref,  "--", lw=1.5, label=f"{seg.name} ref",  alpha=0.8)
+                ax4.plot(seg.t, seg.wz_real, "-",  lw=1.5, label=f"{seg.name} real")
+                ax4_has_data = True
+        ax4.set_title("P2 — wz (rotación pura)"); ax4.set_xlabel("t (s)"); ax4.set_ylabel("wz (rad/s)")
+        if ax4_has_data: ax4.legend(fontsize=7)
+        ax4.grid(True, alpha=0.3)
 
         ax5 = fig.add_subplot(gs[2, 0])
         for seg in segs3:
@@ -785,34 +808,40 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         ax8 = fig.add_subplot(gs[3, 1])
         ax9 = fig.add_subplot(gs[4, 0])
 
-        t_offset = 0.0
+        t_offset  = 0.0
+        pose_drawn = False   # flag: indica si se pintó al menos un segmento
         for seg in all_segs:
             if not seg.t or len(seg.t) != len(seg.x_real):
                 continue
             t_shifted = [t + t_offset for t in seg.t]
-            ax7.plot(t_shifted, seg.x_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
-            ax7.plot(t_shifted, seg.x_real, "-",  lw=1.3, color="tab:blue")
-            ax8.plot(t_shifted, seg.y_ref,  "--", lw=1.3, alpha=0.8, color="tab:orange")
-            ax8.plot(t_shifted, seg.y_real, "-",  lw=1.3, color="tab:blue")
+            # Solo el primer segmento lleva label para no duplicarlos en la leyenda
+            lbl_ref  = "deseada"  if not pose_drawn else "_nolegend_"
+            lbl_real = "obtenida" if not pose_drawn else "_nolegend_"
+            ax7.plot(t_shifted, seg.x_ref,  "--", lw=1.3, alpha=0.8,
+                     color="tab:orange", label=lbl_ref)
+            ax7.plot(t_shifted, seg.x_real, "-",  lw=1.3,
+                     color="tab:blue",   label=lbl_real)
+            ax8.plot(t_shifted, seg.y_ref,  "--", lw=1.3, alpha=0.8,
+                     color="tab:orange", label=lbl_ref)
+            ax8.plot(t_shifted, seg.y_real, "-",  lw=1.3,
+                     color="tab:blue",   label=lbl_real)
             ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_ref],  "--",
-                     lw=1.3, alpha=0.8, color="tab:orange")
+                     lw=1.3, alpha=0.8, color="tab:orange", label=lbl_ref)
             ax9.plot(t_shifted, [math.degrees(v) for v in seg.yaw_real], "-",
-                     lw=1.3, color="tab:blue")
+                     lw=1.3, color="tab:blue", label=lbl_real)
             if seg.t:
                 t_offset += seg.t[-1] + 0.1
+            pose_drawn = True
 
-        # Leyenda manual (deseado/real) — una sola vez por eje
-        from matplotlib.lines import Line2D
-        legend_lines = [Line2D([0],[0], color="tab:orange", ls="--", lw=1.5),
-                        Line2D([0],[0], color="tab:blue",  ls="-",  lw=1.5)]
         for ax, title, ylabel in [
             (ax7, "Pose X — deseada vs obtenida (P1→P2→P3)", "x (m)"),
             (ax8, "Pose Y — deseada vs obtenida (P1→P2→P3)", "y (m)"),
             (ax9, "Pose Yaw — deseada vs obtenida (P1→P2→P3)", "yaw (°)"),
         ]:
             ax.set_title(title); ax.set_xlabel("t (s, concatenado)"); ax.set_ylabel(ylabel)
-            ax.legend(legend_lines, ["deseada", "obtenida"], fontsize=7)
             ax.grid(True, alpha=0.3)
+            if pose_drawn:
+                ax.legend(fontsize=7)
 
         fig.savefig(OUT_PNG, dpi=150, bbox_inches="tight")
         plt.close(fig)
@@ -829,7 +858,7 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
             rows=5, cols=2,
             subplot_titles=[
                 "Evolución del fitness", "Ganancias del mejor individuo",
-                "P1 — vel X (ref vs real)", "P2 — vel Y (ref vs real)",
+                "P1 — vel X (ref vs real)", "P2 — vel angular (ref vs real)",
                 "P3 — error de posición",  "Distribución Kp–Ki",
                 "Pose X — deseada vs obtenida", "Pose Y — deseada vs obtenida",
                 "Pose Yaw — deseada vs obtenida", "",
@@ -861,11 +890,11 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
                           line=dict(color=c)), row=2, col=1)
 
         for ci, seg in enumerate(segs2 or []):
-            if not seg.t or len(seg.t) != len(seg.vy_real): continue
+            if not seg.t or len(seg.t) != len(seg.wz_real): continue
             c = COLORS[ci % len(COLORS)]
-            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_ref,  name=f"{seg.name} ref",
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.wz_ref,  name=f"{seg.name} ref",
                           line=dict(dash="dash", color=c)), row=2, col=2)
-            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_real, name=f"{seg.name} real",
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.wz_real, name=f"{seg.name} real",
                           line=dict(color=c)), row=2, col=2)
 
         for ci, seg in enumerate(segs3 or []):
@@ -896,7 +925,7 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
             if not seg.t or len(seg.t) != len(seg.x_real):
                 continue
             t_shifted = [t + t_offset for t in seg.t]
-            show_leg  = first_pose_trace  
+            show_leg  = first_pose_trace
 
             fig.add_trace(go.Scatter(
                 x=t_shifted, y=seg.x_ref, name="deseada",
@@ -1063,9 +1092,12 @@ def main(args=None):
         results = {
             "config": {
                 "pop_size": POP_SIZE, "n_gen": N_GEN,
-                "dist_x": DIST_X, "dist_right": DIST_RIGHT, "dist_left": DIST_LEFT,
+                "dist_x": DIST_X, "dist_return": DIST_RETURN,
+                "rot_angle_deg": math.degrees(ROT_ANGLE),
                 "vx_ref": VX_REF, "vy_ref": VY_REF, "wz_ref": WZ_REF,
                 "weights": {"P1": W1, "P2": W2, "P3": W3},
+                "note": "P2 (lateral) retirada por limitacion fisica de mallas "
+                        "mecanum; sustituida por rotacion pura.",
             },
             "best": {"kp": best_kp, "ki": best_ki, "kd": best_kd,
                      "fitness": best.fitness.values[0]},
