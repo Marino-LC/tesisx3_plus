@@ -1,0 +1,32 @@
+[0.010s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description
+[0.059s] -- The C compiler identification is GNU 13.3.0
+[0.103s] -- The CXX compiler identification is GNU 13.3.0
+[0.114s] -- Detecting C compiler ABI info
+[0.240s] -- Detecting C compiler ABI info - done
+[0.247s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.247s] -- Detecting C compile features
+[0.247s] -- Detecting C compile features - done
+[0.253s] -- Detecting CXX compiler ABI info
+[0.395s] -- Detecting CXX compiler ABI info - done
+[0.406s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.406s] -- Detecting CXX compile features
+[0.407s] -- Detecting CXX compile features - done
+[0.417s] [31mCMake Error at CMakeLists.txt:9 (find_package):
+[0.418s]   By not providing "Findament_cmake.cmake" in CMAKE_MODULE_PATH this project
+[0.418s]   has asked CMake to find a package configuration file provided by
+[0.418s]   "ament_cmake", but CMake did not find one.
+[0.418s] 
+[0.418s]   Could not find a package configuration file provided by "ament_cmake" with
+[0.418s]   any of the following names:
+[0.418s] 
+[0.418s]     ament_cmakeConfig.cmake
+[0.418s]     ament_cmake-config.cmake
+[0.418s] 
+[0.418s]   Add the installation prefix of "ament_cmake" to CMAKE_PREFIX_PATH or set
+[0.418s]   "ament_cmake_DIR" to a directory containing one of the above files.  If
+[0.418s]   "ament_cmake" provides a separate development package or SDK, be sure it
+[0.418s]   has been installed.
+[0.418s] 
+[0.418s] [0m
+[0.419s] -- Configuring incomplete, errors occurred!
+[0.424s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description

@@ -99,8 +99,8 @@ CX_PROB     = 0.50
 MUT_PROB    = 0.20
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
-KP_RANGE    = (0.0, 1.0)
-KI_RANGE    = (0.0, 1.0)
+KP_RANGE    = (0.0, 10.0)
+KI_RANGE    = (0.0, 5.0)
 KD_RANGE    = (0.0, 0.05)
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
@@ -222,6 +222,11 @@ class AGMotionEvaluator(Node):
         # Cliente para resetear la odometría de mecanum_odometry_node
         self._reset_odom_cli = self.create_client(
             Empty, '/mecanum_odometry_node/reset_pose',
+            callback_group=cbg)
+
+        # NUEVO: cliente para resetear PID + filtro de motor de mecanum_kinematic_node
+        self._reset_ctrl_cli = self.create_client(
+            Empty, '/mecanum_kinematic_node/reset_controller_state', 
             callback_group=cbg)
 
         # ── Estado de odometría ───────────────────────────────────────────────
@@ -368,6 +373,20 @@ class AGMotionEvaluator(Node):
         else:
             self.get_logger().warn("Timeout esperando reset de odometría.")
 
+    def _reset_controller(self):
+        if not self._reset_ctrl_cli.wait_for_service(timeout_sec=2.0):
+            self.get_logger().warn(
+                "Servicio /mecanum_kinematic_node/reset_controller_state no disponible.")
+            return
+        fut = self._reset_ctrl_cli.call_async(Empty.Request())
+        t0  = time.time()
+        while not fut.done() and time.time() - t0 < 2.0:
+            time.sleep(0.05)
+        if fut.done():
+            self.get_logger().info("Controlador reseteado (PID + filtro de motor).")
+        else:
+            self.get_logger().warn("Timeout esperando reset del controlador.")
+
     # ── Brazo Dofbot ──────────────────────────────────────────────────────────
     def _send_arm(self, positions: list, duration_sec: int = ARM_MOVE_DUR):
         msg = JointTrajectory()
@@ -450,7 +469,6 @@ class AGMotionEvaluator(Node):
     def _teleport(self):
         self._stop()
         time.sleep(0.15)
-
         done = False
         if self._tp_cli.wait_for_service(timeout_sec=2.0):
             req = SetEntityPose.Request()
@@ -459,30 +477,43 @@ class AGMotionEvaluator(Node):
             req.pose = Pose()
             req.pose.position    = Point(x=0.0, y=0.0, z=0.12)
             # yaw = π/2  →  quaternion (z=sin(π/4), w=cos(π/4))
-            req.pose.orientation = Quaternion(x=0.0, y=0.0,
-                                              z=0.7071068, w=0.7071068)
+            req.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.7071068, w=0.7071068)
             fut = self._tp_cli.call_async(req)
             t0  = time.time()
-            while not fut.done() and time.time()-t0 < 3.0:
+            while not fut.done() and time.time() - t0 < 3.0:
                 time.sleep(0.05)
             done = fut.done() and fut.result() is not None
 
         if not done:
             rs = (f'name: "{ROBOT_NAME}", '
-                  f'position: {{x:0,y:0,z:0.12}}, '
-                  f'orientation: {{x:0,y:0,z:0.7071068,w:0.7071068}}')
+                f'position: {{x:0,y:0,z:0.12}}, '
+                f'orientation: {{x:0,y:0,z:0.7071068,w:0.7071068}}')
             try:
                 subprocess.run(
-                    ["gz","service","-s",f"/world/{WORLD_NAME}/set_pose",
-                     "--reqtype","gz.msgs.Pose","--reptype","gz.msgs.Boolean",
-                     "--timeout","2000","--req",rs],
+                    ["gz", "service", "-s", f"/world/{WORLD_NAME}/set_pose",
+                    "--reqtype", "gz.msgs.Pose", "--reptype", "gz.msgs.Boolean",
+                    "--timeout", "2000", "--req", rs],
                     check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             except subprocess.CalledProcessError as e:
                 self.get_logger().error(f"Teleport gz falló: {e.stderr.decode()}")
 
         time.sleep(0.80)
-        self._fix_origin()
+
+        # ORDEN CORREGIDO: resetear ANTES de fijar el origen, no después.
         self._reset_odometry()
+        self._reset_controller()   # NUEVO: PID + filtro de motor
+        time.sleep(0.10)            # deja llegar al menos un /odom ya en cero
+        self._fix_origin()
+
+    def _reset_controller(self):
+        """Resetea integradores PID y filtro de motor de mecanum_kinematic_node."""
+        if self._reset_ctrl_cli.wait_for_service(timeout_sec=2.0):
+            fut = self._reset_ctrl_cli.call_async(Empty.Request())
+            t0 = time.time()
+            while not fut.done() and time.time() - t0 < 2.0:
+                time.sleep(0.05)
+        else:
+            self.get_logger().warn("reset_controller_state no disponible.")
 
     # ── Primitivas de movimiento ──────────────────────────────────────────────
     def _drive(self, dist_m: float, axis: str, vx=0.0, vy=0.0,

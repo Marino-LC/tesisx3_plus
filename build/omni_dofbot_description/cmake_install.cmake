@@ -1,8 +1,8 @@
-# Install script for directory: /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description
+# Install script for directory: /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/arrusr/ROSDev2/tesisx3_plus/install/omni_dofbot_description")
+  set(CMAKE_INSTALL_PREFIX "/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -44,20 +44,20 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/" TYPE DIRECTORY FILES
-    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/launch"
-    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/rviz"
-    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/meshes"
-    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/urdf"
-    "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/config"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/launch"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/rviz"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/meshes"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/urdf"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/config"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/package_run_dependencies" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/parent_prefix_path" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -65,7 +65,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/ament_prefix_path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/environment" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/ament_prefix_path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -73,42 +73,42 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/environment" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/path.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/environment" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/path.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.bash")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.bash")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.sh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.sh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.zsh")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.zsh")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/local_setup.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/package.dsv")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_environment_hooks/package.dsv")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/packages/omni_dofbot_description")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ament_index/resource_index/packages" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_index/share/ament_index/resource_index/packages/omni_dofbot_description")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description/cmake" TYPE FILE FILES
-    "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_core/omni_dofbot_descriptionConfig.cmake"
-    "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/ament_cmake_core/omni_dofbot_descriptionConfig-version.cmake"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_core/omni_dofbot_descriptionConfig.cmake"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/ament_cmake_core/omni_dofbot_descriptionConfig-version.cmake"
     )
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/omni_dofbot_description" TYPE FILE FILES "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description/package.xml")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -119,5 +119,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

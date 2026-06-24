@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup
+CMAKE_SOURCE_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup
+CMAKE_BINARY_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup
 
 # Utility rule file for omni_dofbot_bringup_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/omni_dofbot_bringup_uninstall.dir/compiler_depend.make
 include CMakeFiles/omni_dofbot_bringup_uninstall.dir/progress.make
 
 CMakeFiles/omni_dofbot_bringup_uninstall:
-	/usr/bin/cmake -P /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 omni_dofbot_bringup_uninstall: CMakeFiles/omni_dofbot_bringup_uninstall
 omni_dofbot_bringup_uninstall: CMakeFiles/omni_dofbot_bringup_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/omni_dofbot_bringup_uninstall.dir/clean:
 .PHONY : CMakeFiles/omni_dofbot_bringup_uninstall.dir/clean
 
 CMakeFiles/omni_dofbot_bringup_uninstall.dir/depend:
-	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_bringup/CMakeFiles/omni_dofbot_bringup_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup/CMakeFiles/omni_dofbot_bringup_uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/omni_dofbot_bringup_uninstall.dir/depend
 

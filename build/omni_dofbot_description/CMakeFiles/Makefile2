@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_dofbot_description
+CMAKE_SOURCE_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description
+CMAKE_BINARY_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -82,14 +82,14 @@ clean: CMakeFiles/omni_dofbot_description_uninstall.dir/clean
 CMakeFiles/uninstall.dir/all: CMakeFiles/omni_dofbot_description_uninstall.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/uninstall.dir/build.make CMakeFiles/uninstall.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles --progress-num= "Built target uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles --progress-num= "Built target uninstall"
 .PHONY : CMakeFiles/uninstall.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/uninstall.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/uninstall.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
 .PHONY : CMakeFiles/uninstall.dir/rule
 
 # Convenience name for target.
@@ -108,14 +108,14 @@ CMakeFiles/uninstall.dir/clean:
 CMakeFiles/omni_dofbot_description_uninstall.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omni_dofbot_description_uninstall.dir/build.make CMakeFiles/omni_dofbot_description_uninstall.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omni_dofbot_description_uninstall.dir/build.make CMakeFiles/omni_dofbot_description_uninstall.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles --progress-num= "Built target omni_dofbot_description_uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles --progress-num= "Built target omni_dofbot_description_uninstall"
 .PHONY : CMakeFiles/omni_dofbot_description_uninstall.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/omni_dofbot_description_uninstall.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/omni_dofbot_description_uninstall.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/arrusr/ROSDev2/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description/CMakeFiles 0
 .PHONY : CMakeFiles/omni_dofbot_description_uninstall.dir/rule
 
 # Convenience name for target.

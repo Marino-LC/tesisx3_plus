@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup
+CMAKE_SOURCE_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup
+CMAKE_BINARY_DIR = /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup
 
 # Utility rule file for uninstall.
 
@@ -78,6 +78,6 @@ CMakeFiles/uninstall.dir/clean:
 .PHONY : CMakeFiles/uninstall.dir/clean
 
 CMakeFiles/uninstall.dir/depend:
-	cd /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/src/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup /home/arrusr/ROSDev2/tesisx3_plus/build/omni_bringup/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/uninstall.dir/depend
 

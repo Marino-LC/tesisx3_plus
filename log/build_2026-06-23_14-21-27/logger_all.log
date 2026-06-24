@@ -1,0 +1,480 @@
+[0.059s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.059s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x72ceac0e0da0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x72ceac0b99d0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x72ceac0b99d0>>, mixin_verb=('build',))
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.081s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.081s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/marino-lc/ROS2dev/tesisx3_plus'
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.081s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.097s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ignore'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ignore_ament_install'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['colcon_pkg']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'colcon_pkg'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['colcon_meta']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'colcon_meta'
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extensions ['ros']
+[0.098s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_bringup) by extension 'ros'
+[0.099s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dofbot_bringup' with type 'ros.ament_cmake' and name 'dofbot_bringup'
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ignore'
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ignore_ament_install'
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['colcon_pkg']
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'colcon_pkg'
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['colcon_meta']
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'colcon_meta'
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extensions ['ros']
+[0.099s] Level 1:colcon.colcon_core.package_identification:_identify(src/dofbot_description) by extension 'ros'
+[0.100s] DEBUG:colcon.colcon_core.package_identification:Package 'src/dofbot_description' with type 'ros.ament_cmake' and name 'dofbot_description'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ignore'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ignore_ament_install'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['colcon_pkg']
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'colcon_pkg'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['colcon_meta']
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'colcon_meta'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extensions ['ros']
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_bringup) by extension 'ros'
+[0.100s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_bringup' with type 'ros.ament_cmake' and name 'omni_bringup'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['ignore', 'ignore_ament_install']
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ignore'
+[0.100s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ignore_ament_install'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['colcon_pkg']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'colcon_pkg'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['colcon_meta']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'colcon_meta'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extensions ['ros']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_description) by extension 'ros'
+[0.101s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_description' with type 'ros.ament_cmake' and name 'omni_description'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['ignore', 'ignore_ament_install']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ignore'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ignore_ament_install'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['colcon_pkg']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'colcon_pkg'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['colcon_meta']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'colcon_meta'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extensions ['ros']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_bringup) by extension 'ros'
+[0.101s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_dofbot_bringup' with type 'ros.ament_cmake' and name 'omni_dofbot_bringup'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['ignore', 'ignore_ament_install']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ignore'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ignore_ament_install'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['colcon_pkg']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'colcon_pkg'
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['colcon_meta']
+[0.101s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'colcon_meta'
+[0.102s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extensions ['ros']
+[0.102s] Level 1:colcon.colcon_core.package_identification:_identify(src/omni_dofbot_description) by extension 'ros'
+[0.102s] DEBUG:colcon.colcon_core.package_identification:Package 'src/omni_dofbot_description' with type 'ros.ament_cmake' and name 'omni_dofbot_description'
+[0.102s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.102s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.102s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.102s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.102s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.113s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.113s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.114s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 6 installed packages in /home/marino-lc/ROS2dev/tesisx3_plus/install
+[0.114s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/marino-lc/gz_fix_ws/install
+[0.115s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 425 installed packages in /opt/ros/jazzy
+[0.116s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_args' from command line to 'None'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_target' from command line to 'None'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.145s] Level 5:colcon.colcon_core.verb:set package 'dofbot_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.145s] DEBUG:colcon.colcon_core.verb:Building package 'dofbot_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_target' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'dofbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.146s] DEBUG:colcon.colcon_core.verb:Building package 'dofbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_description', 'symlink_install': False, 'test_result_base': None}
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_target' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.146s] DEBUG:colcon.colcon_core.verb:Building package 'omni_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_target' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.146s] DEBUG:colcon.colcon_core.verb:Building package 'omni_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_description', 'symlink_install': False, 'test_result_base': None}
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_target' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_clean_cache' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_clean_first' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'cmake_force_configure' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'ament_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'catkin_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_bringup' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.146s] DEBUG:colcon.colcon_core.verb:Building package 'omni_dofbot_bringup' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup', 'symlink_install': False, 'test_result_base': None}
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_target' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.146s] Level 5:colcon.colcon_core.verb:set package 'omni_dofbot_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.146s] DEBUG:colcon.colcon_core.verb:Building package 'omni_dofbot_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description', 'merge_install': False, 'path': '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description', 'symlink_install': False, 'test_result_base': None}
+[0.146s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.147s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.147s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_bringup' with build type 'ament_cmake'
+[0.147s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_bringup'
+[0.149s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.149s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.149s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.154s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_description' with build type 'ament_cmake'
+[0.154s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_description'
+[0.154s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.154s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.157s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup' with build type 'ament_cmake'
+[0.157s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_bringup'
+[0.157s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.157s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.160s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_description' with build type 'ament_cmake'
+[0.160s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_description'
+[0.160s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.160s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.163s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup' with build type 'ament_cmake'
+[0.163s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup'
+[0.163s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.163s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.166s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description' with build type 'ament_cmake'
+[0.166s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description'
+[0.166s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.166s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.172s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup -- -j12 -l12
+[0.173s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
+[0.174s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup -- -j12 -l12
+[0.175s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description -- -j12 -l12
+[0.177s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup -- -j12 -l12
+[0.181s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description -- -j12 -l12
+[0.209s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
+[0.216s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
+[0.217s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description -- -j12 -l12
+[0.218s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description
+[0.219s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description -- -j12 -l12
+[0.219s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description
+[0.228s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_description)
+[0.232s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
+[0.233s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description' for CMake module files
+[0.233s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description' for CMake config files
+[0.233s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_description', 'cmake_prefix_path')
+[0.233s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.ps1'
+[0.234s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.dsv'
+[0.234s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.sh'
+[0.235s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/bin'
+[0.235s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/lib/pkgconfig/dofbot_description.pc'
+[0.235s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/lib/python3.12/site-packages'
+[0.235s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/bin'
+[0.235s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.ps1'
+[0.236s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.dsv'
+[0.236s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.sh'
+[0.254s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.bash'
+[0.255s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.zsh'
+[0.256s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/colcon-core/packages/dofbot_description)
+[0.295s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_description)
+[0.295s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description' for CMake module files
+[0.296s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description' for CMake config files
+[0.296s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_description', 'cmake_prefix_path')
+[0.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.ps1'
+[0.296s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.dsv'
+[0.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/hook/cmake_prefix_path.sh'
+[0.297s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/bin'
+[0.297s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/lib/pkgconfig/dofbot_description.pc'
+[0.297s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/lib/python3.12/site-packages'
+[0.297s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/bin'
+[0.297s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.ps1'
+[0.298s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.dsv'
+[0.308s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.sh'
+[0.309s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.bash'
+[0.309s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.zsh'
+[0.309s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/colcon-core/packages/dofbot_description)
+[0.310s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_description)
+[0.311s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description' for CMake module files
+[0.311s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description
+[0.311s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description' for CMake config files
+[0.312s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_description', 'cmake_prefix_path')
+[0.312s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.ps1'
+[0.313s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.dsv'
+[0.314s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.sh'
+[0.314s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/bin'
+[0.314s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/lib/pkgconfig/omni_description.pc'
+[0.314s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/lib/python3.12/site-packages'
+[0.314s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/bin'
+[0.315s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.ps1'
+[0.315s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.dsv'
+[0.315s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.sh'
+[0.315s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.bash'
+[0.315s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.zsh'
+[0.316s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/colcon-core/packages/omni_description)
+[0.316s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_description)
+[0.316s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description' for CMake module files
+[0.316s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description' for CMake config files
+[0.317s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_description', 'cmake_prefix_path')
+[0.317s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.ps1'
+[0.317s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.dsv'
+[0.317s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/hook/cmake_prefix_path.sh'
+[0.317s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/bin'
+[0.317s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/lib/pkgconfig/omni_description.pc'
+[0.317s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/lib/python3.12/site-packages'
+[0.318s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/bin'
+[0.318s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.ps1'
+[0.318s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.dsv'
+[0.318s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.sh'
+[0.319s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.bash'
+[0.319s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.zsh'
+[0.319s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/colcon-core/packages/omni_description)
+[0.319s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_description)
+[0.319s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description' for CMake module files
+[0.320s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description' for CMake config files
+[0.320s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description
+[0.321s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_description', 'cmake_prefix_path')
+[0.321s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.ps1'
+[0.321s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.dsv'
+[0.321s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.sh'
+[0.322s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/bin'
+[0.322s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/lib/pkgconfig/omni_dofbot_description.pc'
+[0.322s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/lib/python3.12/site-packages'
+[0.322s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/bin'
+[0.322s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.ps1'
+[0.322s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv'
+[0.323s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.sh'
+[0.323s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.bash'
+[0.323s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.zsh'
+[0.323s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/colcon-core/packages/omni_dofbot_description)
+[0.323s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_description)
+[0.324s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description' for CMake module files
+[0.324s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description' for CMake config files
+[0.324s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_description', 'cmake_prefix_path')
+[0.324s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.ps1'
+[0.324s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.dsv'
+[0.324s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/hook/cmake_prefix_path.sh'
+[0.325s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/bin'
+[0.325s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/lib/pkgconfig/omni_dofbot_description.pc'
+[0.325s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/lib/python3.12/site-packages'
+[0.325s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/bin'
+[0.325s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.ps1'
+[0.326s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv'
+[0.326s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.sh'
+[0.326s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.bash'
+[0.326s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.zsh'
+[0.326s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/colcon-core/packages/omni_dofbot_description)
+[0.428s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup -- -j12 -l12
+[0.428s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup
+[0.429s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup -- -j12 -l12
+[0.429s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup
+[0.439s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup -- -j12 -l12
+[0.440s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup
+[0.468s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_bringup)
+[0.468s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup
+[0.468s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup' for CMake module files
+[0.469s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup' for CMake config files
+[0.469s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'cmake_prefix_path')
+[0.469s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.ps1'
+[0.469s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.dsv'
+[0.469s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.sh'
+[0.470s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib'
+[0.470s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/bin'
+[0.470s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/pkgconfig/omni_bringup.pc'
+[0.470s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages'
+[0.470s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'pythonpath')
+[0.470s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.ps1'
+[0.470s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.dsv'
+[0.471s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.sh'
+[0.471s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/bin'
+[0.471s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.ps1'
+[0.472s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.dsv'
+[0.472s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.sh'
+[0.472s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.bash'
+[0.473s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.zsh'
+[0.562s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/colcon-core/packages/omni_bringup)
+[0.563s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_bringup)
+[0.563s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup' for CMake module files
+[0.564s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup' for CMake config files
+[0.564s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'cmake_prefix_path')
+[0.564s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.ps1'
+[0.565s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.dsv'
+[0.565s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/cmake_prefix_path.sh'
+[0.566s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib'
+[0.566s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/bin'
+[0.566s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/pkgconfig/omni_bringup.pc'
+[0.566s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages'
+[0.566s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_bringup', 'pythonpath')
+[0.566s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.ps1'
+[0.566s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.dsv'
+[0.567s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/hook/pythonpath.sh'
+[0.567s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/bin'
+[0.567s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.ps1'
+[0.568s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.dsv'
+[0.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.sh'
+[0.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.bash'
+[0.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.zsh'
+[0.570s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/colcon-core/packages/omni_bringup)
+[0.571s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_bringup)
+[0.571s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup' for CMake module files
+[0.572s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_bringup
+[0.572s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup' for CMake config files
+[0.572s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'cmake_prefix_path')
+[0.572s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.ps1'
+[0.572s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.dsv'
+[0.573s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.sh'
+[0.573s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib'
+[0.573s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/bin'
+[0.573s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/pkgconfig/omni_dofbot_bringup.pc'
+[0.573s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages'
+[0.573s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'pythonpath')
+[0.573s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.ps1'
+[0.573s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.dsv'
+[0.574s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.sh'
+[0.574s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/bin'
+[0.574s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.ps1'
+[0.574s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.dsv'
+[0.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.sh'
+[0.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.bash'
+[0.575s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.zsh'
+[0.575s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/colcon-core/packages/omni_dofbot_bringup)
+[0.575s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(omni_dofbot_bringup)
+[0.576s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup' for CMake module files
+[0.576s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup' for CMake config files
+[0.576s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'cmake_prefix_path')
+[0.576s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.ps1'
+[0.576s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.dsv'
+[0.576s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/cmake_prefix_path.sh'
+[0.577s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib'
+[0.577s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/bin'
+[0.577s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/pkgconfig/omni_dofbot_bringup.pc'
+[0.577s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/python3.12/site-packages'
+[0.577s] Level 1:colcon.colcon_core.shell:create_environment_hook('omni_dofbot_bringup', 'pythonpath')
+[0.577s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.ps1'
+[0.577s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.dsv'
+[0.577s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/hook/pythonpath.sh'
+[0.578s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/bin'
+[0.578s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.ps1'
+[0.578s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.dsv'
+[0.579s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.sh'
+[0.579s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.bash'
+[0.579s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/package.zsh'
+[0.579s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/colcon-core/packages/omni_dofbot_bringup)
+[0.580s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_bringup)
+[0.580s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup' for CMake module files
+[0.580s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup
+[0.581s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup' for CMake config files
+[0.581s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'cmake_prefix_path')
+[0.581s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.ps1'
+[0.582s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.dsv'
+[0.582s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.sh'
+[0.582s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib'
+[0.582s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/bin'
+[0.582s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib/pkgconfig/dofbot_bringup.pc'
+[0.583s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages'
+[0.583s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'pythonpath')
+[0.583s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.ps1'
+[0.583s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.dsv'
+[0.583s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.sh'
+[0.583s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/bin'
+[0.584s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.ps1'
+[0.584s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.dsv'
+[0.584s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.sh'
+[0.584s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.bash'
+[0.585s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.zsh'
+[0.585s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/colcon-core/packages/dofbot_bringup)
+[0.585s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(dofbot_bringup)
+[0.585s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup' for CMake module files
+[0.585s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup' for CMake config files
+[0.585s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'cmake_prefix_path')
+[0.586s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.ps1'
+[0.586s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.dsv'
+[0.586s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/cmake_prefix_path.sh'
+[0.586s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib'
+[0.586s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/bin'
+[0.586s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib/pkgconfig/dofbot_bringup.pc'
+[0.587s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/lib/python3.12/site-packages'
+[0.587s] Level 1:colcon.colcon_core.shell:create_environment_hook('dofbot_bringup', 'pythonpath')
+[0.587s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.ps1'
+[0.587s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.dsv'
+[0.588s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/hook/pythonpath.sh'
+[0.588s] Level 1:colcon.colcon_core.environment:checking '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/bin'
+[0.588s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.ps1'
+[0.589s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.dsv'
+[0.589s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.sh'
+[0.590s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.bash'
+[0.590s] INFO:colcon.colcon_core.shell:Creating package script '/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/dofbot_bringup/package.zsh'
+[0.590s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup/share/colcon-core/packages/dofbot_bringup)
+[0.590s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[0.591s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[0.591s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[0.591s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[0.595s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[0.595s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[0.595s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[0.602s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[0.603s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marino-lc/ROS2dev/tesisx3_plus/install/local_setup.ps1'
+[0.603s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/marino-lc/ROS2dev/tesisx3_plus/install/_local_setup_util_ps1.py'
+[0.604s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marino-lc/ROS2dev/tesisx3_plus/install/setup.ps1'
+[0.605s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marino-lc/ROS2dev/tesisx3_plus/install/local_setup.sh'
+[0.605s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/marino-lc/ROS2dev/tesisx3_plus/install/_local_setup_util_sh.py'
+[0.605s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marino-lc/ROS2dev/tesisx3_plus/install/setup.sh'
+[0.606s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marino-lc/ROS2dev/tesisx3_plus/install/local_setup.bash'
+[0.606s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marino-lc/ROS2dev/tesisx3_plus/install/setup.bash'
+[0.607s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/marino-lc/ROS2dev/tesisx3_plus/install/local_setup.zsh'
+[0.607s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/marino-lc/ROS2dev/tesisx3_plus/install/setup.zsh'
