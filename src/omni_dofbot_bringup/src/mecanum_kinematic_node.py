@@ -63,7 +63,7 @@ from rcl_interfaces.msg import SetParametersResult
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import JointState
 from std_msgs.msg import Float64MultiArray
-from std_srvs.srv import Trigger
+from std_srvs.srv import Empty
 import numpy as np
 
 
@@ -204,7 +204,7 @@ class MecanumKinematicNode(Node):
         # integrador del PID y el estado del filtro de motor no arrastren
         # residuos de la prueba anterior.
         self._reset_srv = self.create_service(
-            Trigger, '~/reset_controller_state', self._on_reset_state
+            Empty, '~/reset_controller_state', self._on_reset_state
         )
 
         # ── Timer del lazo de control ─────────────────────────────────────────
@@ -288,8 +288,6 @@ class MecanumKinematicNode(Node):
             lag.reset(0.0)
 
         self.get_logger().info('Estado del controlador reiniciado (PID + modelo de motor).')
-        response.success = True
-        response.message = 'PID integrators and motor lag filters reset.'
         return response
 
     def _on_params_change(self, params):

@@ -1,0 +1,52 @@
+[0.074s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
+[0.127s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
+[0.139s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
+[0.151s] -- Install configuration: ""
+[0.152s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//config
+[0.152s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//config/dofbot_trajectory_controller.yaml
+[0.152s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch
+[0.152s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch/dofbot_arm.launch.xml
+[0.152s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes
+[0.153s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor
+[0.153s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual
+[0.153s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual/mono_link.STL
+[0.153s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot
+[0.153s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger2.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger2.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/base_link.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link1.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger1.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link2.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link3.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger3.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger3.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link4.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger1.STL
+[0.154s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link5.STL
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz/dofbot_arm_rviz.rviz
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_arm_urdf.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/monocular_camera_sensor.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_trajectory_controller.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/xacro_properties.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_gz_properties.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/trajectory_controller.xacro
+[0.155s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/arm_base_link_xacro.xacro
+[0.160s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/package_run_dependencies/dofbot_description
+[0.160s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/parent_prefix_path/dofbot_description
+[0.160s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.sh
+[0.160s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.dsv
+[0.160s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.sh
+[0.161s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.dsv
+[0.161s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.bash
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.sh
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.zsh
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.dsv
+[0.162s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.dsv
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/packages/dofbot_description
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig.cmake
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig-version.cmake
+[0.162s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.xml
+[0.164s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description

@@ -114,14 +114,11 @@ GRIP_TOPIC  = "/dofbot_gripper_controller/joint_trajectory"
 ARM_MOVE_DUR = 1     # s
 ARM_HOLD_DUR = 1.0   # s
 
-ARM_POSES = [
-    [0.00,  0.00,  0.00,  0.00,  0.00],
-    [0.31, -1.05, -0.50, -0.61,  1.57],
-    [0.39,  0.86, -0.91, -0.17, -0.77],
-    [-0.62, 0.01, -1.04, -0.66,  1.28],
-    [0.10, -0.62,  0.20,  0.68, -0.84],
-    [0.67,  0.44, -0.35, -0.76,  2.29],
-]
+# ── Brazo Dofbot — pick & place lado a lado ───────────────────────────────────
+ARM_HOME       = [ 0.00, 0.00,  0.00,  0.00, 0.00]
+ARM_PICK_LEFT  = [-1.20, -0.95, -0.45, -0.55, 1.57]
+ARM_PICK_RIGHT = [ 1.20, -0.95, -0.45, -0.55, 1.57]
+
 ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
 GRIP_OPEN   =  0.00
 GRIP_CLOSED = -1.54
@@ -406,40 +403,50 @@ class AGMotionEvaluator(Node):
         msg.points.append(pt)
         self._grip_pub.publish(msg)
 
+    def _wait_arm(self, duration_sec: float) -> bool:
+        """Espera duration_sec mientras self._arm_active siga activo.
+        Devuelve False si el hilo debe detenerse anticipadamente."""
+        t0 = time.time()
+        while self._arm_active and time.time() - t0 < duration_sec:
+            time.sleep(0.05)
+        return self._arm_active
+
     def _arm_loop(self):
-        self.get_logger().info("[Brazo] hilo iniciado")
-        step = 0
+        self.get_logger().info("[Brazo] hilo iniciado — pick & place lado a lado")
+        side = "left"   # primer ciclo: recoge del lado izquierdo, deja a la derecha
+
         while self._arm_active:
-            idx_1, idx_2 = ARM_CHOREOGRAPHY[step % len(ARM_CHOREOGRAPHY)]
-            step += 1
+            pick_pose  = ARM_PICK_LEFT  if side == "left" else ARM_PICK_RIGHT
+            place_pose = ARM_PICK_RIGHT if side == "left" else ARM_PICK_LEFT
 
-            self._send_arm(ARM_POSES[idx_1])
+            # 1. Ir a recoger, pinza abierta
+            self._send_arm(pick_pose)
             self._send_grip(GRIP_OPEN)
-            t0 = time.time()
-            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
-                time.sleep(0.05)
-            if not self._arm_active: break
+            if not self._wait_arm(ARM_MOVE_DUR + ARM_HOLD_DUR): break
 
+            # 2. Cerrar pinza (tomar el objeto)
             self._send_grip(GRIP_CLOSED)
-            time.sleep(ARM_HOLD_DUR)
-            if not self._arm_active: break
+            if not self._wait_arm(ARM_HOLD_DUR): break
 
-            self._send_arm(ARM_POSES[idx_2])
-            t0 = time.time()
-            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
-                time.sleep(0.05)
-            if not self._arm_active: break
+            # 3. Transitar por HOME (evita arrastrar el objeto al cruzar)
+            self._send_arm(ARM_HOME)
+            if not self._wait_arm(ARM_MOVE_DUR + ARM_HOLD_DUR): break
 
+            # 4. Ir al lado opuesto a depositar
+            self._send_arm(place_pose)
+            if not self._wait_arm(ARM_MOVE_DUR + ARM_HOLD_DUR): break
+
+            # 5. Soltar el objeto
             self._send_grip(GRIP_OPEN)
-            time.sleep(ARM_HOLD_DUR)
-            if not self._arm_active: break
+            if not self._wait_arm(ARM_HOLD_DUR): break
 
-            self._send_arm(ARM_POSES[0])
-            t0 = time.time()
-            while self._arm_active and time.time()-t0 < ARM_MOVE_DUR+ARM_HOLD_DUR:
-                time.sleep(0.05)
+            # 6. Volver a HOME antes de alternar de lado
+            self._send_arm(ARM_HOME)
+            if not self._wait_arm(ARM_MOVE_DUR + ARM_HOLD_DUR): break
 
-        self._send_arm(ARM_POSES[0])
+            side = "right" if side == "left" else "left"   # alterna — lado a lado
+
+        self._send_arm(ARM_HOME)
         self._send_grip(GRIP_OPEN)
         self.get_logger().info("[Brazo] hilo detenido → HOME")
 
