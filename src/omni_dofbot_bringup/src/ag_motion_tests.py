@@ -92,16 +92,16 @@ TIMEOUT_ROT  = 5.0    # s  timeout rotación
 POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 
-# ── AG ────────────────────────────────────────────────────────────────────────
+# ── AG ──────────────────────────────────────────────────────cd ..──────────────────
 POP_SIZE    = 100
-N_GEN       = 10
+N_GEN       = 50
 CX_PROB     = 0.50
 MUT_PROB    = 0.20
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
-KP_RANGE    = (0.0, 10.0)
-KI_RANGE    = (0.0, 5.0)
-KD_RANGE    = (0.0, 0.05)
+KP_RANGE    = (0.0, 20.0)
+KI_RANGE    = (0.0, 50.0)
+KD_RANGE    = (0.0, 0.5)
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
@@ -115,9 +115,9 @@ ARM_MOVE_DUR = 1     # s
 ARM_HOLD_DUR = 1.0   # s
 
 # ── Brazo Dofbot — pick & place lado a lado ───────────────────────────────────
-ARM_HOME       = [ 0.00, 0.00,  0.00,  0.00, 0.00]
-ARM_PICK_LEFT  = [-1.20, -0.95, -0.45, -0.55, 1.57]
-ARM_PICK_RIGHT = [ 1.20, -0.95, -0.45, -0.55, 1.57]
+ARM_HOME       = [ 0.00,  0.00,  0.00,  0.00, 1.57]
+ARM_PICK_LEFT  = [-1.20, -1.25, -0.7, -0.3, 1.57]
+ARM_PICK_RIGHT = [ 1.20, -1.25, -0.7, -0.3, 1.57]
 
 ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
 GRIP_OPEN   =  0.00
@@ -269,10 +269,9 @@ class AGMotionEvaluator(Node):
             self._vel_real = (vx, vy, wz)
 
             if self._measuring:
-                # Cálculo de ITAE con dt real
                 now = time.time()
                 dt = now - self._last_odom_t
-                if dt <= 0.0: dt = 0.001  # protección matemática
+                if dt <= 0.0: dt = 0.001
                 self._last_odom_t = now
 
                 ex  = self._itae_target.x - self._pose.x
@@ -287,10 +286,16 @@ class AGMotionEvaluator(Node):
                 yaw_ref = self._yaw_ref_live
 
                 if self._seg_log is not None:
-                    self._seg_log.pos_err.append(err)
+                    vref_x, vref_y, vref_wz = self._current_vref
+                    # ── ÚNICA fuente de verdad: todo se añade aquí, junto y sincronizado ──
+                    self._seg_log.t.append(t_real)
+                    self._seg_log.vx_ref.append(vref_x)
+                    self._seg_log.vy_ref.append(vref_y)
+                    self._seg_log.wz_ref.append(vref_wz)
                     self._seg_log.vx_real.append(vx)
                     self._seg_log.vy_real.append(vy)
                     self._seg_log.wz_real.append(wz)
+                    self._seg_log.pos_err.append(err)
                     self._seg_log.x_ref.append(x_ref)
                     self._seg_log.y_ref.append(y_ref)
                     self._seg_log.yaw_ref.append(yaw_ref)
@@ -301,17 +306,16 @@ class AGMotionEvaluator(Node):
                 msg_e = Float64(); msg_e.data = float(err)
                 self._pub_err.publish(msg_e)
 
-                vref_x, vref_y, _ = self._current_vref
+                vref_x2, vref_y2, _ = self._current_vref
                 msg_vref  = Float64()
                 msg_vreal = Float64()
-                if abs(vref_x) >= abs(vref_y):
-                    msg_vref.data, msg_vreal.data = float(vref_x), float(vx)
+                if abs(vref_x2) >= abs(vref_y2):
+                    msg_vref.data, msg_vreal.data = float(vref_x2), float(vx)
                 else:
-                    msg_vref.data, msg_vreal.data = float(vref_y), float(vy)
+                    msg_vref.data, msg_vreal.data = float(vref_y2), float(vy)
                 self._pub_vref.publish(msg_vref)
                 self._pub_vreal.publish(msg_vreal)
 
-                # ── Publicar pose deseada vs obtenida (en vivo) ─────────────────
                 m = Float64(); m.data = float(x_ref);        self._pub_x_ref.publish(m)
                 m = Float64(); m.data = float(y_ref);        self._pub_y_ref.publish(m)
                 m = Float64(); m.data = float(yaw_ref);      self._pub_yaw_ref.publish(m)
@@ -524,7 +528,7 @@ class AGMotionEvaluator(Node):
 
     # ── Primitivas de movimiento ──────────────────────────────────────────────
     def _drive(self, dist_m: float, axis: str, vx=0.0, vy=0.0,
-               timeout=TIMEOUT_MOVE, seg_name="") -> tuple:
+           timeout=TIMEOUT_MOVE, seg_name="") -> tuple:
         p0 = self._get_pose()
 
         if axis == "x":
@@ -555,12 +559,7 @@ class AGMotionEvaluator(Node):
                 self.get_logger().warn(f"Overshoot ({traveled:.2f}m) — freno emergencia.")
                 break
 
-            t_rel = time.time() - t0
-            vr    = self._get_vel_real()
-            slog.t.append(t_rel)
-            slog.vx_ref.append(vx);   slog.vy_ref.append(vy);   slog.wz_ref.append(0.0)
-            slog.vx_real.append(vr[0]); slog.vy_real.append(vr[1]); slog.wz_real.append(vr[2])
-
+            # ya NO se toca slog aquí — lo llena _odom_cb
             self._send(vx=vx, vy=vy)
             time.sleep(CTRL_DT)
 
@@ -569,6 +568,7 @@ class AGMotionEvaluator(Node):
         elapsed = time.time() - t0
         time.sleep(SETTLE_TIME)
         return itae, elapsed, ok, slog
+
 
     def _rotate(self, angle_rad: float, timeout=TIMEOUT_ROT, seg_name="") -> tuple:
         p0       = self._get_pose()
@@ -595,12 +595,7 @@ class AGMotionEvaluator(Node):
                 self._yaw_ref_live = p0.yaw + angle_rad * frac
                 self._current_vref = (0.0, 0.0, wz)
 
-            if slog is not None:
-                vr = self._get_vel_real()
-                slog.t.append(t_rel)
-                slog.vx_ref.append(0.0); slog.vy_ref.append(0.0); slog.wz_ref.append(wz)
-                slog.vx_real.append(vr[0]); slog.vy_real.append(vr[1]); slog.wz_real.append(vr[2])
-
+            # ya NO se toca slog aquí — lo llena _odom_cb
             self._send(wz=wz)
             time.sleep(CTRL_DT)
 
