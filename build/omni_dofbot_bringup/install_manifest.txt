@@ -21,6 +21,7 @@
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/ag_tuner.py
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/ag_motion_tests.py
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/Mecanum_odometry_node.py
+/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/lib/omni_dofbot_bringup/zn_tuner.py
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_bringup
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_bringup
 /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_bringup/share/omni_dofbot_bringup/environment/ament_prefix_path.sh

@@ -1,0 +1,44 @@
+[0.035s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup -- -j12 -l12
+[0.143s] Built target ament_cmake_python_copy_omni_bringup
+[0.447s] running egg_info
+[0.471s] writing omni_bringup.egg-info/PKG-INFO
+[0.471s] writing dependency_links to omni_bringup.egg-info/dependency_links.txt
+[0.472s] writing top-level names to omni_bringup.egg-info/top_level.txt
+[0.541s] reading manifest file 'omni_bringup.egg-info/SOURCES.txt'
+[0.542s] writing manifest file 'omni_bringup.egg-info/SOURCES.txt'
+[0.631s] Built target ament_cmake_python_build_omni_bringup_egg
+[0.656s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup -- -j12 -l12
+[0.657s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup
+[0.671s] -- Install configuration: ""
+[0.672s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//launch
+[0.672s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//launch/simple_velocity_controller.launch.py
+[0.672s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//rviz
+[0.672s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//rviz/omni_velocity_rviz.rviz
+[0.673s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//world
+[0.673s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup//world/Mundo_mesa_y_cajas.world
+[0.673s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/pythonpath.sh
+[0.674s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/pythonpath.dsv
+[0.674s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info
+[0.674s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/SOURCES.txt
+[0.674s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/PKG-INFO
+[0.674s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/dependency_links.txt
+[0.674s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup-0.0.0-py3.12.egg-info/top_level.txt
+[0.675s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup
+[0.675s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup/__init__.py
+[0.725s] Listing '/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/lib/python3.12/site-packages/omni_bringup'...
+[0.741s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/ament_index/resource_index/package_run_dependencies/omni_bringup
+[0.741s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/ament_index/resource_index/parent_prefix_path/omni_bringup
+[0.741s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/ament_prefix_path.sh
+[0.742s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/ament_prefix_path.dsv
+[0.742s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/path.sh
+[0.742s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/environment/path.dsv
+[0.742s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/local_setup.bash
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/local_setup.sh
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/local_setup.zsh
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/local_setup.dsv
+[0.743s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.dsv
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/ament_index/resource_index/packages/omni_bringup
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/cmake/omni_bringupConfig.cmake
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/cmake/omni_bringupConfig-version.cmake
+[0.743s] -- Up-to-date: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_bringup/share/omni_bringup/package.xml
+[0.746s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_bringup
