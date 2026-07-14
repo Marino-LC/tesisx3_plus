@@ -39,6 +39,52 @@ EJECUCIÓN
 
 DEPENDENCIAS:
   pip install deap --break-system-packages
+
+══════════════════════════════════════════════════════════════════════════════
+CHANGELOG respecto a la versión anterior (documentado para la tesis)
+══════════════════════════════════════════════════════════════════════════════
+1. SINCRONIZACIÓN DE SegmentLog (bug de graficado):
+   Antes, las listas de cada segmento (t, vx_ref/real, vy_ref/real,
+   wz_ref/real, pos_err, x/y/yaw ref/real) se llenaban desde DOS lugares
+   distintos y con distinta frecuencia: el bucle de control de _drive()/
+   _rotate() (a CTRL_DT=20Hz) Y el callback _odom_cb() (a la tasa real de
+   /odom). Esto producía listas de longitudes distintas y descoordinadas,
+   por lo que los guards `len(seg.t) == len(seg.X)` en _build_plots()
+   fallaban silenciosamente, dejando las gráficas de P1/P2/P3 y pose
+   X/Y/Yaw completamente vacías. Ahora _odom_cb() es la ÚNICA fuente de
+   verdad: todas las listas de un segmento se llenan juntas, una vez por
+   mensaje de /odom recibido, garantizando longitudes siempre iguales.
+
+2. ROBUSTEZ DEL HILO DEL BRAZO:
+   _run_test1/2/3 ahora envuelven las primitivas de movimiento en
+   try/finally, garantizando que _stop_arm() se ejecute incluso si
+   _drive()/_rotate() lanzan una excepción a mitad de una prueba. Esto
+   evita que el hilo daemon del brazo siga publicando después de que
+   rclpy empiece a destruir el nodo (causa de un InvalidHandle observado
+   en una corrida previa).
+
+3. ELITISMO EN EL BUCLE PRINCIPAL DEL AG:
+   La versión anterior seleccionaba con selTournament únicamente sobre
+   `offspring`, sin reinyectar el HallOfFame a la población de trabajo.
+   Análisis del log de una corrida de 50 generaciones x 100 individuos
+   mostró DOS regresiones documentadas del mínimo histórico (gen 12→13 y
+   gen 33→34, donde el mejor individuo encontrado se perdía de la
+   población) y dos mesetas largas sin ninguna mejora (gen 18-33 y
+   34-45, 28 de 50 generaciones sin cambio). Ahora los mejores `len(hof)`
+   individuos se reinyectan a la población tras cada selección.
+
+4. KD_RANGE AMPLIADO (0.0, 0.5) -> (0.0, 1.0):
+   En casi todas las generaciones de la corrida analizada, el mejor
+   individuo reportaba Kd exactamente en el límite superior del rango
+   anterior (0.5), señal clásica de que el óptimo real podría estar más
+   allá del límite explorable. Se amplía para verificar.
+
+5. SIGMA DE MUTACIÓN POR PARÁMETRO:
+   mutGaussian usaba sigma=0.5 fijo para los tres genes, pese a que sus
+   rangos son muy distintos (Kp: 0-20, Ki: 0-50, Kd: 0-1). Esto hacía la
+   exploración de Kp/Ki extremadamente lenta (~1-2% del rango) y la de Kd
+   excesivamente brusca (~50-100% del rango). Ahora sigma se escala
+   aproximadamente al 7-8% del rango de cada parámetro.
 """
 
 import math, time, threading, subprocess, random, json, os, webbrowser
@@ -92,16 +138,25 @@ TIMEOUT_ROT  = 5.0    # s  timeout rotación
 POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 
-# ── AG ──────────────────────────────────────────────────────cd ..──────────────────
-POP_SIZE    = 100
-N_GEN       = 50
+# ── AG ──────────────────────────────────────────────────────────────────────
+POP_SIZE    = 25
+N_GEN       = 100
 CX_PROB     = 0.50
 MUT_PROB    = 0.20
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
 KP_RANGE    = (0.0, 20.0)
 KI_RANGE    = (0.0, 50.0)
-KD_RANGE    = (0.0, 0.5)
+KD_RANGE    = (0.0, 1.0)   # CHANGELOG #4 — antes (0.0, 0.5); el mejor individuo
+                           # quedaba pegado al límite superior en casi toda la
+                           # corrida analizada, así que se amplía para verificar
+                           # si el óptimo real está más allá de 0.5.
+
+# CHANGELOG #5 — sigma por parámetro, ~7-8% del rango de cada gen, en vez de
+# un sigma=0.5 fijo que hacía la exploración de Kp/Ki muy lenta y la de Kd
+# demasiado brusca.
+MUT_SIGMA   = [1.5, 3.5, 0.08]   # [Kp, Ki, Kd]
+
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
@@ -221,9 +276,9 @@ class AGMotionEvaluator(Node):
             Empty, '/mecanum_odometry_node/reset_pose',
             callback_group=cbg)
 
-        # NUEVO: cliente para resetear PID + filtro de motor de mecanum_kinematic_node
+        # Cliente para resetear PID + filtro de motor de mecanum_kinematic_node
         self._reset_ctrl_cli = self.create_client(
-            Empty, '/mecanum_kinematic_node/reset_controller_state', 
+            Empty, '/mecanum_kinematic_node/reset_controller_state',
             callback_group=cbg)
 
         # ── Estado de odometría ───────────────────────────────────────────────
@@ -253,10 +308,23 @@ class AGMotionEvaluator(Node):
         self._current_idx = 0
         self._arm_active  = False
 
+        # CHANGELOG #6 — timestamp de arranque, usado para reportar tiempo
+        # transcurrido junto con el progreso de generación/individuo en cada
+        # evaluación (ver evaluate()), así se puede seguir el avance real de
+        # una corrida larga sin adivinar en qué punto va.
+        self._eval_start_time = time.time()
+
         self.get_logger().info("AGMotionEvaluator listo.")
 
     # ── Odometría ─────────────────────────────────────────────────────────────
     def _odom_cb(self, msg: Odometry):
+        """
+        ÚNICA fuente de verdad para el llenado de SegmentLog (ver CHANGELOG #1).
+        Todas las listas de un segmento (t, vx/vy/wz ref y real, pos_err,
+        x/y/yaw ref y real) se añaden juntas aquí, una vez por mensaje de
+        /odom recibido, garantizando que todas queden siempre con la misma
+        longitud. _drive()/_rotate() ya NO escriben directamente en slog.
+        """
         q   = msg.pose.pose.orientation
         yaw = math.atan2(2*(q.w*q.z + q.x*q.y), 1 - 2*(q.y**2 + q.z**2))
         vx  = msg.twist.twist.linear.x
@@ -375,18 +443,14 @@ class AGMotionEvaluator(Node):
             self.get_logger().warn("Timeout esperando reset de odometría.")
 
     def _reset_controller(self):
-        if not self._reset_ctrl_cli.wait_for_service(timeout_sec=2.0):
-            self.get_logger().warn(
-                "Servicio /mecanum_kinematic_node/reset_controller_state no disponible.")
-            return
-        fut = self._reset_ctrl_cli.call_async(Empty.Request())
-        t0  = time.time()
-        while not fut.done() and time.time() - t0 < 2.0:
-            time.sleep(0.05)
-        if fut.done():
-            self.get_logger().info("Controlador reseteado (PID + filtro de motor).")
+        """Resetea integradores PID y filtro de motor de mecanum_kinematic_node."""
+        if self._reset_ctrl_cli.wait_for_service(timeout_sec=2.0):
+            fut = self._reset_ctrl_cli.call_async(Empty.Request())
+            t0 = time.time()
+            while not fut.done() and time.time() - t0 < 2.0:
+                time.sleep(0.05)
         else:
-            self.get_logger().warn("Timeout esperando reset del controlador.")
+            self.get_logger().warn("reset_controller_state no disponible.")
 
     # ── Brazo Dofbot ──────────────────────────────────────────────────────────
     def _send_arm(self, positions: list, duration_sec: int = ARM_MOVE_DUR):
@@ -512,19 +576,9 @@ class AGMotionEvaluator(Node):
 
         # ORDEN CORREGIDO: resetear ANTES de fijar el origen, no después.
         self._reset_odometry()
-        self._reset_controller()   # NUEVO: PID + filtro de motor
+        self._reset_controller()
         time.sleep(0.10)            # deja llegar al menos un /odom ya en cero
         self._fix_origin()
-
-    def _reset_controller(self):
-        """Resetea integradores PID y filtro de motor de mecanum_kinematic_node."""
-        if self._reset_ctrl_cli.wait_for_service(timeout_sec=2.0):
-            fut = self._reset_ctrl_cli.call_async(Empty.Request())
-            t0 = time.time()
-            while not fut.done() and time.time() - t0 < 2.0:
-                time.sleep(0.05)
-        else:
-            self.get_logger().warn("reset_controller_state no disponible.")
 
     # ── Primitivas de movimiento ──────────────────────────────────────────────
     def _drive(self, dist_m: float, axis: str, vx=0.0, vy=0.0,
@@ -559,7 +613,7 @@ class AGMotionEvaluator(Node):
                 self.get_logger().warn(f"Overshoot ({traveled:.2f}m) — freno emergencia.")
                 break
 
-            # ya NO se toca slog aquí — lo llena _odom_cb
+            # CHANGELOG #1 — ya NO se toca slog aquí, lo llena _odom_cb
             self._send(vx=vx, vy=vy)
             time.sleep(CTRL_DT)
 
@@ -595,7 +649,7 @@ class AGMotionEvaluator(Node):
                 self._yaw_ref_live = p0.yaw + angle_rad * frac
                 self._current_vref = (0.0, 0.0, wz)
 
-            # ya NO se toca slog aquí — lo llena _odom_cb
+            # CHANGELOG #1 — ya NO se toca slog aquí, lo llena _odom_cb
             self._send(wz=wz)
             time.sleep(CTRL_DT)
 
@@ -633,11 +687,14 @@ class AGMotionEvaluator(Node):
         self.get_logger().info("── P1: línea recta adelante-atrás ──")
         self._teleport()
         self._start_arm()
+        # CHANGELOG #2 — try/finally: garantiza _stop_arm() aunque _drive()
+        # lance una excepción a mitad de la prueba.
+        try:
+            i1, t1, ok1, s1 = self._drive( DIST_X, "x", vx=+VX_REF, seg_name="P1_adelante")
+            i2, t2, ok2, s2 = self._drive(-DIST_X, "x", vx=-VX_REF, seg_name="P1_atras")
+        finally:
+            self._stop_arm()
 
-        i1, t1, ok1, s1 = self._drive( DIST_X, "x", vx=+VX_REF, seg_name="P1_adelante")
-        i2, t2, ok2, s2 = self._drive(-DIST_X, "x", vx=-VX_REF, seg_name="P1_atras")
-
-        self._stop_arm()
         rel   = self._pose_rel()
         err_f = math.hypot(rel.x, rel.y)
 
@@ -664,11 +721,12 @@ class AGMotionEvaluator(Node):
         self.get_logger().info("── P2: rotación pura +90°/-90° ──")
         self._teleport()
         self._start_arm()
+        try:
+            err1, ok1, s1, t1 = self._rotate(+ROT_ANGLE, seg_name="P2_giro_horario")
+            err2, ok2, s2, t2 = self._rotate(-ROT_ANGLE, seg_name="P2_giro_antihorario")
+        finally:
+            self._stop_arm()
 
-        err1, ok1, s1, t1 = self._rotate(+ROT_ANGLE, seg_name="P2_giro_horario")
-        err2, ok2, s2, t2 = self._rotate(-ROT_ANGLE, seg_name="P2_giro_antihorario")
-
-        self._stop_arm()
         rel   = self._pose_rel()
         err_f = math.hypot(rel.x, rel.y)
 
@@ -690,12 +748,13 @@ class AGMotionEvaluator(Node):
         self.get_logger().info("── P3: avance + giro + regreso de frente ──")
         self._teleport()
         self._start_arm()
+        try:
+            i1, t1, ok1, s1   = self._drive(DIST_X, "x", vx=+VX_REF, seg_name="P3_adelante")
+            err_yaw, ok_rot, s_rot, t_rot = self._rotate(-ROT_ANGLE, seg_name="P3_giro")
+            i2, t2, ok2, s2   = self._drive(DIST_RETURN, "x", vx=+VX_REF, seg_name="P3_regreso")
+        finally:
+            self._stop_arm()
 
-        i1, t1, ok1, s1   = self._drive(DIST_X, "x", vx=+VX_REF, seg_name="P3_adelante")
-        err_yaw, ok_rot, s_rot, t_rot = self._rotate(-ROT_ANGLE, seg_name="P3_giro")
-        i2, t2, ok2, s2   = self._drive(DIST_RETURN, "x", vx=+VX_REF, seg_name="P3_regreso")
-
-        self._stop_arm()
         rel   = self._pose_rel()
         err_f = math.hypot(rel.x, rel.y)
 
@@ -716,6 +775,19 @@ class AGMotionEvaluator(Node):
     # ── Evaluación ────────────────────────────────────────────────────────────
     def evaluate(self, individual) -> tuple:
         kp, ki, kd = individual
+
+        # --- IMPLEMENTACIÓN DEL CHANGELOG 6 ---
+        elapsed = time.time() - self._eval_start_time
+        m, s = divmod(int(elapsed), 60)
+        h, m = divmod(m, 60)
+        
+        self.get_logger().info(
+            f"=== [Progreso AG] Tiempo: {h:02d}:{m:02d}:{s:02d} | "
+            f"Gen: {self._current_gen}/{N_GEN} | "
+            f"Ind: {self._current_idx + 1}/{POP_SIZE} ==="
+        )
+        # --------------------------------------
+
         self.get_logger().info(f"[AG] Kp={kp:.3f} Ki={ki:.3f} Kd={kd:.3f}")
         self._set_pid(kp, ki, kd)
 
@@ -1071,7 +1143,11 @@ def main(args=None):
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
         toolbox.register("evaluate", node.evaluate)
         toolbox.register("mate",     tools.cxBlend, alpha=0.5)
-        toolbox.register("mutate",   tools.mutGaussian, mu=0, sigma=0.5, indpb=0.3)
+        # CHANGELOG #5 — sigma por parámetro en vez de un valor fijo único,
+        # escalado aproximadamente al 7-8% del rango de cada gen (antes,
+        # sigma=0.5 fijo hacía la exploración de Kp/Ki muy lenta y la de Kd
+        # demasiado brusca, al ser rangos de magnitudes muy distintas).
+        toolbox.register("mutate",   tools.mutGaussian, mu=0, sigma=MUT_SIGMA, indpb=0.3)
         toolbox.register("select",   tools.selTournament, tournsize=3)
         toolbox.decorate("mate",   _bounded)
         toolbox.decorate("mutate", _bounded)
@@ -1097,7 +1173,20 @@ def main(args=None):
             for ind in offspring:
                 if not ind.fitness.valid:
                     ind.fitness.values = toolbox.evaluate(ind)
-            pop[:] = toolbox.select(offspring, len(pop))
+
+            # CHANGELOG #3 — ELITISMO: se reservan len(hof) espacios en la
+            # nueva población para los mejores individuos históricos, en vez
+            # de seleccionar únicamente sobre `offspring`. Un análisis de una
+            # corrida de 50x100 sin este fix mostró DOS regresiones del
+            # mínimo histórico (el mejor individuo se perdía de la
+            # población al no ganar el torneo) y 28 de 50 generaciones sin
+            # ninguna mejora. clone() evita que los individuos del HOF y los
+            # de `pop` compartan el mismo objeto (lo que rompería mate/mutate
+            # en la siguiente generación por aliasing).
+            n_elite = len(hof)
+            elites  = [toolbox.clone(ind) for ind in hof]
+            pop[:]  = toolbox.select(offspring, len(pop) - n_elite) + elites
+
             hof.update(pop)
             gen_cb(pop, gen)
 
@@ -1129,6 +1218,8 @@ def main(args=None):
                 "rot_angle_deg": math.degrees(ROT_ANGLE),
                 "vx_ref": VX_REF, "vy_ref": VY_REF, "wz_ref": WZ_REF,
                 "weights": {"P1": W1, "P2": W2, "P3": W3},
+                "kp_range": KP_RANGE, "ki_range": KI_RANGE, "kd_range": KD_RANGE,
+                "mut_sigma": MUT_SIGMA, "elitism": True,
                 "note": "P2 (lateral) retirada por limitacion fisica de mallas "
                         "mecanum; sustituida por rotacion pura.",
             },
