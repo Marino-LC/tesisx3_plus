@@ -1,2 +1,0 @@
-Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup
-Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_bringup' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/dofbot_bringup -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_bringup

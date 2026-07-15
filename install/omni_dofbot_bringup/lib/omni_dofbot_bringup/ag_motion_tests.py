@@ -140,14 +140,14 @@ YAW_TOL      = 0.05   # rad umbral "rotó"
 
 # ── AG ──────────────────────────────────────────────────────────────────────
 POP_SIZE    = 25
-N_GEN       = 100
+N_GEN       = 50
 CX_PROB     = 0.50
 MUT_PROB    = 0.20
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
 KP_RANGE    = (0.0, 20.0)
 KI_RANGE    = (0.0, 50.0)
-KD_RANGE    = (0.0, 1.0)   # CHANGELOG #4 — antes (0.0, 0.5); el mejor individuo
+KD_RANGE    = (0.0, 5.0)   # CHANGELOG #4 — antes (0.0, 0.5); el mejor individuo
                            # quedaba pegado al límite superior en casi toda la
                            # corrida analizada, así que se amplía para verificar
                            # si el óptimo real está más allá de 0.5.
@@ -1162,6 +1162,8 @@ def main(args=None):
         node.get_logger().info(f"Iniciando AG — pop={POP_SIZE}  gen={N_GEN}")
 
         # Evaluación inicial
+        node._current_gen = 0
+        node._current_idx = 0
         pop = toolbox.population(n=POP_SIZE)
         for ind in pop:
             ind.fitness.values = toolbox.evaluate(ind)
@@ -1169,10 +1171,17 @@ def main(args=None):
 
         # Bucle evolutivo
         for gen in range(N_GEN):
+            # --- FIX: Sincronizar contadores para la consola ---
+            node._current_gen = gen + 1
+            node._current_idx = 0 
+            # ---------------------------------------------------
+
             offspring = algorithms.varAnd(pop, toolbox, CX_PROB, MUT_PROB)
-            for ind in offspring:
-                if not ind.fitness.valid:
-                    ind.fitness.values = toolbox.evaluate(ind)
+            
+            # Extraemos SOLO los que perdieron su fitness (por cruza o mutación)
+            invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
+            for ind in invalid_ind:
+                ind.fitness.values = toolbox.evaluate(ind)
 
             # CHANGELOG #3 — ELITISMO: se reservan len(hof) espacios en la
             # nueva población para los mejores individuos históricos, en vez

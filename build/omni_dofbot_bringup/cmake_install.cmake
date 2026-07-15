@@ -79,10 +79,10 @@ endif()
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/omni_dofbot_bringup" TYPE PROGRAM FILES
     "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/mecanum_kinematic_node.py"
-    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/ag_tuner.py"
-    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/ag_motion_tests.py"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/zn_tuner_openloop.py"
     "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/Mecanum_odometry_node.py"
     "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/zn_tuner.py"
+    "/home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_bringup/src/ag_motion_tests.py"
     )
 endif()
 

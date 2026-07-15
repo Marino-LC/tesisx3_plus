@@ -1,0 +1,77 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (1.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description
+-- Install configuration: ""
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//launch
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//launch/omni_display.launch.xml
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/back_right_wheel.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/back_left_wheel.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/base_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/front_right_wheel.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/front_left_wheel.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/laser_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/camera_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/mono_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/laser_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/camera_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/mono_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link5.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//rviz
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//rviz/omni_rviz.rviz
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/imu_sensor.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_gz_properties.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/lidar_sensor.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/depth_camera_sensor.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/camera_sensor.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/xacro_properties.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_urdf.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_velocity_controller.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/velocity_controller.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//config
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//config/omni_velocity_controller.yaml
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/package_run_dependencies/omni_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/parent_prefix_path/omni_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/ament_prefix_path.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/ament_prefix_path.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/path.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/path.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.bash
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.zsh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/packages/omni_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/cmake/omni_descriptionConfig.cmake
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/cmake/omni_descriptionConfig-version.cmake
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.xml

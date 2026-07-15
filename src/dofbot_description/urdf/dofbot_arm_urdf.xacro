@@ -167,6 +167,25 @@
         <axis xyz="0 0 1" />
         <limit lower="-1.5708" upper="3.14159" effort="100" velocity="1" />
     </joint>
+    <link name="payload_link">
+        <inertial>
+            <origin xyz="0 0 0.02" rpy="0 0 0" />
+            <mass value="1.0" />
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0.02" rpy="0 0 0" />
+            <geometry>
+                <sphere radius="0.025"/> </geometry>
+            <material name="eerie_black" />
+        </visual>
+    </link>
+
+    <joint name="payload_fixed_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="arm_link_05" />
+        <child link="payload_link" />
+    </joint>
     <!-- Dofbot Arm Gripper Assembly-->
     <!-- Dofbot Arm Gripper Right Grip finger link 01 -->
     <link name="rgrip_finger01">

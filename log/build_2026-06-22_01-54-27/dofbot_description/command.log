@@ -1,4 +1,0 @@
-Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
-Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description -- -j12 -l12
-Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
-Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
