@@ -132,17 +132,19 @@ WZ_REF = 1.00   # rad/s
 
 # ── Lazo de control ───────────────────────────────────────────────────────────
 CTRL_DT      = 0.05   # s  (20 Hz)
-SETTLE_TIME  = 0.60   # s  pausa entre segmentos
-TIMEOUT_MOVE = 5.0    # s  timeout traslación
-TIMEOUT_ROT  = 5.0    # s  timeout rotación
+SETTLE_TIME  = 0.30   # s  pausa entre segmentos
+TIMEOUT_MOVE = 4     # s  timeout traslación
+TIMEOUT_ROT  = 4    # s  timeout rotación
 POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
+MAX_POS_ERROR_ABORT = 1.0   # m — si se dispara esto, el PID es catastrófico
+MAX_YAW_ERROR_ABORT = math.pi * 0.75  # rad
 
 # ── AG ──────────────────────────────────────────────────────────────────────
-POP_SIZE    = 25
-N_GEN       = 50
-CX_PROB     = 0.50
-MUT_PROB    = 0.20
+POP_SIZE    = 35
+N_GEN       = 15
+CX_PROB     = 0.55
+MUT_PROB    = 0.25
 # Kd casi anulado para un control de velocidad; Kp acotado para evitar
 # inestabilidades severas.
 KP_RANGE    = (0.0, 20.0)
@@ -175,8 +177,8 @@ ARM_PICK_LEFT  = [-1.20, -1.25, -0.7, -0.3, 1.57]
 ARM_PICK_RIGHT = [ 1.20, -1.25, -0.7, -0.3, 1.57]
 
 ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
-GRIP_OPEN   =  0.00
-GRIP_CLOSED = -1.54
+GRIP_OPEN   = -0.75  #Cambio para fijar al diametro de la carga
+GRIP_CLOSED = -0.75
 
 # ── Salidas ───────────────────────────────────────────────────────────────────
 OUT_PNG  = "ag_results.png"
@@ -582,46 +584,60 @@ class AGMotionEvaluator(Node):
 
     # ── Primitivas de movimiento ──────────────────────────────────────────────
     def _drive(self, dist_m: float, axis: str, vx=0.0, vy=0.0,
-           timeout=TIMEOUT_MOVE, seg_name="") -> tuple:
+               timeout=TIMEOUT_MOVE, seg_name="") -> tuple:
         p0 = self._get_pose()
 
         if axis == "x":
-            target = Pose2D(p0.x + math.cos(p0.yaw)*dist_m,
-                            p0.y + math.sin(p0.yaw)*dist_m, p0.yaw)
+            target = Pose2D(p0.x + math.cos(p0.yaw) * dist_m,
+                             p0.y + math.sin(p0.yaw) * dist_m, p0.yaw)
         else:
-            target = Pose2D(p0.x - math.sin(p0.yaw)*dist_m,
-                            p0.y + math.cos(p0.yaw)*dist_m, p0.yaw)
+            target = Pose2D(p0.x - math.sin(p0.yaw) * dist_m,
+                             p0.y + math.cos(p0.yaw) * dist_m, p0.yaw)
 
         slog = SegmentLog(name=seg_name)
         self._start_itae(target, slog)
-        t0, ok = time.time(), False
 
-        while time.time()-t0 < timeout:
-            p  = self._get_pose()
+        t0 = time.time()
+        ok = False
+        aborted = False
+
+        while time.time() - t0 < timeout:
+            p = self._get_pose()
             dx = p.x - p0.x
             dy = p.y - p0.y
-            traveled = (
-                dx*math.cos(p0.yaw) + dy*math.sin(p0.yaw)
-                if axis == "x"
-                else -dx*math.sin(p0.yaw) + dy*math.cos(p0.yaw)
-            )
 
-            if abs(traveled) >= abs(dist_m) - POS_TOL:
-                ok = True; break
+            if axis == "x":
+                traveled = dx * math.cos(p0.yaw) + dy * math.sin(p0.yaw)
+            else:
+                traveled = -dx * math.sin(p0.yaw) + dy * math.cos(p0.yaw)
 
-            if abs(traveled) > abs(dist_m) + 0.12:
-                self.get_logger().warn(f"Overshoot ({traveled:.2f}m) — freno emergencia.")
+            lateral_dev = math.hypot(dx, dy) - abs(traveled)
+
+            if abs(lateral_dev) > MAX_POS_ERROR_ABORT:
+                self.get_logger().warn(
+                    f"Aborto temprano — deriva lateral {lateral_dev:.2f}m")
+                aborted = True
                 break
 
-            # CHANGELOG #1 — ya NO se toca slog aquí, lo llena _odom_cb
+            if abs(traveled) >= abs(dist_m) - POS_TOL:
+                ok = True
+                break
+
+            if abs(traveled) > abs(dist_m) + 0.12:
+                self.get_logger().warn(
+                    f"Overshoot ({traveled:.2f}m) — freno emergencia.")
+                break
+
             self._send(vx=vx, vy=vy)
             time.sleep(CTRL_DT)
 
         self._stop()
-        itae    = self._stop_itae()
+        itae = self._stop_itae()
         elapsed = time.time() - t0
         time.sleep(SETTLE_TIME)
-        return itae, elapsed, ok, slog
+
+        ok_final = ok and not aborted
+        return itae, elapsed, ok_final, slog
 
 
     def _rotate(self, angle_rad: float, timeout=TIMEOUT_ROT, seg_name="") -> tuple:

@@ -56,7 +56,7 @@ def generate_launch_description():
                 'launch', 'gz_sim.launch.py'
             )
         ),
-        launch_arguments={'gz_args': f'-r -s {world}'}.items()
+        launch_arguments={'gz_args': f'-r {world}'}.items()
     )
 
     spawn_entity = Node(
@@ -146,6 +146,12 @@ def generate_launch_description():
             '--controller-manager', '/controller_manager'
         ],
         output='screen'
+    )
+
+    payload_arg = DeclareLaunchArgument('payload_mass', default_value='1.0')
+
+    robot_description = ParameterValue(
+        Command(['xacro ', urdf_path, ' payload_mass:=$(arg payload_mass)']), value_type=str
     )
 
     config_arg = DeclareLaunchArgument(

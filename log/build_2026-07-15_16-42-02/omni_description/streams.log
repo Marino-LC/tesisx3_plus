@@ -1,0 +1,83 @@
+[0.030s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description
+[0.293s] -- The C compiler identification is GNU 13.3.0
+[0.514s] -- The CXX compiler identification is GNU 13.3.0
+[0.545s] -- Detecting C compiler ABI info
+[0.711s] -- Detecting C compiler ABI info - done
+[0.724s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.725s] -- Detecting C compile features
+[0.725s] -- Detecting C compile features - done
+[0.740s] -- Detecting CXX compiler ABI info
+[0.925s] -- Detecting CXX compiler ABI info - done
+[0.939s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.940s] -- Detecting CXX compile features
+[0.941s] -- Detecting CXX compile features - done
+[0.958s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.252s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.657s] -- Configuring done (1.6s)
+[1.662s] -- Generating done (0.0s)
+[1.665s] -- Build files have been written to: /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description
+[1.684s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description
+[1.685s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description -- -j12 -l12
+[1.789s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description -- -j12 -l12
+[1.790s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description
+[1.805s] -- Install configuration: ""
+[1.805s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//launch
+[1.806s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//launch/omni_display.launch.xml
+[1.807s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes
+[1.807s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3
+[1.807s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/back_right_wheel.STL
+[1.824s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/back_left_wheel.STL
+[1.855s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/base_link.STL
+[1.881s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/front_right_wheel.STL
+[1.897s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3/front_left_wheel.STL
+[1.932s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor
+[1.932s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision
+[1.932s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/laser_link.STL
+[1.934s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/camera_link.STL
+[1.944s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/collision/mono_link.STL
+[1.985s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual
+[1.985s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/laser_link.STL
+[2.043s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/camera_link.STL
+[2.062s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/sensor/visual/mono_link.STL
+[2.092s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus
+[2.093s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual
+[2.093s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link1.STL
+[2.169s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink1.STL
+[2.178s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link2.STL
+[2.270s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink2.STL
+[2.279s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink1.STL
+[2.283s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink2.STL
+[2.301s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/llink3.STL
+[2.309s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link3.STL
+[2.356s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/rlink3.STL
+[2.364s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//meshes/X3plus/visual/arm_link5.STL
+[2.384s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//rviz
+[2.385s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//rviz/omni_rviz.rviz
+[2.386s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf
+[2.386s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/imu_sensor.xacro
+[2.386s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_gz_properties.xacro
+[2.387s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/lidar_sensor.xacro
+[2.387s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/depth_camera_sensor.xacro
+[2.387s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/camera_sensor.xacro
+[2.388s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/xacro_properties.xacro
+[2.388s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_urdf.xacro
+[2.389s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/omni_velocity_controller.xacro
+[2.389s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//urdf/velocity_controller.xacro
+[2.390s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//config
+[2.390s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description//config/omni_velocity_controller.yaml
+[2.391s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/package_run_dependencies/omni_description
+[2.391s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/parent_prefix_path/omni_description
+[2.391s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/ament_prefix_path.sh
+[2.392s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/ament_prefix_path.dsv
+[2.392s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/path.sh
+[2.392s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/environment/path.dsv
+[2.392s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.bash
+[2.394s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.sh
+[2.394s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.zsh
+[2.394s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/local_setup.dsv
+[2.394s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.dsv
+[2.394s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/ament_index/resource_index/packages/omni_description
+[2.395s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/cmake/omni_descriptionConfig.cmake
+[2.395s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/cmake/omni_descriptionConfig-version.cmake
+[2.395s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_description/share/omni_description/package.xml
+[2.400s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_description

@@ -1,0 +1,65 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Configuring done (1.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/marino-lc/ROS2dev/tesisx3_plus/build/dofbot_description
+-- Install configuration: ""
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//config
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//config/dofbot_trajectory_controller.yaml
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//launch/dofbot_arm.launch.xml
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/sensor/visual/mono_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/base_link.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link2.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/rgrip_finger3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger3.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link4.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/lgrip_finger1.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//meshes/dofbot/visual/arm_link5.STL
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//rviz/dofbot_arm_rviz.rviz
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_arm_urdf.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/monocular_camera_sensor.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_trajectory_controller.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/xacro_properties.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/dofbot_gz_properties.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/trajectory_controller.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description//urdf/arm_base_link_xacro.xacro
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/package_run_dependencies/dofbot_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/parent_prefix_path/dofbot_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/ament_prefix_path.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/environment/path.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.bash
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.sh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.zsh
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/local_setup.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.dsv
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/ament_index/resource_index/packages/dofbot_description
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig.cmake
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/cmake/dofbot_descriptionConfig-version.cmake
+-- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/dofbot_description/share/dofbot_description/package.xml

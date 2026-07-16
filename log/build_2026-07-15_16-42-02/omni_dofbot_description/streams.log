@@ -1,0 +1,56 @@
+[0.027s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description
+[0.278s] -- The C compiler identification is GNU 13.3.0
+[0.506s] -- The CXX compiler identification is GNU 13.3.0
+[0.532s] -- Detecting C compiler ABI info
+[0.699s] -- Detecting C compiler ABI info - done
+[0.712s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.713s] -- Detecting C compile features
+[0.714s] -- Detecting C compile features - done
+[0.728s] -- Detecting CXX compiler ABI info
+[0.912s] -- Detecting CXX compiler ABI info - done
+[0.927s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.928s] -- Detecting CXX compile features
+[0.928s] -- Detecting CXX compile features - done
+[0.943s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.241s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.644s] -- Configuring done (1.6s)
+[1.648s] -- Generating done (0.0s)
+[1.652s] -- Build files have been written to: /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description
+[1.666s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/marino-lc/ROS2dev/tesisx3_plus/src/omni_dofbot_description -DCMAKE_INSTALL_PREFIX=/home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description
+[1.668s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description -- -j12 -l12
+[1.752s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description -- -j12 -l12
+[1.773s] Invoking command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description
+[1.789s] -- Install configuration: ""
+[1.789s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//launch
+[1.789s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//launch/omni_dofbot_display.launch.xml
+[1.790s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//rviz
+[1.790s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//rviz/omni_dofbot_rviz.rviz
+[1.793s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes
+[1.793s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/base_link_omni_dofbot.stl
+[1.801s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/display_omni_dofbot.stl
+[1.805s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//meshes/80mm_mecanum_wheel_hex.stl
+[1.831s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf
+[1.831s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_controllers.xacro
+[1.841s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_trajectory_controller.xacro
+[1.842s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_urdf.xacro
+[1.844s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/xacro_properties.xacro
+[1.848s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/omni_dofbot_no_control.xacro
+[1.853s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//urdf/arm_base_link_xacro.xacro
+[1.859s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//config
+[1.859s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description//config/omni_dofbot_controller.yaml
+[1.867s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/package_run_dependencies/omni_dofbot_description
+[1.869s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/parent_prefix_path/omni_dofbot_description
+[1.869s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/ament_prefix_path.sh
+[1.869s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/ament_prefix_path.dsv
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/path.sh
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/environment/path.dsv
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.bash
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.sh
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.zsh
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/local_setup.dsv
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.dsv
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/ament_index/resource_index/packages/omni_dofbot_description
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/cmake/omni_dofbot_descriptionConfig.cmake
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/cmake/omni_dofbot_descriptionConfig-version.cmake
+[1.870s] -- Installing: /home/marino-lc/ROS2dev/tesisx3_plus/install/omni_dofbot_description/share/omni_dofbot_description/package.xml
+[1.874s] Invoked command in '/home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/marino-lc/ROS2dev/tesisx3_plus/build/omni_dofbot_description

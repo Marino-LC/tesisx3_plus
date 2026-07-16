@@ -58,20 +58,26 @@ NOTA IMPORTANTE incluso con T correcta:
   justa; ver `gains_raw` vs `gains_bounded` en el JSON de salida.
 
 ══════════════════════════════════════════════════════════════════════════════
-OTRA CORRECCIÓN: perturbación de brazo "violenta" que nunca se ejecutaba
+COMPARABILIDAD DE LA PERTURBACIÓN DEL BRAZO (bitácora para la tesis)
 ══════════════════════════════════════════════════════════════════════════════
-La versión anterior sobreescribía un método `_arm_routine()` pensado para dar
-un movimiento de brazo más brusco (mayor perturbación inercial) durante la
-validación del PID. Pero `AGMotionEvaluator._start_arm()` lanza un hilo sobre
-`_arm_loop`, no sobre `_arm_routine` — ese método nunca se llamaba, así que la
-validación en realidad corría con la coreografía heredada por defecto
-("pick & place lado a lado"), no con el barrido agresivo que se documentaba.
-Esto no invalida la comparación contra el AG (ambos usan la misma
-perturbación, vía el mismo `evaluate()` heredado), pero si en la tesis se
-describe la perturbación como "un barrido violento" hay que corregir esa
-afirmación o corregir el código. Aquí se corrige el código: se sobreescribe
-`_arm_loop` (el hook correcto) con el movimiento agresivo.
+Una versión anterior de este script sobreescribía `_arm_loop` con un barrido
+brusco de poses aleatorias, distinto de la coreografía "pick & place lado a
+lado" que usa el AG. Como `record_best()` y `evaluate()` se heredan de
+`AGMotionEvaluator` y ambos invocan `self._start_arm()` (que lanza un hilo
+sobre `self._arm_loop`), esa sobreescritura hacía que el fitness final de ZN
+lazo-abierto y el del AG se midieran bajo perturbaciones de brazo distintas
+— invalidando la comparación directa de fitness entre ambos métodos.
 
+Se elimina la sobreescritura: `ZNOpenLoopTuner` ya NO define `_arm_loop`,
+por lo que hereda exactamente la misma coreografía pick&place que usa
+`AGMotionEvaluator` (y por extensión, `ag_motion_tests.py` y `zn_tuner.py`).
+Así, el AG, el ZN de lazo cerrado y el ZN de lazo abierto se validan bajo
+idéntica perturbación inercial, y el fitness final es comparable
+cabeza a cabeza entre los tres métodos.
+
+La fase de identificación de planta (`extract_reaction_curve()`) sigue sin
+perturbación de brazo, como corresponde a un ensayo de escalón puro con
+Kp=1 en reposo — ahí nunca se llama `_start_arm()`.
 EJECUCIÓN
   ros2 launch omni_dofbot_bringup omni_dofbot_controller.launch.py
   ros2 run omni_dofbot_bringup mecanum_kinematic_node.py
@@ -83,7 +89,6 @@ import os
 import json
 import math
 import time
-import random
 import statistics
 import importlib.util
 from typing import List, Optional, Tuple, Dict
@@ -166,30 +171,7 @@ class ZNOpenLoopTuner(AGMotionEvaluator):
             time.sleep(0.05)
         self.get_logger().info(f"motor_tau fijado a {tau:.4f}s.")
 
-    # ── Perturbación de brazo agresiva — CORREGIDO ───────────────────────────
-    # AGMotionEvaluator._start_arm() lanza un hilo sobre `_arm_loop`, no sobre
-    # `_arm_routine` (nombre usado en la versión anterior, nunca invocado en
-    # la práctica). Se sobreescribe aquí el hook correcto.
-    def _arm_loop(self):
-        """Barrido rápido y brusco del brazo (con carga), pensado para
-        maximizar la perturbación inercial sobre la base durante la
-        validación del PID clásico ZN — más agresivo que la coreografía
-        "pick & place" heredada por defecto del AG."""
-        self.get_logger().info(
-            "[Brazo-ZN-openloop] hilo iniciado — barrido violento (perturbación inercial)")
-        poses = [
-            [0.0, 1.57, -1.57, -1.57, 0.0],   # recogido
-            [1.57, 0.5, 0.5, 0.0, 1.57],       # extendido izquierda, rápido
-            [-1.57, 0.5, 0.5, 0.0, -1.57],     # extendido derecha, rápido
-            [0.0, 0.0, 0.0, 0.0, 0.0],         # totalmente estirado al frente
-        ]
-        while self._arm_active:
-            target = random.choice(poses)
-            self._send_arm(target, duration_sec=1)   # movimiento brusco: 1s
-            if not self._wait_arm(1.2):
-                break
-        self._send_arm(ag_motion_tests.ARM_HOME)
-        self.get_logger().info("[Brazo-ZN-openloop] hilo detenido → HOME")
+    
 
     # ── Utilidades de procesamiento de señal ─────────────────────────────────
     @staticmethod
