@@ -85,6 +85,15 @@ CHANGELOG respecto a la versión anterior (documentado para la tesis)
    exploración de Kp/Ki extremadamente lenta (~1-2% del rango) y la de Kd
    excesivamente brusca (~50-100% del rango). Ahora sigma se escala
    aproximadamente al 7-8% del rango de cada parámetro.
+
+6. DETECCIÓN DE VOLCADURA (roll/pitch):
+   Se añadió extracción de roll/pitch del cuaternión de /odom en
+   _odom_cb() y una bandera _tipped verificada en _drive()/_rotate() y al
+   inicio de cada _run_testN(). Antes solo se detectaban fallos por
+   timeout u overshoot de posición; un individuo cuyo robot volcara
+   podía recibir error de posición pequeño (al no moverse) y ser
+   calificado como buen desempeño por error. Se aplica el mismo
+   PENALTY_TO ya usado para timeouts.
 """
 
 import math, time, threading, subprocess, random, json, os, webbrowser
@@ -139,6 +148,10 @@ POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 MAX_POS_ERROR_ABORT = 1.0   # m — si se dispara esto, el PID es catastrófico
 MAX_YAW_ERROR_ABORT = math.pi * 0.75  # rad
+# ── Detección de volcadura ────────────────────────────────────────────────
+ROLL_PITCH_TOL  = math.radians(15)   # rad — inclinación máxima aceptable
+TIP_SETTLE_WAIT = 0.30                # s — margen tras teleport antes de verificar
+
 
 # ── AG ──────────────────────────────────────────────────────────────────────
 POP_SIZE    = 35
@@ -290,6 +303,7 @@ class AGMotionEvaluator(Node):
         self._vel_real     = (0.0, 0.0, 0.0)
         self._current_vref = (0.0, 0.0, 0.0)
         self._itae_accum   = 0.0
+        self._tipped = False   # bandera de volcadura, actualizada en _odom_cb
 
         # Tiempos reales para cálculo matemático riguroso de ITAE
         self._start_eval_t = 0.0
@@ -329,6 +343,19 @@ class AGMotionEvaluator(Node):
         """
         q   = msg.pose.pose.orientation
         yaw = math.atan2(2*(q.w*q.z + q.x*q.y), 1 - 2*(q.y**2 + q.z**2))
+
+        #CHANGELOG #7 — detección de volcadura (roll/pitch del chasis).
+        # Antes solo se extraía yaw; sin roll/pitch el evaluador no podía
+        # distinguir "no se movió porque el PID es excelente" de "no se movió
+        # porque volcó" — ambos casos dan error de posición pequeño y podían
+        # recibir buen fitness por error, contaminando silenciosamente al AG.
+        sinr_cosp = 2 * (q.w * q.x + q.y * q.z)
+        cosr_cosp = 1 - 2 * (q.x **2 + q.y **2)
+        roll  = math.atan2(sinr_cosp, cosr_cosp)
+
+        sinp = max(-1.0, min(1.0, 2 * (q.w * q.y - q.z * q.x))) #clamp por seguridad de asin
+        pitch = math.asin(sinp)
+
         vx  = msg.twist.twist.linear.x
         vy  = msg.twist.twist.linear.y
         wz  = msg.twist.twist.angular.z
@@ -395,6 +422,10 @@ class AGMotionEvaluator(Node):
 
     def _get_pose(self) -> Pose2D:
         with self._lock: return self._pose.copy()
+
+    def _is_tipped(self) -> bool:
+        with self._lock:
+            return self._tipped
 
     def _get_vel_real(self):
         with self._lock: return self._vel_real
@@ -552,7 +583,7 @@ class AGMotionEvaluator(Node):
             req.entity.name = ROBOT_NAME
             req.entity.type = Entity.MODEL
             req.pose = Pose()
-            req.pose.position    = Point(x=0.0, y=0.0, z=0.12)
+            req.pose.position    = Point(x=0.0, y=0.0, z=0.05)
             # yaw = π/2  →  quaternion (z=sin(π/4), w=cos(π/4))
             req.pose.orientation = Quaternion(x=0.0, y=0.0, z=0.7071068, w=0.7071068)
             fut = self._tp_cli.call_async(req)
@@ -563,7 +594,7 @@ class AGMotionEvaluator(Node):
 
         if not done:
             rs = (f'name: "{ROBOT_NAME}", '
-                f'position: {{x:0,y:0,z:0.12}}, '
+                f'position: {{x:0,y:0,z:0.05}}, '
                 f'orientation: {{x:0,y:0,z:0.7071068,w:0.7071068}}')
             try:
                 subprocess.run(
@@ -602,6 +633,10 @@ class AGMotionEvaluator(Node):
         aborted = False
 
         while time.time() - t0 < timeout:
+            if self._is_tipped():
+                self.get_logger().warn("Aborto temprano — robot volcado")
+                break
+            
             p = self._get_pose()
             dx = p.x - p0.x
             dy = p.y - p0.y
@@ -651,6 +686,10 @@ class AGMotionEvaluator(Node):
         self._start_itae(target, slog)
 
         while time.time()-t0 < timeout:
+            if self._is_tipped():
+                self.get_logger().warn("Aborto temprano — robot volcado")
+                break
+            
             p    = self._get_pose()
             diff = (goal_yaw - p.yaw + math.pi) % (2*math.pi) - math.pi
             if abs(diff) <= YAW_TOL:
@@ -702,6 +741,12 @@ class AGMotionEvaluator(Node):
     def _run_test1(self, record=False):
         self.get_logger().info("── P1: línea recta adelante-atrás ──")
         self._teleport()
+
+        time.sleep(TIP_SETTLE_WAIT)   # espera a que el robot se estabilice tras el teleport    
+        if self._is_tipped():
+            self.get_logger().warn("P1: robot volcado tras el teleport — prueba abortada.")
+            return PENALTY_TO, []
+
         self._start_arm()
         # CHANGELOG #2 — try/finally: garantiza _stop_arm() aunque _drive()
         # lance una excepción a mitad de la prueba.
@@ -736,6 +781,11 @@ class AGMotionEvaluator(Node):
     def _run_test2(self, record=False):
         self.get_logger().info("── P2: rotación pura +90°/-90° ──")
         self._teleport()
+        time.sleep(TIP_SETTLE_WAIT)   # espera a que el robot se estabilice tras el teleport    
+        if self._is_tipped():
+            self.get_logger().warn("P2: robot volcado tras el teleport — prueba abortada.")
+            return PENALTY_TO, []
+
         self._start_arm()
         try:
             err1, ok1, s1, t1 = self._rotate(+ROT_ANGLE, seg_name="P2_giro_horario")
@@ -763,6 +813,10 @@ class AGMotionEvaluator(Node):
     def _run_test3(self, record=False):
         self.get_logger().info("── P3: avance + giro + regreso de frente ──")
         self._teleport()
+        time.sleep(TIP_SETTLE_WAIT)   # espera a que el robot se estabilice tras el teleport    
+        if self._is_tipped():
+            self.get_logger().warn("P3: robot volcado tras el teleport — prueba abortada.")
+            return PENALTY_TO, []
         self._start_arm()
         try:
             i1, t1, ok1, s1   = self._drive(DIST_X, "x", vx=+VX_REF, seg_name="P3_adelante")
