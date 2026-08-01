@@ -167,7 +167,7 @@
         <axis xyz="0 0 1" />
         <limit lower="-1.5708" upper="3.14159" effort="100" velocity="1" />
     </joint>
-    <xacro:arg name="payload_mass_val" default="0.05" />
+    <xacro:arg name="payload_mass_val" default="0.0" />
     <xacro:property name="payload_mass_val" value="$(arg payload_mass_val)" />
 
     <link name="payload_link">

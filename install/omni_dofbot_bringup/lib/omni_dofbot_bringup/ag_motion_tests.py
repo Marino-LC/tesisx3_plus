@@ -158,19 +158,20 @@ POP_SIZE    = 35
 N_GEN       = 15
 CX_PROB     = 0.55
 MUT_PROB    = 0.25
-# Kd casi anulado para un control de velocidad; Kp acotado para evitar
-# inestabilidades severas.
-KP_RANGE    = (0.0, 20.0)
-KI_RANGE    = (0.0, 50.0)
-KD_RANGE    = (0.0, 5.0)   # CHANGELOG #4 — antes (0.0, 0.5); el mejor individuo
-                           # quedaba pegado al límite superior en casi toda la
-                           # corrida analizada, así que se amplía para verificar
-                           # si el óptimo real está más allá de 0.5.
+# Kp del fabricante=0.8, Ki=0.06, Kd=0.5 — mismo dominio que este PID
+# (error en mm/s, salida en PWM crudo), por lo que sirven como ancla
+# directa de referencia, no como una conversión aproximada.
+KP_RANGE    = (0.0, 5.0)    # ~6× el valor del fabricante, margen para ser más agresivo
+KI_RANGE    = (0.0, 1.0)    # ~16× el valor del fabricante (0.06 es pequeño;
+                             # rango angosto para que el AG tenga resolución
+                             # cerca del óptimo esperado, no solo cerca de 1.0)
+KD_RANGE    = (0.0, 2.0)    # ~4× el valor del fabricante
 
 # CHANGELOG #5 — sigma por parámetro, ~7-8% del rango de cada gen, en vez de
 # un sigma=0.5 fijo que hacía la exploración de Kp/Ki muy lenta y la de Kd
 # demasiado brusca.
-MUT_SIGMA   = [1.5, 3.5, 0.08]   # [Kp, Ki, Kd]
+
+MUT_SIGMA   = [0.40, 0.08, 0.16]   # [Kp, Ki, Kd]
 
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
@@ -824,10 +825,13 @@ class AGMotionEvaluator(Node):
             i2, t2, ok2, s2   = self._drive(DIST_RETURN, "x", vx=+VX_REF, seg_name="P3_regreso")
         finally:
             self._stop_arm()
-
+        
+        # Antes del cálculo de err_f
+        esperado_x = DIST_RETURN
+        esperado_y = DIST_X 
         rel   = self._pose_rel()
-        err_f = math.hypot(rel.x, rel.y)
-
+        err_f = math.hypot(rel.x - esperado_x, rel.y - esperado_y)
+        
         ITAE_REF = 0.08
         TIME_REF = (DIST_X/VX_REF) + (ROT_ANGLE/WZ_REF) + (DIST_RETURN/VX_REF)
 
