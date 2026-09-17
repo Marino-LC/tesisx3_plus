@@ -131,19 +131,19 @@ ROBOT_NAME   = "omni_dofbot"
 # arena). DIST_X en las primitivas corresponde al avance frontal del robot,
 # que en el marco del mundo se mueve en la dirección Y.
 DIST_X      = 0.80   # m — recta P1 / P3  (aprovecha el largo de 1.10 m)
-DIST_RETURN = 0.35   # m — avance corto de regreso en P3 tras el giro
+DIST_RETURN = 0.30   # m — avance corto de regreso en P3 tras el giro
 ROT_ANGLE   = math.pi / 2   # rad — ángulo de giro usado en P2 y P3 (90°)
 
 # ── Velocidades de referencia cmd_vel ─────────────────────────────────────────
-VX_REF = 0.40   # m/s
-VY_REF = 0.40   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
-WZ_REF = 1.00   # rad/s
+VX_REF = 1.00   # m/s
+VY_REF = 0.00   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
+WZ_REF = 5.00   # rad/s
 
 # ── Lazo de control ───────────────────────────────────────────────────────────
 CTRL_DT      = 0.05   # s  (20 Hz)
 SETTLE_TIME  = 0.30   # s  pausa entre segmentos
-TIMEOUT_MOVE = 4     # s  timeout traslación
-TIMEOUT_ROT  = 4    # s  timeout rotación
+TIMEOUT_MOVE = 8     # s  timeout traslación
+TIMEOUT_ROT  = 8    # s  timeout rotación
 POS_TOL      = 0.04   # m  umbral "llegó"
 YAW_TOL      = 0.05   # rad umbral "rotó"
 MAX_POS_ERROR_ABORT = 1.0   # m — si se dispara esto, el PID es catastrófico
@@ -191,7 +191,7 @@ ARM_PICK_LEFT  = [-1.20, -1.25, -0.7, -0.3, 1.57]
 ARM_PICK_RIGHT = [ 1.20, -1.25, -0.7, -0.3, 1.57]
 
 ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
-GRIP_OPEN   = -0.75  #Cambio para fijar al diametro de la carga
+GRIP_OPEN   = 0.0  #Cambio para fijar al diametro de la carga
 GRIP_CLOSED = -0.75
 
 # ── Salidas ───────────────────────────────────────────────────────────────────

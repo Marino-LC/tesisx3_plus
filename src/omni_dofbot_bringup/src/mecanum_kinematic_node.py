@@ -192,21 +192,21 @@ PWM_MAX_DOMINIO_A_DEFAULT = MOTOR_MAX_PULSE_RAW - 1600   # = 2000 (NO-SUNRISE)
 
 # ── Ganancia estática del motor — caracterizada en Dominio B, convertida ──
 # K promedio de los 4 motores (Dominio B: mm/s por unidad de set_motor()):
-#   10.4144 mm/s/unidad — Motores individuales: M1=10.7032 M2=9.8567
+#   10.9532 mm/s/unidad — Motores individuales: M1=10.7032 M2=9.8567
 #   M3=10.3531 M4=10.7445 (dispersión ~8%, K único global justificado).
 #
 # Conversión a Dominio A (rad/s por unidad de PWM crudo):
-#   1. mm/s -> rad/s:        10.4144 / (1000 * wheel_radius=0.040) = 0.26036
-#   2. por-unidad-cmd -> por-unidad-cruda:  0.26036 / PWM_CMD_TO_RAW_SCALE
-#      (con Hipótesis A, escala=20):        0.26036 / 20 = 0.013018
+#   1. mm/s -> rad/s:        10.9532 / (1000 * wheel_radius=0.040) = 0.27383
+#   2. por-unidad-cmd -> por-unidad-cruda:  0.27383 / PWM_CMD_TO_RAW_SCALE
+#      (con Hipótesis A, escala=20):        0.27383 / 20 = 0.013691
 #
 # PENDIENTE: NO incorpora todavía el offset de velocidad ni la fricción
 # estática (PWM mínimo ~7-9 en Dominio B, equivalente a ~140-180 ticks en
 # Dominio A bajo Hipótesis A) reportados por la caracterización — el
 # modelo usa solo la ganancia lineal K por ahora.
-MOTOR_GAIN_K_DOMINIO_B_MM_S = 10.4144   # mm/s por unidad de set_motor() — medido
+MOTOR_GAIN_K_DOMINIO_B_MM_S = 10.9532   # mm/s por unidad de set_motor() — medido
 MOTOR_GAIN_K_DEFAULT = (MOTOR_GAIN_K_DOMINIO_B_MM_S / (1000.0 * 0.040)) / PWM_CMD_TO_RAW_SCALE
-# = 0.013018 rad/s por unidad de PWM crudo (bajo Hipótesis A)
+# = 0.013691 rad/s por unidad de PWM crudo (bajo Hipótesis A)
 
 # ── PLACEHOLDER — banda muerta de error, ver nota de diseño #7 abajo ──────
 # Adaptación (NO transcripción literal) del mecanismo de banda muerta
@@ -344,7 +344,7 @@ class MecanumKinematicNode(Node):
         self.declare_parameter('wheel_radius',  0.040)
         self.declare_parameter('lx',            0.110)
         self.declare_parameter('ly',            0.102)
-        self.declare_parameter('max_wheel_vel', 20.0)
+        self.declare_parameter('max_wheel_vel', 25.0)
         self.declare_parameter('control_rate',  100.0)   # igualado al firmware (10ms)
 
         # Ganancias PID — dominio mm/s -> PWM
