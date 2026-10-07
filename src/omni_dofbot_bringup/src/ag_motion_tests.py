@@ -135,9 +135,9 @@ DIST_RETURN = 0.30   # m — avance corto de regreso en P3 tras el giro
 ROT_ANGLE   = math.pi / 2   # rad — ángulo de giro usado en P2 y P3 (90°)
 
 # ── Velocidades de referencia cmd_vel ─────────────────────────────────────────
-VX_REF = 0.40   # m/s
+VX_REF = 1.00   # m/s
 VY_REF = 0.00   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
-WZ_REF = 1.00   # rad/s
+WZ_REF = 5.00   # rad/s
 
 # ── Lazo de control ───────────────────────────────────────────────────────────
 CTRL_DT      = 0.05   # s  (20 Hz)
@@ -176,8 +176,6 @@ MUT_SIGMA   = [0.40, 0.08, 0.16]   # [Kp, Ki, Kd]
 W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
-GAIN_DECIMALS = 3   # resolución máxima "perceptible" de Kp/Ki/Kd
-
 # ── Brazo Dofbot — coreografía determinista ───────────────────────────────────
 ARM_JOINTS = ["arm_joint_01","arm_joint_02","arm_joint_03",
               "arm_joint_04","arm_joint_05"]
@@ -193,7 +191,7 @@ ARM_PICK_LEFT  = [-1.20, -1.25, -0.7, -0.3, 1.57]
 ARM_PICK_RIGHT = [ 1.20, -1.25, -0.7, -0.3, 1.57]
 
 ARM_CHOREOGRAPHY = [(1,4), (3,2), (5,1)]
-GRIP_OPEN   = 0.0  
+GRIP_OPEN   = 0.0  #Cambio para fijar al diametro de la carga
 GRIP_CLOSED = -0.75
 
 # ── Salidas ───────────────────────────────────────────────────────────────────
@@ -1167,15 +1165,15 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
 # ══════════════════════════════════════════════════════════════════════════════
 # Decorador de bounds para operadores genéticos
 # ══════════════════════════════════════════════════════════════════════════════
-
 def _bounded(func):
     def wrapper(*args, **kwargs):
         off = func(*args, **kwargs)
         for child in off:
             for i, (lo, hi) in enumerate([KP_RANGE, KI_RANGE, KD_RANGE]):
-                child[i] = round(float(max(lo, min(hi, child[i]))), GAIN_DECIMALS)
+                child[i] = float(max(lo, min(hi, child[i])))
         return off
     return wrapper
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Callback de estadísticas por generación
@@ -1242,8 +1240,6 @@ def main(args=None):
         node._current_idx = 0
         pop = toolbox.population(n=POP_SIZE)
         for ind in pop:
-            for i in range(3):
-                ind[i] = round(ind[i], GAIN_DECIMALS)
             ind.fitness.values = toolbox.evaluate(ind)
         hof.update(pop)
 

@@ -13,8 +13,8 @@ Uso:
 import numpy as np
 
 RESOLUTION = 0.02
-ARENA_W    = 1.22
-ARENA_H    = 2.42
+ARENA_W    = 2.7
+ARENA_H    = 2.7
 WALL_T     = 0.03
 ORIGIN_X   = -ARENA_W / 2.0   # -0.61
 ORIGIN_Y   = -ARENA_H / 2.0   # -1.21

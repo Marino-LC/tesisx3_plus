@@ -1,0 +1,713 @@
+<?xml version="1.0"?>
+<!--
+    Rueda mecanum de 9 rodillos (modelo propio).
+    Origen: EnsambleRuedaDerecha.urdf / EnsambleRuedaIzquierda.urdf (CAD, STL en mm -> scale 0.001).
+
+    Cada macro crea:
+      ${prefix}_wheel            plato 1 (el que gira con la junta ${prefix}_joint, eje Z)
+      ${prefix}_plate_2          plato 2 (fijo al plato 1)
+      ${prefix}_roller_1..9      rodillos libres (juntas continuas pasivas)
+
+    Los nombres ${prefix}_wheel y ${prefix}_joint son los mismos que usaba la rueda anterior,
+    por lo que controladores, ros2_control y nodos de cinematica no cambian.
+
+    OJO: "derecha"/"izquierda" son las dos QUIRALIDADES de la rueda, no el lado del robot.
+    En configuracion X, FL y BR llevan la misma, y FR y BL la otra.
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:property name="mecanum_mesh_dir" value="file://$(find omni_description)/meshes/X3"/>
+
+    <!-- Quiralidad DERECHA (DERECHA.stl) -->
+    <xacro:macro name="mecanum_wheel_derecha" params="prefix parent xyz rpy">
+
+        <link name="${prefix}_wheel">
+            <inertial>
+                <origin xyz="-2.6213984065263684e-15 -6.944101739142697e-17 -0.008670638697794967" rpy="0.0 -0.0 0.0"/>
+                <mass value="0.19277691549739548"/>
+                <inertia ixx="3.917018233893549e-05" ixy="2.2311041902867496e-18" ixz="1.1724355802718083e-18"
+                         iyy="3.917018233815902e-05" iyz="-1.3206389364025225e-19" izz="6.710310113924815e-05"/>
+            </inertial>
+            <visual>
+                <origin xyz="0.0 0.0 -0.018536" rpy="-1.9721522630525295e-31 -2.3353329992581426e-61 -1.1841545112969503e-30"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/DERECHA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.7 0.7 0.7 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 -0.018536" rpy="-1.9721522630525295e-31 -2.3353329992581426e-61 -1.1841545112969503e-30"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/DERECHA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_joint" type="continuous">
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_wheel"/>
+            <axis xyz="0 0 1"/>
+            <limit effort="100" velocity="25.0"/>
+        </joint>
+
+        <link name="${prefix}_plate_2">
+            <inertial>
+                <origin xyz="-2.621398406526372e-15 -6.94410173914267e-17 0.009865361302205012" rpy="0.0 0.0 0.0"/>
+                <mass value="0.19277691549739548"/>
+                <inertia ixx="3.9170182338935664e-05" ixy="2.2158381900172485e-18" ixz="1.1724355802718102e-18"
+                         iyy="3.9170182338159036e-05" iyz="-1.3206389364024915e-19" izz="6.710310113924793e-05"/>
+            </inertial>
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/DERECHA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.7 0.7 0.7 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/DERECHA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_plate_2_joint" type="fixed">
+            <origin xyz="-7.888609052210118e-33 0.0 0.01850000000000001" rpy="3.141592653589793 -1.538931129906045e-15 0.7853981633974486"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_plate_2"/>
+        </joint>
+
+        <link name="${prefix}_roller_1">
+            <inertial>
+                <origin xyz="4.027635203129876e-09 2.9025003112082005e-09 0.02119000316123431" rpy="-5.551115123125783e-17 -0.0 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254914479572e-07" ixy="-9.60776501878548e-17" ixz="-8.24798332388875e-20"
+                         iyy="6.457254913697846e-07" iyz="-1.2123159057577174e-20" izz="1.5524987959110253e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="4.027626734348644e-09 2.9024876480043817e-09 1.0003161233144153e-05" rpy="-2.549371500720373 1.5707963267948957 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="4.027626734348644e-09 2.9024876480043817e-09 1.0003161233144153e-05" rpy="-2.549371500720373 1.5707963267948957 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_1_joint" type="continuous">
+            <origin xyz="-0.0285631 -0.02203283 -0.015237219999999998" rpy="-0.5339383151890491 -0.6068577843205781 -2.8163965718944084"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_1"/>
+            <axis xyz="2.402031829551454e-07 -4.4441721530619205e-07 0.9999998529743616"/>
+        </joint>
+
+        <link name="${prefix}_roller_2">
+            <inertial>
+                <origin xyz="3.779913443913152e-09 -1.1303815705687726e-09 0.02119000143014099" rpy="0.0 -0.0 -2.7755575615628914e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126013e-07" ixy="-4.658681209898652e-21" ixz="-5.664532834763134e-20"
+                         iyy="6.457254913051378e-07" iyz="6.142312356573762e-20" izz="1.5524987959110427e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="3.7799133817406624e-09 -1.1303968028286704e-09 0.042370001430142114" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="3.7799133817406624e-09 -1.1303968028286704e-09 0.042370001430142114" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_2_joint" type="continuous">
+            <origin xyz="-0.00771817 -0.03523814 -0.015237219999999998" rpy="0.2927525177483695 -0.7399105785281601 2.9411036701580118"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_2"/>
+            <axis xyz="4.72187707212246e-07 -3.7811381864427673e-07 0.9999999731893168"/>
+        </joint>
+
+        <link name="${prefix}_roller_3">
+            <inertial>
+                <origin xyz="6.054750909534335e-09 -1.8024359516033428e-09 0.021190003399640247" rpy="5.551115123125783e-17 -8.326672684688674e-17 2.7755575615628914e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126075e-07" ixy="-4.208694956669805e-21" ixz="-5.968935300182648e-20"
+                         iyy="6.457254913051479e-07" iyz="6.061579528788587e-20" izz="1.5524987959110396e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="6.054750856243629e-09 -1.8024511660996723e-09 0.0423700033996414" rpy="-3.141592653589793 -1.5707963267948961 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="6.054750856243629e-09 -1.8024511660996723e-09 0.0423700033996414" rpy="-3.141592653589793 -1.5707963267948961 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_3_joint" type="continuous">
+            <origin xyz="0.016738180000000002 -0.03195513 -0.015237219999999998" rpy="0.7214721210225195 -0.34296561936733744 2.8539763339870214"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_3"/>
+            <axis xyz="-3.0094495512278385e-07 1.08901604845002e-07 1.0000003567723852"/>
+        </joint>
+
+        <link name="${prefix}_roller_4">
+            <inertial>
+                <origin xyz="4.847116046313715e-09 5.066494899175211e-09 0.021189999785222388" rpy="0.0 -0.0 -3.469446951953615e-18"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254913051444e-07" ixy="5.4560833203997705e-21" ixz="-5.902264542810874e-20"
+                         iyy="6.457254915126041e-07" iyz="-5.209252625613947e-20" izz="1.5524987959110353e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="4.847131274132721e-09 5.066494841443614e-09 0.042369999785223524" rpy="-1.5707963267948968 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="4.847131274132721e-09 5.066494841443614e-09 0.042369999785223524" rpy="-1.5707963267948968 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_4_joint" type="continuous">
+            <origin xyz="0.03336255 -0.013719950000000002 -0.015237219999999998" rpy="0.7851405406974367 0.022695119781757585 -3.1189150598488333"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_4"/>
+            <axis xyz="-4.843221603038905e-07 5.850288692377248e-08 1.0000002354328532"/>
+        </joint>
+
+        <link name="${prefix}_roller_5">
+            <inertial>
+                <origin xyz="9.534273504030467e-10 4.983988429740904e-09 0.021190001034909107" rpy="0.0 -0.0 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254913051508e-07" ixy="1.9058241313221758e-21" ixz="-5.511008113073292e-20"
+                         iyy="6.457254915126052e-07" iyz="-5.855115247895351e-20" izz="1.5524987959110086e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="9.534425782220523e-10 4.983988376450199e-09 0.04237000103491023" rpy="-1.5707963267948966 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="9.534425782220523e-10 4.983988376450199e-09 0.04237000103491023" rpy="-1.5707963267948966 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_5_joint" type="continuous">
+            <origin xyz="0.034376210000000004 0.01093494 -0.015237219999999998" rpy="0.6976975610644462 0.3957017531968607 -2.829034230919343"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_5"/>
+            <axis xyz="3.458780886145263e-07 3.245384191941092e-07 1.0000002259128622"/>
+        </joint>
+
+        <link name="${prefix}_roller_6">
+            <inertial>
+                <origin xyz="-3.631553802119214e-09 2.255844147036612e-09 0.02119000071423618" rpy="0.0 -5.551115123125783e-17 -1.3877787807814457e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254913051421e-07" ixy="6.763028688233554e-21" ixz="-5.807469644612297e-20"
+                         iyy="6.457254915125967e-07" iyz="-5.718795882946612e-20" izz="1.5524987959110374e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-3.631538574300208e-09 2.2558440893050146e-09 0.04237000071423734" rpy="-1.5707963267948966 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-3.631538574300208e-09 2.2558440893050146e-09 0.04237000071423734" rpy="-1.5707963267948966 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_6_joint" type="continuous">
+            <origin xyz="0.01930486 0.03047325 -0.015237219999999998" rpy="0.17872468012038037 0.7690776415052976 -3.0166087903539487"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_6"/>
+            <axis xyz="-4.184712762977938e-07 2.657143597234457e-07 0.999999849860866"/>
+        </joint>
+
+        <link name="${prefix}_roller_7">
+            <inertial>
+                <origin xyz="1.0772500247391293e-09 -3.138389859103086e-10 0.021190005281977013" rpy="0.0 -5.551115123125783e-17 2.7755575615628914e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915125889e-07" ixy="8.761497048161669e-21" ixz="-6.326277324805556e-20"
+                         iyy="6.457254913051437e-07" iyz="-5.651297944962285e-20" izz="1.5524987959110247e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="1.0772500824707266e-09 -3.138542137293143e-10 1.0005281975917769e-05" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="1.0772500824707266e-09 -3.138542137293143e-10 1.0005281975917769e-05" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_7_joint" type="continuous">
+            <origin xyz="-0.00479944 0.03575279 -0.015237219999999998" rpy="-0.5908427239716092 0.5520481962198927 2.8033356132550624"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_7"/>
+            <axis xyz="1.7805425323036417e-07 -5.224691109750879e-07 1.0000000910443436"/>
+        </joint>
+
+        <link name="${prefix}_roller_8">
+            <inertial>
+                <origin xyz="-3.247057267508069e-09 -3.6402320469086645e-09 0.021190000437029045" rpy="-5.5511151231257815e-17 1.3877787807814457e-17 -1.3877787807814457e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126226e-07" ixy="1.0349683824263482e-20" ixz="-6.033786260206805e-20"
+                         iyy="6.457254913051466e-07" iyz="-5.923936674859763e-20" izz="1.552498795911021e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-3.2470572186582557e-09 -3.6402472836094547e-09 1.0000437027885002e-05" rpy="-3.141592653589793 1.5707963267948963 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-3.2470572186582557e-09 -3.6402472836094547e-09 1.0000437027885002e-05" rpy="-3.141592653589793 1.5707963267948963 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_8_joint" type="continuous">
+            <origin xyz="-0.02665804 0.0243032 -0.015237219999999998" rpy="-0.7734152352789135 0.153582633443421 2.9933320806346697"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_8"/>
+            <axis xyz="1.6116768349061505e-07 -1.155820350540182e-08 1.0000003330324314"/>
+        </joint>
+
+        <link name="${prefix}_roller_9">
+            <inertial>
+                <origin xyz="-6.148570497188643e-10 2.0213559714932216e-11 0.02119000488655026" rpy="0.0 -2.7755575615628914e-17 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254913051425e-07" ixy="-4.460157862885925e-21" ixz="5.803499177672042e-20"
+                         iyy="6.457254915125954e-07" iyz="-6.246867986000465e-20" izz="1.552498795911028e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-6.148418174589665e-10 2.0213614115860425e-11 1.0004886549123126e-05" rpy="1.5707963267948963 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-6.148418174589665e-10 2.0213614115860425e-11 1.0004886549123126e-05" rpy="1.5707963267948963 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_9_joint" type="continuous">
+            <origin xyz="-0.03604304 0.0014818799999999999 -0.015237219999999998" rpy="-0.7646324365277103 -0.20101156264926864 -2.952348664452893"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_9"/>
+            <axis xyz="-1.5901610209145822e-07 -2.990393351276488e-07 1.0000000674784404"/>
+        </joint>
+
+    </xacro:macro>
+
+    <!-- Quiralidad IZQUIERDA (IZQUIERDA.stl) -->
+    <xacro:macro name="mecanum_wheel_izquierda" params="prefix parent xyz rpy">
+
+        <link name="${prefix}_wheel">
+            <inertial>
+                <origin xyz="-2.621400133639507e-15 -5.7867552618973665e-18 -0.008670633227399954" rpy="0.0 -0.0 0.0"/>
+                <mass value="0.19277678848605548"/>
+                <inertia ixx="3.917010169678587e-05" ixy="4.4622083805737217e-20" ixz="1.1724328158344976e-18"
+                         iyy="3.9170101696009665e-05" iyz="-2.2160851523965214e-20" izz="6.710295818528929e-05"/>
+            </inertial>
+            <visual>
+                <origin xyz="0.0 0.0 -0.018536" rpy="0.0 -0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/IZQUIERDA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.7 0.7 0.7 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 -0.018536" rpy="0.0 -0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/IZQUIERDA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_joint" type="continuous">
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+            <parent link="${parent}"/>
+            <child link="${prefix}_wheel"/>
+            <axis xyz="0 0 1"/>
+            <limit effort="100" velocity="25.0"/>
+        </joint>
+
+        <link name="${prefix}_plate_2">
+            <inertial>
+                <origin xyz="-2.621400133639508e-15 -5.786755261897515e-18 0.009865366772600083" rpy="0.0 0.0 0.0"/>
+                <mass value="0.19277678848605548"/>
+                <inertia ixx="3.9170101696785825e-05" ixy="4.0657581468206416e-20" ixz="1.1724328158345038e-18"
+                         iyy="3.917010169601002e-05" iyz="-2.2160851523966063e-20" izz="6.710295818528983e-05"/>
+            </inertial>
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/IZQUIERDA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.7 0.7 0.7 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/IZQUIERDA.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_plate_2_joint" type="fixed">
+            <origin xyz="-1.6918391710512181e-34 5.747272872052468e-33 0.01850000000000001" rpy="3.141592653589793 -0.0 -0.7853981633974473"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_plate_2"/>
+        </joint>
+
+        <link name="${prefix}_roller_1">
+            <inertial>
+                <origin xyz="3.944135018585371e-11 2.844481454822301e-09 0.02118999615064203" rpy="0.0 -0.0 -8.326672684688674e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915116304e-07" ixy="1.3803884183166519e-17" ixz="6.686266327388633e-20"
+                         iyy="6.457254913060272e-07" iyz="7.189192139820874e-20" izz="1.5524987959110613e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="3.944025772639748e-11 2.8444966737595223e-09 9.996150640643187e-06" rpy="-0.06670934905936317 1.570796326794895 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="3.944025772639748e-11 2.8444966737595223e-09 9.996150640643187e-06" rpy="-0.06670934905936317 1.570796326794895 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_1_joint" type="continuous">
+            <origin xyz="0.00479886 0.03575289 -0.01523723" rpy="-0.5908427239716108 -0.5520481962198929 -2.803335613255061"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_1"/>
+            <axis xyz="-1.780542526197415e-07 -5.224691118077551e-07 1.0000000910443436"/>
+        </joint>
+
+        <link name="${prefix}_roller_2">
+            <inertial>
+                <origin xyz="-5.995410308212712e-09 1.3067605886263323e-09 0.021189999932571785" rpy="1.3877787807814457e-17 -0.0 1.3877787807814457e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.45725491512604e-07" ixy="5.492479267352104e-21" ixz="-6.013933925505532e-20"
+                         iyy="6.457254913051447e-07" iyz="-5.900113873218236e-20" izz="1.5524987959110321e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-5.995410250481115e-09 1.3067453608073265e-09 9.999932570651238e-06" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-5.995410250481115e-09 1.3067453608073265e-09 9.999932570651238e-06" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_2_joint" type="continuous">
+            <origin xyz="-0.01930538 0.030472950000000002 -0.01523723" rpy="0.1787246801203801 -0.7690776415052987 3.0166087903539487"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_2"/>
+            <axis xyz="4.184712774080168e-07 2.657143595014011e-07 0.9999998498608658"/>
+        </joint>
+
+        <link name="${prefix}_roller_3">
+            <inertial>
+                <origin xyz="-3.2014531958779457e-09 6.133747720848959e-10 0.021189995502813863" rpy="5.551115123125783e-17 -0.0 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254913052764e-07" ixy="-4.88748598477572e-18" ixz="5.627475143320758e-20"
+                         iyy="6.457254915124995e-07" iyz="5.987464145903836e-20" izz="1.5524987959110475e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-3.201468401492491e-09 6.13374414593082e-10 0.042369995502815054" rpy="1.5944016786533408 -1.5707963267948941 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-3.201468401492491e-09 6.13374414593082e-10 0.042369995502815054" rpy="1.5944016786533408 -1.5707963267948941 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_3_joint" type="continuous">
+            <origin xyz="-0.03437641 0.010934379999999999 -0.01523723" rpy="0.6976975610644474 -0.39570175319686096 2.829034230919342"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_3"/>
+            <axis xyz="-3.458780878373702e-07 3.245384199712653e-07 1.0000002259128622"/>
+        </joint>
+
+        <link name="${prefix}_roller_4">
+            <inertial>
+                <origin xyz="-1.2046105801744033e-09 -1.5752106774513663e-09 0.021189995884937796" rpy="0.0 -0.0 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254914148802e-07" ixy="1.0355509657317693e-16" ixz="-8.351380900457878e-20"
+                         iyy="6.457254914028623e-07" iyz="2.9116757561866574e-21" izz="1.5524987959110496e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-1.2046001662824325e-09 -1.5752218263109796e-09 0.04236999588493893" rpy="-2.385154166035103 -1.570796326794895 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-1.2046001662824325e-09 -1.5752218263109796e-09 0.04236999588493893" rpy="-2.385154166035103 -1.570796326794895 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_4_joint" type="continuous">
+            <origin xyz="-0.033362340000000004 -0.01372051 -0.01523723" rpy="0.7851405406974376 -0.02269511978175769 3.1189150598488333"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_4"/>
+            <axis xyz="4.843221604808323e-07 5.850288786746205e-08 1.0000002354328532"/>
+        </joint>
+
+        <link name="${prefix}_roller_5">
+            <inertial>
+                <origin xyz="7.552971803548303e-10 -2.574789008669143e-09 0.021189996896060683" rpy="0.0 2.7755575615628914e-17 -5.551115123125783e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126039e-07" ixy="-5.505714157152952e-21" ixz="-5.94775947650129e-20"
+                         iyy="6.457254913051426e-07" iyz="5.892172939337727e-20" izz="1.5524987959110282e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="7.552971270641251e-10 -2.5748042364881486e-09 0.04236999689606181" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="7.552971270641251e-10 -2.5748042364881486e-09 0.04236999689606181" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_5_joint" type="continuous">
+            <origin xyz="-0.01673766 -0.03195542 -0.01523723" rpy="0.7214721210225209 0.34296561936733716 -2.8539763339870206"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_5"/>
+            <axis xyz="3.009449549284948e-07 1.0890160589971387e-07 1.0000003567723854"/>
+        </joint>
+
+        <link name="${prefix}_roller_6">
+            <inertial>
+                <origin xyz="5.141055695601082e-09 1.0019613938538896e-09 0.02118999887183292" rpy="0.0 -5.551115123125783e-17 -2.7755575615628914e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126017e-07" ixy="-4.446922973085077e-21" ixz="-5.876291071576709e-20"
+                         iyy="6.45725491305142e-07" iyz="5.77835288705043e-20" izz="1.5524987959110136e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="5.141055637869485e-09 1.0019461660348838e-09 0.04236999887183406" rpy="3.141592653589793 -1.5707963267948963 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="5.141055637869485e-09 1.0019461660348838e-09 0.04236999887183406" rpy="3.141592653589793 -1.5707963267948963 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_6_joint" type="continuous">
+            <origin xyz="0.00771876 -0.035238030000000004 -0.01523723" rpy="0.2927525177483707 0.7399105785281609 -2.9411036701580104"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_6"/>
+            <axis xyz="-4.721877082669579e-07 -3.7811381814467637e-07 0.9999999731893168"/>
+        </joint>
+
+        <link name="${prefix}_roller_7">
+            <inertial>
+                <origin xyz="2.0875840656131573e-09 -9.125090594253038e-10 0.021189995416024544" rpy="5.551115123125783e-17 -0.0 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126046e-07" ixy="-4.367513634279986e-21" ixz="-5.913348763019084e-20"
+                         iyy="6.457254913051434e-07" iyz="5.876291071576709e-20" izz="1.5524987959110475e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="2.087584003440668e-09 -9.125242894647557e-10 0.04236999541602568" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="2.087584003440668e-09 -9.125242894647557e-10 0.04236999541602568" rpy="3.141592653589793 -1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_7_joint" type="continuous">
+            <origin xyz="0.028563480000000002 -0.022032379999999997 -0.01523723" rpy="-0.5339383151890502 0.6068577843205788 2.8163965718944075"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_7"/>
+            <axis xyz="-2.40203183898835e-07 -4.4441721586130356e-07 0.9999998529743617"/>
+        </joint>
+
+        <link name="${prefix}_roller_8">
+            <inertial>
+                <origin xyz="5.829253728606432e-09 1.4481096377583214e-09 0.02118999730700276" rpy="5.551115123125783e-17 -0.0 2.7755575615628914e-17"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126033e-07" ixy="5.730707283767376e-21" ixz="-5.976876234063157e-20"
+                         iyy="6.457254913051424e-07" iyz="-5.987464145903836e-20" izz="1.5524987959110242e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="5.829253781897137e-09 1.4480944088290927e-09 9.99730700162238e-06" rpy="3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="5.829253781897137e-09 1.4480944088290927e-09 9.99730700162238e-06" rpy="3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_8_joint" type="continuous">
+            <origin xyz="0.03604304 0.0014824699999999998 -0.01523723" rpy="-0.7646324365277114 0.20101156264926856 2.9523486644528925"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_8"/>
+            <axis xyz="1.5901610195268034e-07 -2.9903933618236067e-07 1.0000000674784406"/>
+        </joint>
+
+        <link name="${prefix}_roller_9">
+            <inertial>
+                <origin xyz="-2.217047261332539e-09 5.94173798607045e-09 0.021190000552522993" rpy="0.0 -4.1633363423443376e-17 0.0"/>
+                <mass value="0.0057677126759332524"/>
+                <inertia ixx="6.457254915126044e-07" ixy="5.624828165360588e-21" ixz="-5.976876234063157e-20"
+                         iyy="6.457254913051432e-07" iyz="-5.94511249854112e-20" izz="1.5524987959110258e-07"/>
+            </inertial>
+            <visual>
+                <origin xyz="-2.2170471991600492e-09 5.941722758251445e-09 1.0000552521861606e-05" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.2 0.2 0.2 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="-2.2170471991600492e-09 5.941722758251445e-09 1.0000552521861606e-05" rpy="-3.141592653589793 1.5707963267948966 0"/>
+                <geometry>
+                    <mesh filename="${mecanum_mesh_dir}/RODILLO.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${prefix}_roller_9_joint" type="continuous">
+            <origin xyz="0.02665765 0.024303659999999998 -0.01523723" rpy="-0.7734152352789146 -0.15358263344342085 -2.9933320806346693"/>
+            <parent link="${prefix}_wheel"/>
+            <child link="${prefix}_roller_9"/>
+            <axis xyz="-1.6116768346285948e-07 -1.1558204560113694e-08 1.0000003330324314"/>
+        </joint>
+
+    </xacro:macro>
+
+</robot>

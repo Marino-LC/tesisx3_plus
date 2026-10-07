@@ -53,6 +53,7 @@ bt_navigator:
     # Reduce el tiempo que el robot se queda intentando recuperar
     error_code_names: ["follow_path_error_code", "compute_path_error_code"]
 
+planner_server:
   ros__parameters:
     use_sim_time: True
     planner_plugins: ["GridBased"]
@@ -83,16 +84,20 @@ controller_server:
     goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
       xy_goal_tolerance: 0.08
-      yaw_goal_tolerance: 0.15
+      yaw_goal_tolerance: 0.2
       stateful: true
 
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       min_vel_x: -0.30
       max_vel_x:  0.30
+      #ORIGINALMENTE POR MARINO
       min_vel_y: -0.30
-      max_vel_y:  0.30
-      min_vel_theta: -1.0
+      max_vel_y:  0.0
+      #EDUARDO, PARA QUE NO SE MUEVA EN Y
+      #min_vel_y: -0.0
+      #max_vel_y:  0.0
+      min_vel_theta: -0.0
       max_vel_theta:  1.0
       min_speed_xy:   0.0
       max_speed_xy:   0.30

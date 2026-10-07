@@ -42,12 +42,12 @@
       <pose>0 0 0 0 0 0</pose>
       <link name="link">
         <collision name="collision">
-          <geometry><box><size>1.22 2.42 0.02</size></box></geometry>
+          <geometry><box><size>2.7 2.7 0.02</size></box></geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <surface>
             <friction>
               <ode>
-                <mu>0.4</mu><mu2>0.4</mu2>
+                <mu>0.6</mu><mu2>0.45</mu2>
                 <fdir1>1 0 0</fdir1>
               </ode>
             </friction>
@@ -61,7 +61,7 @@
           </surface>
         </collision>
         <visual name="visual">
-          <geometry><box><size>1.22 2.42 0.02</size></box></geometry>
+          <geometry><box><size>2.7 2.7 0.02</size></box></geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <material>
             <ambient>0.92 0.87 0.78 1</ambient>
@@ -74,37 +74,37 @@
 
     <!-- Paredes perimetrales -->
     <model name="wall_north">
-      <static>true</static><pose>0 1.215 0.15 0 0 0</pose>
+      <static>true</static><pose>0 1.35 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="c"><geometry><box><size>1.22 0.03 0.30</size></box></geometry></collision>
-        <visual name="v"><geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+        <collision name="c"><geometry><box><size>2.7 0.03 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
     <model name="wall_south">
-      <static>true</static><pose>0 -1.215 0.15 0 0 0</pose>
+      <static>true</static><pose>0 -1.35 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="c"><geometry><box><size>1.22 0.03 0.30</size></box></geometry></collision>
-        <visual name="v"><geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+        <collision name="c"><geometry><box><size>2.7 0.03 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
     <model name="wall_east">
-      <static>true</static><pose>0.615 0 0.15 0 0 0</pose>
+      <static>true</static><pose>1.35 0 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="c"><geometry><box><size>0.03 2.42 0.30</size></box></geometry></collision>
-        <visual name="v"><geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+        <collision name="c"><geometry><box><size>0.03 2.7 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
     </model>
     <model name="wall_west">
-      <static>true</static><pose>-0.615 0 0.15 0 0 0</pose>
+      <static>true</static><pose>-1.35 0 0.15 0 0 0</pose>
       <link name="link">
-        <collision name="c"><geometry><box><size>0.03 2.42 0.30</size></box></geometry></collision>
-        <visual name="v"><geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+        <collision name="c"><geometry><box><size>0.03 2.7 0.30</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 0.6</ambient><diffuse>0.7 0.7 0.7 0.6</diffuse></material>
         </visual>
       </link>
