@@ -26,7 +26,7 @@ def generate_launch_description():
     world = os.path.join(
         get_package_share_directory('omni_dofbot_bringup'),
         'world', 
-        'arena_world.world'  
+        'arena_pid_tuning.world'  
     )
 
     workspace_install_dir = os.path.abspath(os.path.join(pkg_omni_desc, '..'))

@@ -192,21 +192,20 @@ PWM_MAX_DOMINIO_A_DEFAULT = MOTOR_MAX_PULSE_RAW - 1600   # = 2000 (NO-SUNRISE)
 
 # ── Ganancia estática del motor — caracterizada en Dominio B, convertida ──
 # K promedio de los 4 motores (Dominio B: mm/s por unidad de set_motor()):
-#   10.9532 mm/s/unidad — Motores individuales: M1=10.7032 M2=9.8567
-#   M3=10.3531 M4=10.7445 (dispersión ~8%, K único global justificado).
+#   29.5 mm/s/unidad — Motores individuales: M1=29.0 M2=29.5 M3=29.2 M4=29.8 (dispersión ~3%, K único global justificado).
 #
 # Conversión a Dominio A (rad/s por unidad de PWM crudo):
-#   1. mm/s -> rad/s:        10.9532 / (1000 * wheel_radius=0.040) = 0.27383
-#   2. por-unidad-cmd -> por-unidad-cruda:  0.27383 / PWM_CMD_TO_RAW_SCALE
+#   1. mm/s -> rad/s:        29.5 / (1000 * wheel_radius=0.040) = 0.7375
+#   2. por-unidad-cmd -> por-unidad-cruda:  0.7375 / PWM_CMD_TO_RAW_SCALE
 #      (con Hipótesis A, escala=20):        0.27383 / 20 = 0.013691
 #
 # PENDIENTE: NO incorpora todavía el offset de velocidad ni la fricción
 # estática (PWM mínimo ~7-9 en Dominio B, equivalente a ~140-180 ticks en
 # Dominio A bajo Hipótesis A) reportados por la caracterización — el
 # modelo usa solo la ganancia lineal K por ahora.
-MOTOR_GAIN_K_DOMINIO_B_MM_S = 10.9532   # mm/s por unidad de set_motor() — medido
+MOTOR_GAIN_K_DOMINIO_B_MM_S = 17.09   # mm/s por unidad de set_motor() — medido
 MOTOR_GAIN_K_DEFAULT = (MOTOR_GAIN_K_DOMINIO_B_MM_S / (1000.0 * 0.040)) / PWM_CMD_TO_RAW_SCALE
-# = 0.013691 rad/s por unidad de PWM crudo (bajo Hipótesis A)
+# = 0.0213625 rad/s por unidad de PWM crudo (bajo Hipótesis A)
 
 # ── PLACEHOLDER — banda muerta de error, ver nota de diseño #7 abajo ──────
 # Adaptación (NO transcripción literal) del mecanismo de banda muerta
@@ -216,7 +215,7 @@ MOTOR_GAIN_K_DEFAULT = (MOTOR_GAIN_K_DOMINIO_B_MM_S / (1000.0 * 0.040)) / PWM_CM
 # El valor "40" del firmware NO es transferible directamente: está en un
 # dominio distinto (posición, cuentas de encoder) al de este lazo
 # (velocidad, mm/s). Requiere calibración propia.
-ERROR_DEADBAND_MM_S_DEFAULT = 2.0   # mm/s — AJUSTAR experimentalmente
+ERROR_DEADBAND_MM_S_DEFAULT = 2.0   # mm/s — valor inicial a calibrar, ver nota de diseño #7
 
 
 class PIDController:
@@ -356,7 +355,7 @@ class MecanumKinematicNode(Node):
 
         # Planta del motor (Sim2Real)
         self.declare_parameter('motor_gain_k',  MOTOR_GAIN_K_DEFAULT)  # rad/s por PWM
-        self.declare_parameter('motor_tau',     0.46)
+        self.declare_parameter('motor_tau',     0.5797)
 
         # Callback para actualizar parámetros en tiempo de ejecución
         self.add_on_set_parameters_callback(self._on_params_change)

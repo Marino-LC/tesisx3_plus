@@ -131,13 +131,14 @@ ROBOT_NAME   = "omni_dofbot"
 # arena). DIST_X en las primitivas corresponde al avance frontal del robot,
 # que en el marco del mundo se mueve en la dirección Y.
 DIST_X      = 0.80   # m — recta P1 / P3  (aprovecha el largo de 1.10 m)
+DIST_Y      = 0.80   # m — recta P4
 DIST_RETURN = 0.30   # m — avance corto de regreso en P3 tras el giro
 ROT_ANGLE   = math.pi / 2   # rad — ángulo de giro usado en P2 y P3 (90°)
 
 # ── Velocidades de referencia cmd_vel ─────────────────────────────────────────
-VX_REF = 1.00   # m/s
-VY_REF = 0.00   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
-WZ_REF = 5.00   # rad/s
+VX_REF = 0.40   # m/s
+VY_REF = 0.40   # m/s  (no usado por las pruebas vigentes, se conserva por compatibilidad)
+WZ_REF = 1.00   # rad/s
 
 # ── Lazo de control ───────────────────────────────────────────────────────────
 CTRL_DT      = 0.05   # s  (20 Hz)
@@ -155,7 +156,7 @@ TIP_SETTLE_WAIT = 0.30                # s — margen tras teleport antes de veri
 
 # ── AG ──────────────────────────────────────────────────────────────────────
 POP_SIZE    = 35
-N_GEN       = 15
+N_GEN       = 30
 CX_PROB     = 0.55
 MUT_PROB    = 0.25
 # Kp del fabricante=0.8, Ki=0.06, Kd=0.5 — mismo dominio que este PID
@@ -173,7 +174,7 @@ KD_RANGE    = (0.0, 2.0)    # ~4× el valor del fabricante
 
 MUT_SIGMA   = [0.40, 0.08, 0.16]   # [Kp, Ki, Kd]
 
-W1, W2, W3  = 0.35, 0.30, 0.35   # pesos P1 (recta), P2 (giro), P3 (combinada)
+W1, W2, W3, W4  = 0.25, 0.20, 0.30, 0.25,    # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
 
 # ── Brazo Dofbot — coreografía determinista ───────────────────────────────────
@@ -225,11 +226,12 @@ class SegmentLog:
 class IndividualLog:
     gen: int; idx: int
     kp: float; ki: float; kd: float
-    cost_p1: float = 0.0; cost_p2: float = 0.0; cost_p3: float = 0.0
+    cost_p1: float = 0.0; cost_p2: float = 0.0; cost_p3: float = 0.0; cost_p4: float = 0.0
     fitness: float = 0.0
     segments_p1: List[SegmentLog] = field(default_factory=list)
     segments_p2: List[SegmentLog] = field(default_factory=list)
     segments_p3: List[SegmentLog] = field(default_factory=list)
+    segments_p4: List[SegmentLog] = field(default_factory=list)
 
 @dataclass
 class GenLog:
@@ -845,6 +847,38 @@ class AGMotionEvaluator(Node):
 
         segs = [s1, s_rot, s2] if record else []
         return cost, segs
+    
+    # ══════════════════════════════════════════════════════════════════════════
+    # PRUEBA 4 — Linea Recta Lateral: izquierda y derecha
+    # ══════════════════════════════════════════════════════════════════════════
+    def _run_test4(self, record=False):
+        self.get_logger().info("── P4: línea recta izquierda-derecha ──")
+        self._teleport()
+
+        time.sleep(TIP_SETTLE_WAIT)   # espera a que el robot se estabilice tras el teleport    
+        if self._is_tipped():
+            self.get_logger().warn("P1: robot volcado tras el teleport — prueba abortada.")
+            return PENALTY_TO, []
+
+        self._start_arm()
+        try:
+            i1, t1, ok1, s1 = self._drive( DIST_Y, "y", vy=+VY_REF, seg_name="P4_izquierda")
+            i2, t2, ok2, s2 = self._drive(-DIST_Y, "y", vy=-VY_REF, seg_name="P4_derecha")
+        finally:
+            self._stop_arm()
+
+        rel   = self._pose_rel()
+        err_f = math.hypot(rel.x, rel.y)
+
+        ITAE_REF = 0.05
+        TIME_REF = 2 * DIST_Y / VY_REF
+        cost = (0.60*(i1+i2)/ITAE_REF + 0.30*(t1+t2)/TIME_REF
+              + 0.10*err_f/POS_TOL)
+        if not ok1 or not ok2: cost += PENALTY_TO
+
+        self.get_logger().info(
+            f"   ITAE={i1+i2:.4f} t={t1+t2:.1f}s err_f={err_f:.3f}m cost={cost:.4f}")
+        return cost, ([s1, s2] if record else [])
 
     # ── Evaluación ────────────────────────────────────────────────────────────
     def evaluate(self, individual) -> tuple:
@@ -868,17 +902,18 @@ class AGMotionEvaluator(Node):
         c1, _ = self._run_test1()
         c2, _ = self._run_test2()
         c3, _ = self._run_test3()
-        fitness = W1*c1 + W2*c2 + W3*c3
+        c4, _ = self._run_test4()
+        fitness = W1*c1 + W2*c2 + W3*c3 + W4*c4
 
         ilog = IndividualLog(
             gen=self._current_gen, idx=self._current_idx,
             kp=kp, ki=ki, kd=kd,
-            cost_p1=c1, cost_p2=c2, cost_p3=c3, fitness=fitness)
+            cost_p1=c1, cost_p2=c2, cost_p3=c3, cost_p4=c4, fitness=fitness)
         self._all_individuals.append(ilog)
         self._current_idx += 1
 
         self.get_logger().info(
-            f"[AG] P1={c1:.4f} P2={c2:.4f} P3={c3:.4f} fit={fitness:.5f}")
+            f"[AG] P1={c1:.4f} P2={c2:.4f} P3={c3:.4f} P4={c4:.4f} fit={fitness:.5f}")
         return (fitness,)
 
     def record_best(self, best_ind):
@@ -889,7 +924,8 @@ class AGMotionEvaluator(Node):
         c1, segs1 = self._run_test1(record=True)
         c2, segs2 = self._run_test2(record=True)
         c3, segs3 = self._run_test3(record=True)
-        return segs1, segs2, segs3
+        c4, segs4 = self._run_test4(record=True)
+        return segs1, segs2, segs3, segs4
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1284,7 +1320,7 @@ def main(args=None):
         node.get_logger().info("=" * 54)
 
         node.get_logger().info("Grabando corrida final del mejor individuo...")
-        segs1, segs2, segs3 = node.record_best(best)
+        segs1, segs2, segs3, segs4 = node.record_best(best)
 
         def _seg_to_dict(s: SegmentLog):
             return {"name": s.name, "t": s.t,
@@ -1317,6 +1353,7 @@ def main(args=None):
                 "test1": [_seg_to_dict(s) for s in segs1],
                 "test2": [_seg_to_dict(s) for s in segs2],
                 "test3": [_seg_to_dict(s) for s in segs3],
+                "test4": [_seg_to_dict(s) for s in segs4],
             },
         }
 
@@ -1326,7 +1363,7 @@ def main(args=None):
         node.get_logger().info(f"JSON guardado en {json_path}")
 
         _build_plots(node._gen_logs, node._all_individuals,
-                     segs1, segs2, segs3,
+                     segs1, segs2, segs3, segs4,
                      best_kp, best_ki, best_kd)
 
     finally:

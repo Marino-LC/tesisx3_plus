@@ -39,14 +39,14 @@
       <link name="link">
         <collision name="collision">
           <geometry>
-            <box><size>1.22 2.42 0.02</size></box>
+            <box><size>2.7 2.7 0.02</size></box>
           </geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <surface>
             <friction>
               <ode>
-                <mu>0.5</mu>
-                <mu2>0.5</mu2>
+                <mu>0.6</mu>
+                <mu2>0.45</mu2>
                 <fdir1>1 0 0</fdir1>
               </ode>
             </friction>
@@ -62,7 +62,7 @@
         </collision>
         <visual name="visual">
           <geometry>
-            <box><size>1.22 2.42 0.02</size></box>
+            <box><size>2.7 2.7 0.02</size></box>
           </geometry>
           <pose>0 0 -0.01 0 0 0</pose>
           <material>
@@ -76,14 +76,14 @@
 
     <model name="wall_north">
       <static>true</static>
-      <pose>0 1.215 0.15 0 0 0</pose>
+      <pose>0 1.35 0.15 0 0 0</pose>
       <link name="link">
         <collision name="c">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <surface><friction><ode><mu>0.5</mu><mu2>0.5</mu2></ode></friction></surface>
         </collision>
         <visual name="v">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <material><ambient>0.55 0.60 0.65 1</ambient><diffuse>0.55 0.60 0.65 1</diffuse></material>
         </visual>
       </link>
@@ -91,14 +91,14 @@
 
     <model name="wall_south">
       <static>true</static>
-      <pose>0 -1.215 0.15 0 0 0</pose>
+      <pose>0 -1.35 0.15 0 0 0</pose>
       <link name="link">
         <collision name="c">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <surface><friction><ode><mu>0.5</mu><mu2>0.5</mu2></ode></friction></surface>
         </collision>
         <visual name="v">
-          <geometry><box><size>1.22 0.03 0.30</size></box></geometry>
+          <geometry><box><size>2.7 0.03 0.30</size></box></geometry>
           <material><ambient>0.55 0.60 0.65 1</ambient><diffuse>0.55 0.60 0.65 1</diffuse></material>
         </visual>
       </link>
@@ -106,14 +106,14 @@
 
     <model name="wall_east">
       <static>true</static>
-      <pose>0.615 0 0.15 0 0 0</pose>
+      <pose>1.35 0 0.15 0 0 0</pose>
       <link name="link">
         <collision name="c">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <surface><friction><ode><mu>0.5</mu><mu2>0.5</mu2></ode></friction></surface>
         </collision>
         <visual name="v">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <material><ambient>0.55 0.60 0.65 1</ambient><diffuse>0.55 0.60 0.65 1</diffuse></material>
         </visual>
       </link>
@@ -121,14 +121,14 @@
 
     <model name="wall_west">
       <static>true</static>
-      <pose>-0.615 0 0.15 0 0 0</pose>
+      <pose>-1.35 0 0.15 0 0 0</pose>
       <link name="link">
         <collision name="c">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <surface><friction><ode><mu>0.5</mu><mu2>0.5</mu2></ode></friction></surface>
         </collision>
         <visual name="v">
-          <geometry><box><size>0.03 2.42 0.30</size></box></geometry>
+          <geometry><box><size>0.03 2.7 0.30</size></box></geometry>
           <material><ambient>0.55 0.60 0.65 1</ambient><diffuse>0.55 0.60 0.65 1</diffuse></material>
         </visual>
       </link>
@@ -163,6 +163,17 @@
         <visual name="v">
           <geometry><cylinder><radius>0.03</radius><length>0.01</length></cylinder></geometry>
           <material><ambient>0.6 0.1 0.8 0.8</ambient><diffuse>0.6 0.1 0.8 0.8</diffuse></material>
+        </visual>
+      </link>
+
+    </model>
+        <model name="marker_3_p4_left">
+      <static>true</static>
+      <pose>-0.80 0 0.005 0 0 0</pose>
+      <link name="link">
+        <visual name="v">
+          <geometry><cylinder><radius>0.03</radius><length>0.01</length></cylinder></geometry>
+          <material><ambient>0.1 0.4 0.9 0.8</ambient><diffuse>0.1 0.4 0.9 0.8</diffuse></material>
         </visual>
       </link>
     </model>
