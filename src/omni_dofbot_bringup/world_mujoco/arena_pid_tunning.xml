@@ -1,0 +1,72 @@
+<mujoco model="arena_pid_tuning">
+    
+    <compiler angle="radian" autolimits="true">
+    
+    <!-- fisicas de la simulacion -->
+    <option timestep="0.001" gravity="0 0 -9.81" integrator="implicitfast"
+          solver="Newton" iterations="50" cone="pyramidal"/>
+
+    <statistic center="0.15 0.4 0" extent="3.0"/>
+
+    <!-- escena -->
+    <visual>
+        <headlight ambient="0.5 0.5 0.5" diffuse="0.2 0.2 0.2" specular="0 0 0"/>
+        <global azimuth="90" elevation="-89" offwidth="1280" offheight="720"/>
+        <quality shadowsize="4096"/>
+        <rgba haze="0.55 0.65 0.75 1"/>
+    </visual>
+
+    <asset>
+        <!-- fondo plano = <background> -->
+        <texture name="sky" type="skybox" builtin="flat"
+                rgb1="0.55 0.65 0.75" rgb2="0.55 0.65 0.75" width="32" height="32"/>
+    
+        <material name="floor_mat" rgba="0.92 0.87 0.78 1" specular="0.3" shininess="0.1"/>
+        <material name="wall_mat"  rgba="0.55 0.60 0.65 1" specular="0.0"/>
+        <material name="mk_blue"   rgba="0.1 0.4 0.9 0.8"/>
+        <material name="mk_orange" rgba="0.9 0.5 0.1 0.8"/>
+        <material name="mk_purple" rgba="0.6 0.1 0.8 0.8"/>
+    </asset>
+
+    <default>
+        <!-- Paredes visuales y con colision -->
+        <default class="wall">
+            <geom type="box" material="wall_mat" friction="0.5 0.005 0.0001"/>
+        </default>
+        
+        <!-- Marcadores visuales, sin colisión -->
+        <default class="marker">
+            <geom type="cylinder" size="0.03 0.005" contype="0" conaffinity="0" group="1" mass="0"/>
+        </default>
+    </default>
+
+    <worldbody>
+        <!-- Luces: sun y ambient_fill (directional) -->
+        <light name="sun" directional="true" castshadow="true"
+            pos="0 0 10" dir="-0.5 0.2 -0.9"
+            diffuse="0.9 0.9 0.9" specular="0.3 0.3 0.3"/>
+
+        <light name="ambient_fill" directional="true" castshadow="false"
+            pos="0 0 5" dir="0 0 -1"
+            diffuse="0.4 0.4 0.4" specular="0 0 0"/>
+    
+        <!-- Cámara cenital arriba = +Y, derecha = +X -->
+        <camera name="user_camera" mode="fixed" pos="0.15 0.40 3.5" xyaxes="1 0 0 0 1 0"/>
+    
+        <!-- Arena: 2.7 x 2.7 x 0.02 m, centro en z=-0.01 -->
+        <geom name="arena_floor" type="box" size="1.35 1.35 0.01" pos="0 0 -0.01"
+            material="floor_mat" friction="0.6 0.005 0.0001"/>
+    
+        <!-- Paredes: 0.03 de espesor, 0.30 de alto, centro en z=0.15 -->
+        <geom name="wall_north" class="wall" size="1.35 0.015 0.15" pos="0  1.35 0.15"/>
+        <geom name="wall_south" class="wall" size="1.35 0.015 0.15" pos="0 -1.35 0.15"/>
+        <geom name="wall_east"  class="wall" size="0.015 1.35 0.15" pos=" 1.35 0 0.15"/>
+        <geom name="wall_west"  class="wall" size="0.015 1.35 0.15" pos="-1.35 0 0.15"/>
+    
+        <!-- Marcadores: cilindro r=0.03, largo 0.01, z=0.005 -->
+        <geom name="marker_0_origin"        class="marker" material="mk_blue"   pos="0     0    0.005"/>
+        <geom name="marker_1_p1_p3_forward" class="marker" material="mk_orange" pos="0     0.80 0.005"/>
+        <geom name="marker_2_p3_end"        class="marker" material="mk_purple" pos="0.35  0.80 0.005"/>
+        <geom name="marker_3_p4_left"       class="marker" material="mk_blue"   pos="-0.80 0    0.005"/>
+    </worldbody>
+</mujoco>
