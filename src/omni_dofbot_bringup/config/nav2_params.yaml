@@ -93,7 +93,7 @@ controller_server:
       max_vel_x:  0.30
       #ORIGINALMENTE POR MARINO
       min_vel_y: -0.30
-      max_vel_y:  0.0
+      max_vel_y:  0.30
       #EDUARDO, PARA QUE NO SE MUEVA EN Y
       #min_vel_y: -0.0
       #max_vel_y:  0.0

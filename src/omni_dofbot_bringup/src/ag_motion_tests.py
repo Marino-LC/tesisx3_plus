@@ -155,8 +155,10 @@ TIP_SETTLE_WAIT = 0.30                # s — margen tras teleport antes de veri
 
 
 # ── AG ──────────────────────────────────────────────────────────────────────
-POP_SIZE    = 35
-N_GEN       = 30
+#POP_SIZE    = 35
+#N_GEN       = 30
+POP_SIZE    = 1
+N_GEN       = 1
 CX_PROB     = 0.55
 MUT_PROB    = 0.25
 # Kp del fabricante=0.8, Ki=0.06, Kd=0.5 — mismo dominio que este PID
@@ -173,6 +175,7 @@ KD_RANGE    = (0.0, 2.0)    # ~4× el valor del fabricante
 # demasiado brusca.
 
 MUT_SIGMA   = [0.40, 0.08, 0.16]   # [Kp, Ki, Kd]
+GAIN_DECIMALS = 3   # resolución máxima "perceptible" de Kp/Ki/Kd
 
 W1, W2, W3, W4  = 0.25, 0.20, 0.30, 0.25,    # pesos P1 (recta), P2 (giro), P3 (combinada)
 PENALTY_TO  = 50.0
@@ -931,7 +934,7 @@ class AGMotionEvaluator(Node):
 # ══════════════════════════════════════════════════════════════════════════════
 # Gráficas (matplotlib + plotly)
 # ══════════════════════════════════════════════════════════════════════════════
-def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
+def _build_plots(gen_logs, all_inds, segs1, segs2, segs3, segs4,
                  best_kp, best_ki, best_kd):
 
     gens     = [g.gen      for g in gen_logs]
@@ -1013,11 +1016,22 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         ax6.set_title("Distribución Kp–Ki"); ax6.set_xlabel("Kp")
         ax6.set_ylabel("Ki"); ax6.legend(fontsize=8); ax6.grid(True, alpha=0.3)
 
+        ax10 = fig.add_subplot(gs[4, 1])
+        ax10_has_data = False
+        for seg in segs4 or []:
+            if seg.t and len(seg.t) == len(seg.vy_real):
+                ax10.plot(seg.t, seg.vy_ref,  "--", lw=1.5, label=f"{seg.name} ref", alpha=0.8)
+                ax10.plot(seg.t, seg.vy_real, "-",  lw=1.5, label=f"{seg.name} real")
+                ax10_has_data = True
+        ax10.set_title("P4 — vy (lateral)"); ax10.set_xlabel("t (s)"); ax10.set_ylabel("vy (m/s)")
+        if ax10_has_data: ax10.legend(fontsize=7)
+        ax10.grid(True, alpha=0.3)
+
         # ── Pose deseada vs obtenida: x(t), y(t), yaw(t) ────────────────────────
         # Se concatenan las pruebas P1+P2+P3 para tener una sola línea de
         # tiempo continua del mejor individuo (cada prueba parte de t=0,
         # así que se suma un offset acumulado para que no se sobrepongan).
-        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or [])
+        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or []) + (segs4 or [])
 
         ax7 = fig.add_subplot(gs[3, 0])
         ax8 = fig.add_subplot(gs[3, 1])
@@ -1049,9 +1063,9 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
             pose_drawn = True
 
         for ax, title, ylabel in [
-            (ax7, "Pose X — deseada vs obtenida (P1→P2→P3)", "x (m)"),
-            (ax8, "Pose Y — deseada vs obtenida (P1→P2→P3)", "y (m)"),
-            (ax9, "Pose Yaw — deseada vs obtenida (P1→P2→P3)", "yaw (°)"),
+            (ax7, "Pose X — deseada vs obtenida (P1→P2→P3→P4)", "x (m)"),
+            (ax8, "Pose Y — deseada vs obtenida (P1→P2→P3→P4)", "y (m)"),
+            (ax9, "Pose Yaw — deseada vs obtenida (P1→P2→P3→P4)", "yaw (°)"),
         ]:
             ax.set_title(title); ax.set_xlabel("t (s, concatenado)"); ax.set_ylabel(ylabel)
             ax.grid(True, alpha=0.3)
@@ -1076,7 +1090,7 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
                 "P1 — vel X (ref vs real)", "P2 — vel angular (ref vs real)",
                 "P3 — error de posición",  "Distribución Kp–Ki",
                 "Pose X — deseada vs obtenida", "Pose Y — deseada vs obtenida",
-                "Pose Yaw — deseada vs obtenida", "",
+                "Pose Yaw — deseada vs obtenida", "P4 — vel Y (ref vs real)",
             ],
             vertical_spacing=0.07, horizontal_spacing=0.10,
         )
@@ -1119,6 +1133,14 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
         fig.add_hline(y=POS_TOL, line_dash="dot", line_color="red",
                       annotation_text=f"tol {POS_TOL}m", row=3, col=1)
 
+        for ci, seg in enumerate(segs4 or []):
+            if not seg.t or len(seg.t) != len(seg.vy_real): continue
+            c = COLORS[ci % len(COLORS)]
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_ref,  name=f"{seg.name} ref",
+                          line=dict(dash="dash", color=c)), row=5, col=2)
+            fig.add_trace(go.Scatter(x=seg.t, y=seg.vy_real, name=f"{seg.name} real",
+                          line=dict(color=c)), row=5, col=2)
+
         fig.add_trace(
             go.Scatter(x=all_kp, y=all_ki, mode="markers",
                        marker=dict(color=all_fit, colorscale="Viridis_r", size=8,
@@ -1133,7 +1155,7 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
             row=3, col=2)
 
         # ── Pose deseada vs obtenida — series de tiempo concatenadas ──────────
-        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or [])
+        all_segs = (segs1 or []) + (segs2 or []) + (segs3 or []) + (segs4 or [])
         t_offset = 0.0
         first_pose_trace = True
         for seg in all_segs:
@@ -1175,9 +1197,9 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3,
             if seg.t:
                 t_offset += seg.t[-1] + 0.1
 
-        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=4, col=1)
-        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=4, col=2)
-        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3)", row=5, col=1)
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3→P4)", row=4, col=1)
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3→P4)", row=5, col=1)
+        fig.update_xaxes(title_text="t (s, concatenado P1→P2→P3→P4)", row=4, col=2)
         fig.update_yaxes(title_text="x (m)",   row=4, col=1)
         fig.update_yaxes(title_text="y (m)",   row=4, col=2)
         fig.update_yaxes(title_text="yaw (°)", row=5, col=1)
@@ -1206,7 +1228,7 @@ def _bounded(func):
         off = func(*args, **kwargs)
         for child in off:
             for i, (lo, hi) in enumerate([KP_RANGE, KI_RANGE, KD_RANGE]):
-                child[i] = float(max(lo, min(hi, child[i])))
+                child[i] = round(float(max(lo, min(hi, child[i]))), GAIN_DECIMALS)
         return off
     return wrapper
 
@@ -1276,6 +1298,8 @@ def main(args=None):
         node._current_idx = 0
         pop = toolbox.population(n=POP_SIZE)
         for ind in pop:
+            for i in range(3):
+                ind[i] = round(ind[i], GAIN_DECIMALS)
             ind.fitness.values = toolbox.evaluate(ind)
         hof.update(pop)
 
@@ -1336,11 +1360,11 @@ def main(args=None):
                 "dist_x": DIST_X, "dist_return": DIST_RETURN,
                 "rot_angle_deg": math.degrees(ROT_ANGLE),
                 "vx_ref": VX_REF, "vy_ref": VY_REF, "wz_ref": WZ_REF,
-                "weights": {"P1": W1, "P2": W2, "P3": W3},
+                "weights": {"P1": W1, "P2": W2, "P3": W3, "P4": W4},
                 "kp_range": KP_RANGE, "ki_range": KI_RANGE, "kd_range": KD_RANGE,
                 "mut_sigma": MUT_SIGMA, "elitism": True,
-                "note": "P2 (lateral) retirada por limitacion fisica de mallas "
-                        "mecanum; sustituida por rotacion pura.",
+                #"note": "P2 (lateral) retirada por limitacion fisica de mallas "
+                #        "mecanum; sustituida por rotacion pura.",
             },
             "best": {"kp": best_kp, "ki": best_ki, "kd": best_kd,
                      "fitness": best.fitness.values[0]},
