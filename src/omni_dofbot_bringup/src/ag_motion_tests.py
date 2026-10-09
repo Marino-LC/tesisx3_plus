@@ -1007,16 +1007,7 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3, segs4,
         ax5.set_title("P3 — error de posición"); ax5.set_xlabel("t (s)")
         ax5.set_ylabel("|err| (m)"); ax5.legend(fontsize=7); ax5.grid(True, alpha=0.3)
 
-        ax6  = fig.add_subplot(gs[2, 1])
-        scat = ax6.scatter(all_kp, all_ki, c=all_fit, cmap="viridis_r",
-                           s=35, alpha=0.75, edgecolors="none")
-        plt.colorbar(scat, ax=ax6, label="Fitness")
-        ax6.scatter([best_kp], [best_ki], marker="*", s=200, c="red",
-                    zorder=5, label="mejor")
-        ax6.set_title("Distribución Kp–Ki"); ax6.set_xlabel("Kp")
-        ax6.set_ylabel("Ki"); ax6.legend(fontsize=8); ax6.grid(True, alpha=0.3)
-
-        ax10 = fig.add_subplot(gs[4, 1])
+        ax10 = fig.add_subplot(gs[2, 1])
         ax10_has_data = False
         for seg in segs4 or []:
             if seg.t and len(seg.t) == len(seg.vy_real):
@@ -1027,15 +1018,25 @@ def _build_plots(gen_logs, all_inds, segs1, segs2, segs3, segs4,
         if ax10_has_data: ax10.legend(fontsize=7)
         ax10.grid(True, alpha=0.3)
 
+        ax6  = fig.add_subplot(gs[3, 0])
+        scat = ax6.scatter(all_kp, all_ki, c=all_fit, cmap="viridis_r",
+                           s=35, alpha=0.75, edgecolors="none")
+        plt.colorbar(scat, ax=ax6, label="Fitness")
+        ax6.scatter([best_kp], [best_ki], marker="*", s=200, c="red",
+                    zorder=5, label="mejor")
+        ax6.set_title("Distribución Kp–Ki"); ax6.set_xlabel("Kp")
+        ax6.set_ylabel("Ki"); ax6.legend(fontsize=8); ax6.grid(True, alpha=0.3)
+
+
         # ── Pose deseada vs obtenida: x(t), y(t), yaw(t) ────────────────────────
         # Se concatenan las pruebas P1+P2+P3 para tener una sola línea de
         # tiempo continua del mejor individuo (cada prueba parte de t=0,
         # así que se suma un offset acumulado para que no se sobrepongan).
         all_segs = (segs1 or []) + (segs2 or []) + (segs3 or []) + (segs4 or [])
 
-        ax7 = fig.add_subplot(gs[3, 0])
-        ax8 = fig.add_subplot(gs[3, 1])
-        ax9 = fig.add_subplot(gs[4, 0])
+        ax7 = fig.add_subplot(gs[3, 1])
+        ax8 = fig.add_subplot(gs[4, 0])
+        ax9 = fig.add_subplot(gs[4, 1])
 
         t_offset  = 0.0
         pose_drawn = False   # flag: indica si se pintó al menos un segmento
